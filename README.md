@@ -1,7 +1,7 @@
 <div align="center">
   <br>
   <br>
-  <img src="public/logo/shitlogo1.svg" alt="RareUI Logo" width="150">
+  <img src="public/logo/shitlogo1.svg" alt="ShitUI Logo" width="150">
   <br>
   <br>
 </div>
