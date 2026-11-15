@@ -1,27 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'next-view-transitions';
 import { X, ArrowRight } from 'lucide-react';
 
 export function RebrandBanner() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Only show if user hasn't explicitly dismissed it
-    const dismissed = localStorage.getItem('shitui_rebrand_banner_dismissed');
-    if (!dismissed) {
-      setIsVisible(true);
-    }
-  }, []);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleDismiss = () => {
     setIsVisible(false);
-    try {
-      localStorage.setItem('shitui_rebrand_banner_dismissed', 'true');
-    } catch {
-      // Ignore quota errors
-    }
   };
 
   if (!isVisible) return null;
@@ -29,7 +16,7 @@ export function RebrandBanner() {
   return (
     <aside
       aria-label="Rebranding Announcement"
-      className="relative z-[60] w-full border-b border-border/50 bg-neutral-100/90 py-1.5 sm:py-2 px-2.5 sm:px-6 text-xs text-foreground backdrop-blur-md transition-colors dark:bg-neutral-900/90 select-none"
+      className="relative z-[60] w-full  bg-neutral-100/90 py-1.5 sm:py-2 px-2.5 sm:px-6 text-xs text-foreground backdrop-blur-md transition-colors dark:bg-neutral-900/90 select-none"
     >
       <div className="mx-auto flex max-w-[1700px] items-center justify-between gap-2 sm:gap-3">
         <div className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2.5 text-center min-w-0">

@@ -218,8 +218,11 @@ export function StageCliButton({
   const [activePm, setActivePm] = useState<PackageManager>('pnpm');
   const [isPmDropdownOpen, setIsPmDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mobileTop, setMobileTop] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const pmDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileBtnRef = useRef<HTMLButtonElement>(null);
+  const mobileCardRef = useRef<HTMLDivElement>(null);
 
   const context = usePreviewStage();
   const pathname = usePathname();
@@ -266,7 +269,12 @@ export function StageCliButton({
   // Close on outside click (supports both mouse and touch for mobile)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(target) &&
+        (!mobileCardRef.current || !mobileCardRef.current.contains(target))
+      ) {
         setIsExpanded(false);
         setIsPmDropdownOpen(false);
       }
@@ -278,6 +286,24 @@ export function StageCliButton({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isExpanded]);
+
+  // Keep mobile card position aligned under the button if window resizes or scrolls
+  useEffect(() => {
+    if (!isExpanded) return;
+    const updatePos = () => {
+      if (mobileBtnRef.current) {
+        const rect = mobileBtnRef.current.getBoundingClientRect();
+        setMobileTop(Math.round(rect.bottom + 8));
+      }
+    };
+    updatePos();
+    window.addEventListener('resize', updatePos);
+    window.addEventListener('scroll', updatePos, { passive: true });
+    return () => {
+      window.removeEventListener('resize', updatePos);
+      window.removeEventListener('scroll', updatePos);
     };
   }, [isExpanded]);
 
@@ -319,8 +345,15 @@ export function StageCliButton({
         <div className={cn('items-center', mode === 'all' ? 'flex sm:hidden' : 'flex')}>
           {/* Mobile Trigger Button: stays in place beside Code and Prompt */}
           <button
+            ref={mobileBtnRef}
             type="button"
-            onClick={() => setIsExpanded((prev) => !prev)}
+            onClick={() => {
+              if (!isExpanded && mobileBtnRef.current) {
+                const rect = mobileBtnRef.current.getBoundingClientRect();
+                setMobileTop(Math.round(rect.bottom + 8));
+              }
+              setIsExpanded((prev) => !prev);
+            }}
             title="Install via CLI"
             aria-label="Install via CLI"
             aria-expanded={isExpanded}
@@ -345,23 +378,27 @@ export function StageCliButton({
           <AnimatePresence>
             {isExpanded && (
               <motion.div
+                ref={mobileCardRef}
                 key="mobile-cli-vertical-card"
                 initial={{
                   opacity: 0,
                   filter: 'blur(10px)',
                   y: -8,
+                  x: '-50%',
                   scale: 0.96,
                 }}
                 animate={{
                   opacity: 1,
                   filter: 'blur(0px)',
                   y: 0,
+                  x: '-50%',
                   scale: 1,
                 }}
                 exit={{
                   opacity: 0,
                   filter: 'blur(8px)',
                   y: -8,
+                  x: '-50%',
                   scale: 0.96,
                   transition: { duration: 0.16, ease: 'easeOut' },
                 }}
@@ -369,8 +406,13 @@ export function StageCliButton({
                   duration: 0.22,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                style={{ transformOrigin: 'top right' }}
-                className="absolute top-full right-0 mt-2 z-50 w-[calc(100vw-24px)] max-w-[340px] flex flex-col gap-2 rounded-lg border border-border/70 bg-background p-2.5 shadow-pill-inset"
+                style={{
+                  position: 'fixed',
+                  top: mobileTop || 80,
+                  left: '50%',
+                  transformOrigin: 'top center',
+                }}
+                className="fixed left-1/2 z-[100] w-[calc(100vw-32px)] max-w-[340px] flex flex-col gap-2 rounded-xl border border-border/80 bg-background/95 dark:bg-neutral-950/95 p-3 shadow-2xl backdrop-blur-xl"
               >
                 {/* Top Row: Package Manager Tabs + Close Button */}
                 <div className="flex items-center justify-between gap-2">
