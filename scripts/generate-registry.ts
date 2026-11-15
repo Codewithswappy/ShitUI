@@ -17,7 +17,7 @@ interface RegistryComponent {
     path: string;
     content: string;
     type: string;
-    target: string;
+    target?: string;
   }>;
 }
 
@@ -178,20 +178,22 @@ function generate() {
         if (file.endsWith('.test.tsx') || file.endsWith('.test.ts')) continue;
         if (file.toLowerCase().includes('demo')) continue;
         if (!file.endsWith('.tsx') && !file.endsWith('.ts')) continue;
+        // Skip index.ts re-export barrel files so users get a clean single component file like other libraries
+        if (file === 'index.ts' || file === 'index.tsx') continue;
 
         const filePath = path.join(folderPath, file);
         const content = fs.readFileSync(filePath, 'utf-8');
-        const relativePath = path.relative(process.cwd(), filePath).replace(/\\/g, '/');
+        const kebab = pascalToKebab(entry.name);
 
         const { deps, registryDeps } = extractDeps(content);
         deps.forEach((d) => allDeps.add(d));
         registryDeps.forEach((rd) => allRegistryDeps.add(rd));
 
+        // Use standard shadcn "ui/<kebab>.tsx" path so shadcn CLI routes it directly to @/components/ui/<kebab>.tsx
         componentFiles.push({
-          path: file,
+          path: `ui/${kebab}.tsx`,
           content,
           type: 'registry:ui',
-          target: relativePath,
         });
       }
 
@@ -263,7 +265,6 @@ function generate() {
         files: clean.files.map((f) => ({
           path: f.path,
           type: f.type,
-          target: f.target,
         })),
       };
     }),

@@ -15,14 +15,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "AnimatedTab.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/AnimatedTab/AnimatedTab.tsx"
-        },
-        {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/AnimatedTab/index.ts"
+          "path": "ui/animated-tab.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -38,14 +32,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "Book3D.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/Book3D/Book3D.tsx"
-        },
-        {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/Book3D/index.ts"
+          "path": "ui/book-3d.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -61,14 +49,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "FloatingNavigation.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/FloatingNavigation/FloatingNavigation.tsx"
-        },
-        {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/FloatingNavigation/index.ts"
+          "path": "ui/floating-navigation.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -86,14 +68,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidButton/index.ts"
-        },
-        {
-          "path": "LiquidButton.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidButton/LiquidButton.tsx"
+          "path": "ui/liquid-button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -110,14 +86,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidTooltip/index.ts"
-        },
-        {
-          "path": "LiquidTooltip.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidTooltip/LiquidTooltip.tsx"
+          "path": "ui/liquid-tooltip.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -133,14 +103,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidWave/index.ts"
-        },
-        {
-          "path": "LiquidWave.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidWave/LiquidWave.tsx"
+          "path": "ui/liquid-wave.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -156,14 +120,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidWaveLazy/index.ts"
-        },
-        {
-          "path": "LiquidWaveLazy.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/LiquidWaveLazy/LiquidWaveLazy.tsx"
+          "path": "ui/liquid-wave-lazy.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -178,14 +136,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/LoadingSpinner/index.ts"
-        },
-        {
-          "path": "LoadingSpinner.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/LoadingSpinner/LoadingSpinner.tsx"
+          "path": "ui/loading-spinner.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -201,14 +153,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/MagneticScatterText/index.ts"
-        },
-        {
-          "path": "MagneticScatterText.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/MagneticScatterText/MagneticScatterText.tsx"
+          "path": "ui/magnetic-scatter-text.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -223,14 +169,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/PremiumButton/index.ts"
-        },
-        {
-          "path": "PremiumButton.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/PremiumButton/PremiumButton.tsx"
+          "path": "ui/premium-button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -246,14 +186,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/RetroPixelButton/index.ts"
-        },
-        {
-          "path": "RetroPixelButton.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/RetroPixelButton/RetroPixelButton.tsx"
+          "path": "ui/retro-pixel-button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -269,14 +203,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/SoundText/index.ts"
-        },
-        {
-          "path": "SoundText.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/SoundText/SoundText.tsx"
+          "path": "ui/sound-text.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -292,14 +220,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/ToastTabs/index.ts"
-        },
-        {
-          "path": "ToastTabs.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/ToastTabs/ToastTabs.tsx"
+          "path": "ui/toast-tabs.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -315,14 +237,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/VaporSmokeText/index.ts"
-        },
-        {
-          "path": "VaporSmokeText.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/VaporSmokeText/VaporSmokeText.tsx"
+          "path": "ui/vapor-smoke-text.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -338,14 +254,8 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "index.ts",
-          "type": "registry:ui",
-          "target": "components/shitui/WordMagnet/index.ts"
-        },
-        {
-          "path": "WordMagnet.tsx",
-          "type": "registry:ui",
-          "target": "components/shitui/WordMagnet/WordMagnet.tsx"
+          "path": "ui/word-magnet.tsx",
+          "type": "registry:ui"
         }
       ]
     }

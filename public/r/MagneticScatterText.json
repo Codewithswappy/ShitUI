@@ -14,16 +14,9 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "index.ts",
-      "content": "export { MagneticScatterText as default } from './MagneticScatterText';\nexport * from './MagneticScatterText';\n",
-      "type": "registry:ui",
-      "target": "components/shitui/MagneticScatterText/index.ts"
-    },
-    {
-      "path": "MagneticScatterText.tsx",
+      "path": "ui/magnetic-scatter-text.tsx",
       "content": "'use client';\n\nimport React, { useState, useEffect } from 'react';\nimport { motion, useAnimation } from 'motion/react';\nimport { cn } from '@/lib/utils';\n\ninterface MagneticScatterTextProps {\n  text: string;\n  className?: string;\n  trigger?: boolean;\n}\n\nexport const MagneticScatterText: React.FC<MagneticScatterTextProps> = ({\n  text,\n  className,\n  trigger = true,\n}) => {\n  const controls = useAnimation();\n  const [isHovering, setIsHovering] = useState(false);\n\n  useEffect(() => {\n    if (trigger) {\n      controls.start('visible');\n    } else {\n      controls.start('hidden');\n    }\n  }, [trigger, controls]);\n\n  useEffect(() => {\n    if (isHovering) {\n      controls.start('scatter');\n    } else {\n      controls.start('visible');\n    }\n  }, [isHovering, controls]);\n\n  const letters = text.split('');\n\n  // Deterministic random for consistent scattering based on index\n  const getRandom = (index: number) => {\n    const seed = index * 42;\n    const x = Math.sin(seed) * 100; // -100 to 100\n    const y = Math.cos(seed) * 100; // -100 to 100\n    const rotate = Math.sin(seed * 2) * 180; // -180 to 180\n    return { x, y, rotate };\n  };\n\n  return (\n    <motion.div\n      className={cn('flex cursor-default select-none', className)}\n      onMouseEnter={() => setIsHovering(true)}\n      onMouseLeave={() => setIsHovering(false)}\n      onTouchStart={() => setIsHovering(true)}\n      onTouchEnd={() => setIsHovering(false)}\n      onTouchCancel={() => setIsHovering(false)}\n    >\n      {letters.map((letter, index) => {\n        const randoms = getRandom(index);\n        return (\n          <motion.span\n            key={index}\n            className=\"inline-block font-sans font-bold text-black dark:text-white\"\n            initial=\"hidden\"\n            animate={controls}\n            variants={{\n              hidden: {\n                x: randoms.x * 5,\n                y: randoms.y * 5,\n                rotate: randoms.rotate,\n                opacity: 0,\n                scale: 0.5,\n              },\n              visible: {\n                x: 0,\n                y: 0,\n                rotate: 0,\n                opacity: 1,\n                scale: 1,\n                transition: {\n                  type: 'spring',\n                  damping: 12,\n                  stiffness: 80,\n                  mass: 0.8,\n                  delay: index * 0.02,\n                },\n              },\n              scatter: {\n                x: randoms.x * 0.5, // Slight scatter on hover\n                y: randoms.y * 0.5,\n                rotate: randoms.rotate * 0.2,\n                scale: 1.1,\n                transition: {\n                  type: 'spring',\n                  damping: 15,\n                  stiffness: 200,\n                },\n              },\n            }}\n          >\n            {letter === ' ' ? '\\u00A0' : letter}\n          </motion.span>\n        );\n      })}\n    </motion.div>\n  );\n};\n",
-      "type": "registry:ui",
-      "target": "components/shitui/MagneticScatterText/MagneticScatterText.tsx"
+      "type": "registry:ui"
     }
   ]
 }
