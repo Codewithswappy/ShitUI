@@ -283,7 +283,7 @@ export default function SponsorsPage() {
 
   useEffect(() => {
     // Fetch live stars from GitHub API for real numbers
-    fetch('https://api.github.com/repos/Codewithswappy/RareUI')
+    fetch('https://api.github.com/repos/Codewithswappy/ShitUI')
       .then((res) => res.json())
       .then((data) => {
         if (data && typeof data.stargazers_count === 'number') {

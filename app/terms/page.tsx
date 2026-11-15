@@ -41,9 +41,9 @@ export default function TermsPage() {
               <Link href="https://shitui.in" className="text-primary hover:underline">
                 https://shitui.in
               </Link>
-              ) is an open-source React component library built and maintained by Swapnil Kalambe
-              (@swappy). By using the website, copying component code, installing components through
-              the CLI, or purchasing a sponsorship, you agree to these terms.
+              ) is an open-source React component library built and maintained by Swapnil Kalambe.
+              By using the website, copying component code, installing components through the CLI,
+              or purchasing a sponsorship, you agree to these terms.
             </p>
           </section>
 

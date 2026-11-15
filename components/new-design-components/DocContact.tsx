@@ -28,7 +28,7 @@ export function DocContact() {
 
         <div className="flex items-center gap-2">
           <Link
-            href="https://github.com/Codewithswappy/RareUI/issues"
+            href="https://github.com/Codewithswappy/ShitUI/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-linear-to-b from-neutral-100/80 to-neutral-200/50  dark:border-neutral-800/60 dark:from-neutral-800/80 dark:to-neutral-900/50 px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-150 hover:bg-muted/70 hover:border-border shadow-pill-inset active:scale-95"

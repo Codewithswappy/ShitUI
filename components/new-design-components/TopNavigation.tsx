@@ -148,7 +148,7 @@ export function TopNavigation({
       return;
     }
     let isMounted = true;
-    fetch('https://api.github.com/repos/Codewithswappy/RareUI')
+    fetch('https://api.github.com/repos/Codewithswappy/ShitUI')
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && typeof data.stargazers_count === 'number') {
@@ -255,7 +255,7 @@ export function TopNavigation({
                   <Moon className="h-5 w-5 fill-neutral-200 stroke-neutral-600" />
                 )
               ) : (
-                <DuoSparkle className="h-5 w-5" />
+                <Moon className="h-5 w-5" />
               )}
             </button>
 
@@ -434,7 +434,7 @@ export function TopNavigation({
             <div className="w-full px-6 sm:px-8 py-5 border-t border-border/25 flex items-center justify-between text-xs text-muted-foreground font-mono shrink-0">
               <span>ShitUI (Formerly RareUI)</span>
               <a
-                href="https://github.com/Codewithswappy/RareUI"
+                href="https://github.com/Codewithswappy/ShitUI"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"

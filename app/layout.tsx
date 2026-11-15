@@ -174,10 +174,11 @@ export const metadata: Metadata = {
     description:
       'Premium, free, and open-source animated React UI components built with Tailwind CSS and Motion.',
     images: ['https://shitui.in/og-imageblack.png'],
-    creator: '@heyy_swappy',
+    creator: '@heyyswap',
+    site: '@shituihq',
   },
-  authors: [{ name: 'Swappy', url: 'https://x.com/heyyswap' }],
-  creator: 'Swappy',
+  authors: [{ name: 'Swapnil Kalambe', url: 'https://x.com/heyyswap' }],
+  creator: 'Swapnil Kalambe',
   publisher: 'ShitUI',
   formatDetection: {
     email: false,
@@ -287,6 +288,7 @@ export default function RootLayout({
                     legalName: 'ShitUI (formerly RareUI)',
                     alternateName: ['RareUI', 'Shit UI'],
                     url: 'https://shitui.in',
+                    email: 'useshit.ui@gmail.com',
                     logo: {
                       '@type': 'ImageObject',
                       url: 'https://shitui.in/logo/shitlogo1.svg',
@@ -296,14 +298,13 @@ export default function RootLayout({
                     founder: {
                       '@type': 'Person',
                       name: 'Swapnil Kalambe',
-                      alternateName: ['Swappy', '@swappy'],
                       url: 'https://x.com/heyyswap',
                       sameAs: ['https://x.com/heyyswap', 'https://github.com/Codewithswappy'],
                     },
                     sameAs: [
+                      'https://x.com/shituihq',
                       'https://rareui.in',
-                      'https://x.com/heyyswap',
-                      'https://github.com/Codewithswappy/shitui',
+                      'https://github.com/Codewithswappy/ShitUI',
                     ],
                   },
                   {
@@ -328,7 +329,6 @@ export default function RootLayout({
                     author: {
                       '@type': 'Person',
                       name: 'Swapnil Kalambe',
-                      alternateName: 'Swappy',
                       url: 'https://x.com/heyyswap',
                     },
                     publisher: {
@@ -425,7 +425,7 @@ export default function RootLayout({
                         name: 'What is ShitUI?',
                         acceptedAnswer: {
                           '@type': 'Answer',
-                          text: 'ShitUI (formerly RareUI) is a free, open-source animated React UI component library created by Swapnil Kalambe (@swappy). It provides production-ready, accessible, and high-performance components built with Tailwind CSS and Motion, distributed via the official shadcn CLI.',
+                          text: 'ShitUI (formerly RareUI) is a free, open-source animated React UI component library created by Swapnil Kalambe. It provides production-ready, accessible, and high-performance components built with Tailwind CSS and Motion, distributed via the official shadcn CLI.',
                         },
                       },
                       {
@@ -433,7 +433,7 @@ export default function RootLayout({
                         name: 'Who created and founded ShitUI?',
                         acceptedAnswer: {
                           '@type': 'Answer',
-                          text: 'ShitUI and RareUI were created and founded by Swapnil Kalambe (@swappy). Official contact email is useshit.ui@gmail.com and Twitter/X is @heyyswap.',
+                          text: 'ShitUI and RareUI were created and founded by Swapnil Kalambe. Official contact email is useshit.ui@gmail.com and Twitter/X is @heyyswap.',
                         },
                       },
                       {

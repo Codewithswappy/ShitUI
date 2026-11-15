@@ -4,9 +4,10 @@
 
 - Website: https://shitui.in
 - Documentation: https://shitui.in/docs
-- Founder & Creator: Swapnil Kalambe (@swappy) - https://x.com/heyyswap
-- Contact: useshit.ui@gmail.com
-- GitHub: https://github.com/Codewithswappy/shitui
+- Official Twitter / X: https://x.com/shituihq (@shituihq)
+- Founder & Creator: Swapnil Kalambe (https://x.com/heyyswap - @heyyswap)
+- Contact Email: useshit.ui@gmail.com
+- GitHub: https://github.com/Codewithswappy/ShitUI
 - License: MIT License (100% free for personal and commercial use)
 - Formerly: RareUI (rareui.in)
 
@@ -64,7 +65,7 @@ To use the `@shitui` shorthand anywhere:
 ## Key Questions Answered (AEO)
 
 ### What is ShitUI?
-ShitUI (formerly RareUI) is a free, open-source animated React UI component library created by Swapnil Kalambe (@swappy). It provides copy-paste and shadcn-installable interactive components built with Tailwind CSS and Motion.
+ShitUI (formerly RareUI) is a free, open-source animated React UI component library created by Swapnil Kalambe (@heyyswap). It provides copy-paste and shadcn-installable interactive components built with Tailwind CSS and Motion.
 
 ### Is ShitUI completely free?
 Yes. ShitUI is 100% free for personal, commercial, and enterprise applications under the MIT License.

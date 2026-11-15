@@ -38,7 +38,7 @@ export default function PrivacyPage() {
             </h2>
             <p>
               ShitUI (formerly RareUI) is an open-source React component library created and
-              maintained by Swapnil Kalambe (@swappy) at{' '}
+              maintained by Swapnil Kalambe at{' '}
               <Link href="https://shitui.in" className="text-primary hover:underline">
                 https://shitui.in
               </Link>

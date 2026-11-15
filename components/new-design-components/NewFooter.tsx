@@ -208,13 +208,21 @@ export function NewFooter({
           <div className="flex flex-col-reverse gap-4 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:pt-4">
             {/* Left: Copyright */}
             <div>
-              © {new Date().getFullYear()} ShitUI. Crafted with care by @swappy.
+              © {new Date().getFullYear()} ShitUI. Crafted with care by{' '}
+              <Link
+                href="https://x.com/heyyswap"
+                target="_blank"
+                rel="noreferrer"
+                className="text-foreground hover:underline"
+              >
+                Swapnil Kalambe
+              </Link>.
             </div>
 
             {/* Right: Social Links */}
             <div className="flex items-center gap-6">
               <Link
-                href="https://github.com/Codewithswappy/RareUI"
+                href="https://github.com/Codewithswappy/ShitUI"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
@@ -223,7 +231,7 @@ export function NewFooter({
                 <span>GitHub</span>
               </Link>
               <Link
-                href="https://x.com/heyyswap"
+                href="https://x.com/shituihq"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"

@@ -14,7 +14,7 @@ export function NewLandingPage() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch('https://api.github.com/repos/Codewithswappy/RareUI')
+    fetch('https://api.github.com/repos/Codewithswappy/ShitUI')
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && typeof data.stargazers_count === 'number') {
