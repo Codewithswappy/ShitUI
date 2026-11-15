@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -219,10 +220,15 @@ export function StageCliButton({
   const [isPmDropdownOpen, setIsPmDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mobileTop, setMobileTop] = useState<number>(0);
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const pmDropdownRef = useRef<HTMLDivElement>(null);
   const mobileBtnRef = useRef<HTMLButtonElement>(null);
   const mobileCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const context = usePreviewStage();
   const pathname = usePathname();
@@ -258,10 +264,10 @@ export function StageCliButton({
     .toLowerCase();
 
   const commands: Record<PackageManager, string> = {
-    pnpm: `pnpm dlx shadcn@latest add @shitui/${slug}`,
-    npm: `npx shadcn@latest add @shitui/${slug}`,
-    bun: `bunx --bun shadcn@latest add @shitui/${slug}`,
-    yarn: `yarn dlx shadcn@latest add @shitui/${slug}`,
+    pnpm: `pnpm dlx shadcn@latest add https://shitui.in/r/${slug}.json`,
+    npm: `npx shadcn@latest add https://shitui.in/r/${slug}.json`,
+    bun: `bunx --bun shadcn@latest add https://shitui.in/r/${slug}.json`,
+    yarn: `yarn dlx shadcn@latest add https://shitui.in/r/${slug}.json`,
   };
 
   const currentCommand = commands[activePm];
@@ -295,7 +301,13 @@ export function StageCliButton({
     const updatePos = () => {
       if (mobileBtnRef.current) {
         const rect = mobileBtnRef.current.getBoundingClientRect();
-        setMobileTop(Math.round(rect.bottom + 8));
+        const calculatedTop = Math.round(rect.bottom + 8);
+        const estimatedHeight = 110;
+        if (typeof window !== 'undefined' && calculatedTop + estimatedHeight > window.innerHeight) {
+          setMobileTop(Math.max(16, Math.round(rect.top - estimatedHeight - 8)));
+        } else {
+          setMobileTop(Math.max(16, calculatedTop));
+        }
       }
     };
     updatePos();
@@ -374,130 +386,148 @@ export function StageCliButton({
             />
           </button>
 
-          {/* Mobile Vertical Dropdown Card */}
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                ref={mobileCardRef}
-                key="mobile-cli-vertical-card"
-                initial={{
-                  opacity: 0,
-                  filter: 'blur(10px)',
-                  y: -8,
-                  x: '-50%',
-                  scale: 0.96,
-                }}
-                animate={{
-                  opacity: 1,
-                  filter: 'blur(0px)',
-                  y: 0,
-                  x: '-50%',
-                  scale: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                  filter: 'blur(8px)',
-                  y: -8,
-                  x: '-50%',
-                  scale: 0.96,
-                  transition: { duration: 0.16, ease: 'easeOut' },
-                }}
-                transition={{
-                  duration: 0.22,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                style={{
-                  position: 'fixed',
-                  top: mobileTop || 80,
-                  left: '50%',
-                  transformOrigin: 'top center',
-                }}
-                className="fixed left-1/2 z-[100] w-[calc(100vw-32px)] max-w-[340px] flex flex-col gap-2 rounded-xl border border-border/80 bg-background/95 dark:bg-neutral-950/95 p-3 shadow-2xl backdrop-blur-xl"
-              >
-                {/* Top Row: Package Manager Tabs + Close Button */}
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1 bg-muted p-0.5 rounded-md border border-border/60">
-                    {(['pnpm', 'npm', 'bun', 'yarn'] as const).map((pm) => (
-                      <button
-                        key={pm}
-                        type="button"
-                        onClick={() => setActivePm(pm)}
-                        className={cn(
-                          'px-2 py-0.5 text-[11px] font-mono font-medium rounded-sm transition-all cursor-pointer',
-                          activePm === pm
-                            ? 'bg-background text-foreground shadow-pill-inset border border-border font-semibold'
-                            : 'text-muted-foreground hover:text-foreground'
-                        )}
-                      >
-                        <VanishText
-                          text={pm}
-                          delayChildren={0.03}
-                          staggerChildren={0.01}
-                          className={cn(
-                            'text-[11px]',
-                            activePm === pm ? 'text-foreground font-semibold' : 'text-muted-foreground'
-                          )}
-                        />
-                      </button>
-                    ))}
-                  </div>
+          {/* Mobile Vertical Dropdown Card rendered via Portal to ensure 100% viewport centering */}
+          {mounted &&
+            createPortal(
+              <AnimatePresence>
+                {isExpanded && (
+                  <>
+                    {/* Dimmed backdrop for easy touch dismissal and focus */}
+                    <motion.div
+                      key="mobile-cli-backdrop"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                      onClick={() => setIsExpanded(false)}
+                      className="fixed inset-0 z-[99] bg-black/25 dark:bg-black/50 backdrop-blur-[1px] sm:hidden"
+                    />
 
-                  {/* Close Button with duo-stroke cross cancel square icon */}
-                  <button
-                    type="button"
-                    onClick={() => setIsExpanded(false)}
-                    title="Close"
-                    aria-label="Close"
-                    className="p-1 rounded-md text-muted-foreground/70 hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
-                  >
-                    <CrossCancelSquareIcon className="h-4 w-4" />
-                  </button>
-                </div>
-
-                {/* Bottom Row: Terminal Code Block with VanishText & Copy Button */}
-                <div
-                  onClick={handleCopy}
-                  title="Click to copy command"
-                  className="group/code relative flex items-center justify-between gap-2 rounded-lg border border-border/50 bg-muted/40 dark:bg-neutral-950/60 px-2.5 py-2 cursor-pointer transition-all hover:border-border hover:bg-muted/60 active:scale-[0.99]"
-                >
-                  <div className="flex items-center gap-1.5 overflow-hidden font-mono min-w-0 flex-1">
-                    <span className="text-muted-foreground/60 font-bold select-none text-xs shrink-0">$</span>
-                    <div className="overflow-x-auto scrollbar-none py-0.5 min-w-0">
-                      <AnimatePresence mode="wait">
-                        <VanishText
-                          key={currentCommand}
-                          text={currentCommand}
-                          className="text-[11px] min-[360px]:text-xs font-medium text-foreground tracking-tight select-all whitespace-nowrap"
-                        />
-                      </AnimatePresence>
-                    </div>
-                  </div>
-
-                  {/* Copy / Copied Action */}
-                  <div className="shrink-0 flex items-center pl-1">
-                    <AnimatePresence mode="wait">
-                      {copied ? (
-                        <motion.span
-                          key="copied-label-mobile"
-                          initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.8 }}
-                          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-                          exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.8 }}
-                          className="flex items-center gap-1 text-[10px] min-[360px]:text-[11px] font-semibold text-emerald-500 font-mono"
-                        >
-                          <CopyCopiedIcon className="h-3.5 w-3.5" />
-                          <span>Copied</span>
-                        </motion.span>
-                      ) : (
-                        <div className="p-1 text-muted-foreground/70 group-hover/code:text-foreground transition-colors">
-                          <CopyDefaultIcon className="h-3.5 w-3.5 transition-transform group-hover/code:scale-110" />
+                    {/* Centered Mobile Popover Card */}
+                    <motion.div
+                      ref={mobileCardRef}
+                      key="mobile-cli-vertical-card"
+                      initial={{
+                        opacity: 0,
+                        filter: 'blur(10px)',
+                        y: -8,
+                        x: '-50%',
+                        scale: 0.96,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        filter: 'blur(0px)',
+                        y: 0,
+                        x: '-50%',
+                        scale: 1,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        filter: 'blur(8px)',
+                        y: -8,
+                        x: '-50%',
+                        scale: 0.96,
+                        transition: { duration: 0.16, ease: 'easeOut' },
+                      }}
+                      transition={{
+                        duration: 0.22,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      style={{
+                        position: 'fixed',
+                        top: mobileTop || 80,
+                        left: '50%',
+                        transformOrigin: 'top center',
+                      }}
+                      className="fixed left-1/2 z-[100] w-[calc(100vw-32px)] max-w-[360px] flex flex-col gap-2 rounded-xl border border-border/80 bg-background/95 dark:bg-neutral-950/95 p-3 shadow-2xl backdrop-blur-xl sm:hidden"
+                    >
+                      {/* Top Row: Package Manager Tabs + Close Button */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1 bg-muted p-0.5 rounded-md border border-border/60">
+                          {(['pnpm', 'npm', 'bun', 'yarn'] as const).map((pm) => (
+                            <button
+                              key={pm}
+                              type="button"
+                              onClick={() => setActivePm(pm)}
+                              className={cn(
+                                'px-2 py-0.5 text-[11px] font-mono font-medium rounded-sm transition-all cursor-pointer',
+                                activePm === pm
+                                  ? 'bg-background text-foreground shadow-pill-inset border border-border font-semibold'
+                                  : 'text-muted-foreground hover:text-foreground'
+                              )}
+                            >
+                              <VanishText
+                                text={pm}
+                                delayChildren={0.03}
+                                staggerChildren={0.01}
+                                className={cn(
+                                  'text-[11px]',
+                                  activePm === pm ? 'text-foreground font-semibold' : 'text-muted-foreground'
+                                )}
+                              />
+                            </button>
+                          ))}
                         </div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </motion.div>
+
+                        {/* Close Button with duo-stroke cross cancel square icon */}
+                        <button
+                          type="button"
+                          onClick={() => setIsExpanded(false)}
+                          title="Close"
+                          aria-label="Close"
+                          className="p-1 rounded-md text-muted-foreground/70 hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+                        >
+                          <CrossCancelSquareIcon className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      {/* Bottom Row: Terminal Code Block with VanishText & Copy Button */}
+                      <div
+                        onClick={handleCopy}
+                        title="Click to copy command"
+                        className="group/code relative flex items-center justify-between gap-2 rounded-lg border border-border/50 bg-muted/40 dark:bg-neutral-950/60 px-2.5 py-2 cursor-pointer transition-all hover:border-border hover:bg-muted/60 active:scale-[0.99]"
+                      >
+                        <div className="flex items-center gap-1.5 overflow-hidden font-mono min-w-0 flex-1">
+                          <span className="text-muted-foreground/60 font-bold select-none text-xs shrink-0">$</span>
+                          <div className="overflow-x-auto scrollbar-none py-0.5 min-w-0">
+                            <AnimatePresence mode="wait">
+                              <VanishText
+                                key={currentCommand}
+                                text={currentCommand}
+                                className="text-[11px] min-[360px]:text-xs font-medium text-foreground tracking-tight select-all whitespace-nowrap"
+                              />
+                            </AnimatePresence>
+                          </div>
+                        </div>
+
+                        {/* Copy / Copied Action */}
+                        <div className="shrink-0 flex items-center pl-1">
+                          <AnimatePresence mode="wait">
+                            {copied ? (
+                              <motion.span
+                                key="copied-label-mobile"
+                                initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.8 }}
+                                animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                                exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.8 }}
+                                className="flex items-center gap-1 text-[10px] min-[360px]:text-[11px] font-semibold text-emerald-500 font-mono"
+                              >
+                                <CopyCopiedIcon className="h-3.5 w-3.5" />
+                                <span>Copied</span>
+                              </motion.span>
+                            ) : (
+                              <div className="p-1 text-muted-foreground/70 group-hover/code:text-foreground transition-colors">
+                                <CopyDefaultIcon className="h-3.5 w-3.5 transition-transform group-hover/code:scale-110" />
+                              </div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>,
+              document.body
             )}
-          </AnimatePresence>
         </div>
       )}
 

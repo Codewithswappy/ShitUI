@@ -53,10 +53,10 @@ export function DocInstallation({ cliCommand, name }: DocInstallationProps) {
   const slug = sanitizeSlug(cliCommand) !== 'component' ? sanitizeSlug(cliCommand) : sanitizeSlug(name);
 
   const commands: Record<'npm' | 'pnpm' | 'bun' | 'yarn', string> = {
-    npm: `npx shadcn@latest add @shitui/${slug}`,
-    pnpm: `pnpm dlx shadcn@latest add @shitui/${slug}`,
-    bun: `bunx --bun shadcn@latest add @shitui/${slug}`,
-    yarn: `yarn dlx shadcn@latest add @shitui/${slug}`,
+    npm: `npx shadcn@latest add https://shitui.in/r/${slug}.json`,
+    pnpm: `pnpm dlx shadcn@latest add https://shitui.in/r/${slug}.json`,
+    bun: `bunx --bun shadcn@latest add https://shitui.in/r/${slug}.json`,
+    yarn: `yarn dlx shadcn@latest add https://shitui.in/r/${slug}.json`,
   };
 
   const currentCommand = commands[activeTab];

@@ -8,6 +8,7 @@ import { ViewTransitions } from 'next-view-transitions';
 import { RebrandBanner } from '@/components/new-design-components/RebrandBanner';
 import { SearchProvider } from '@/components/new-design-components/search-context';
 import { CommandPaletteModal } from '@/components/new-design-components/CommandPaletteModal';
+import { DatabuddyProvider } from '@databuddy/sdk/react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -506,6 +507,10 @@ export default function RootLayout({
               <CommandPaletteModal />
             </SearchProvider>
           </RootProvider>
+          <DatabuddyProvider
+            autocapture={{ webVitals: true }}
+            replay
+          />
         </body>
       </html>
     </ViewTransitions>

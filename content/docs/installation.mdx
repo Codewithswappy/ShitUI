@@ -15,24 +15,33 @@ Every component installs as source code you own. Pull it in with one CLI command
 <Step>
 ### 1. Run the add command
 
-Use the official `shadcn` CLI to pull the component source directly into your codebase:
+Use the official `shadcn` CLI to pull the component source directly into your codebase with zero setup:
 
 ```bash
-npx shadcn@latest add @shitui/liquid-button
+npx shadcn@latest add https://shitui.in/r/liquid-button.json
 ```
 
 Swap `liquid-button` for any component. On **pnpm**, **bun**, or **yarn**, run:
 
 ```bash
 # pnpm
-pnpm dlx shadcn@latest add @shitui/liquid-button
+pnpm dlx shadcn@latest add https://shitui.in/r/liquid-button.json
 
 # bun
-bunx --bun shadcn@latest add @shitui/liquid-button
+bunx --bun shadcn@latest add https://shitui.in/r/liquid-button.json
 
 # yarn
-yarn dlx shadcn@latest add @shitui/liquid-button
+yarn dlx shadcn@latest add https://shitui.in/r/liquid-button.json
 ```
+
+> **Using the `@shitui` shortcut**: If you prefer the short syntax `npx shadcn@latest add @shitui/liquid-button`, add the registry to your `components.json`:
+> ```json
+> {
+>   "registries": {
+>     "@shitui": "https://shitui.in/r/{name}.json"
+>   }
+> }
+> ```
 
 </Step>
 
