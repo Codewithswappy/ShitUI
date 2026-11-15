@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "liquid-wave-lazy",
+  "type": "registry:ui",
+  "title": "Liquid Wave Lazy",
+  "description": "Lazy-loaded interactive liquid wave canvas component.",
+  "dependencies": [
+    "next",
+    "react"
+  ],
+  "devDependencies": [
+    "@types/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "index.ts",
+      "content": "export { default } from './LiquidWaveLazy';\nexport * from './LiquidWaveLazy';\n",
+      "type": "registry:ui",
+      "target": "components/shitui/LiquidWaveLazy/index.ts"
+    },
+    {
+      "path": "LiquidWaveLazy.tsx",
+      "content": "'use client';\n\nimport dynamic from 'next/dynamic';\nimport React from 'react';\n\nconst LiquidWaveDynamic = dynamic(() => import('../LiquidWave'), {\n  loading: () => (\n    <div\n      className=\"flex h-full w-full items-center justify-center bg-neutral-100 dark:bg-neutral-900\"\n      style={{ minHeight: '400px' }}\n    >\n      <div className=\"animate-pulse text-center\">\n        <div className=\"text-muted-foreground text-sm\">Loading WebGL Simulation...</div>\n      </div>\n    </div>\n  ),\n  ssr: false,\n});\n\n// Forward props wrapper\nexport default function LiquidWave(props: any) {\n  return <LiquidWaveDynamic {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/shitui/LiquidWaveLazy/LiquidWaveLazy.tsx"
+    }
+  ]
+}

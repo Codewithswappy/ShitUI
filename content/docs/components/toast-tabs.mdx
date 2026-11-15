@@ -1,0 +1,92 @@
+---
+title: Toast Tabs
+description: A unique tab switching component that displays content like a toast message, with an animated avatar switcher.
+---
+
+import ToastTabs from '@/components/shitui/ToastTabs';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="toast-tabs" cliCommand="npx shadcn@latest add @shitui/toast-tabs">
+  <div className="w-full flex items-center justify-center py-10">
+    <ToastTabs />
+  </div>
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import ToastTabs from "@/components/shitui/ToastTabs";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function MyComponent() {
+  return (
+    <ToastTabs />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Toast-style Content',
+      description: 'Displays tab content in a compact, toast-like notification card.',
+    },
+    {
+      title: 'Animated Progress Ring',
+      description: 'Visual indicator for autoplay progress around the active tab.',
+    },
+    {
+      title: 'Autoplay',
+      description: 'Automatically cycles through tabs with pause-on-hover.',
+    },
+    {
+      title: 'Keyboard Navigation',
+      description: 'Full arrow key support for accessible tab switching.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Adapts to different screen sizes and themes.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'tabs',
+      type: 'TabData[]',
+      default: 'defaultTabs',
+      description: 'Array of tab data objects (id, image, title, description).',
+    },
+    {
+      name: 'autoplay',
+      type: 'boolean',
+      default: 'true',
+      description: 'Whether to automatically cycle through tabs.',
+    },
+    {
+      name: 'autoplayDelay',
+      type: 'number',
+      default: '3000',
+      description: 'Duration (ms) for each tab slide.',
+    },
+    {
+      name: 'ringColor',
+      type: 'string',
+      default: '"#f97316"',
+      description: 'Color of the progress ring.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional styles for the container.',
+    },
+  ]}
+/>

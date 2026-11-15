@@ -1,0 +1,74 @@
+---
+title: Floating Navigation
+description: A sleek, floating navigation bar with fluid hover effects and animated icons.
+---
+
+import FloatingNavigation from '@/components/shitui/FloatingNavigation';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="floating-navigation" cliCommand="npx shadcn@latest add @shitui/floating-navigation">
+  <div className="w-full h-[200px] relative flex items-center justify-center">
+        <FloatingNavigation className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10" />
+    </div>
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import FloatingNavigation from "@/components/shitui/FloatingNavigation";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function MyComponent() {
+  return (
+    <FloatingNavigation />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Floating Design',
+      description: 'Elegant floating bar that stays accessible without cluttering the screen.',
+    },
+    {
+      title: 'Smooth Hover Effects',
+      description: 'Fluid background transitions and scale effects on interaction.',
+    },
+    {
+      title: 'Animated Icons',
+      description: 'Unique, playful animations for each icon state.',
+    },
+    {
+      title: 'Keyboard Navigation',
+      description: 'Full keyboard support for accessibility.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Adapts perfectly to different screen sizes and themes.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'items',
+      type: 'NavItem[]',
+      default: 'defaultItems',
+      description: 'Array of navigation items with id, label, and icon.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional styles for the container.',
+    },
+  ]}
+/>

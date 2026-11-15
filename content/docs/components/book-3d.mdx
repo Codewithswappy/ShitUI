@@ -1,0 +1,228 @@
+---
+title: Book 3D
+category: 3D Elements
+description: A 3D interactive book component that rotates on hover.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import { Book3D } from '@/components/shitui/Book3D';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="book-3d" cliCommand="npx shadcn@latest add @shitui/book-3d">
+  <div className="flex items-center justify-center p-10">
+    <Book3D />
+  </div>
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import { Book3D } from '@/components/shitui/Book3D';`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function App() {
+  return <Book3D />;
+}`,
+    },
+  ]}
+/>
+
+<UsageGuide title="Examples" steps={[
+  {
+    title: "Custom Cover",
+    code: `<Book3D 
+  src="/my-book-cover.jpg"
+  title="My Awesome Book"
+  subtitle="By John Doe"
+/>`
+  },
+  {
+    title: "Custom Pages",
+    code: `const customPages = [
+  {
+    title: "Introduction",
+    content: "Welcome to my book. This is the first page with an introduction."
+  },
+  {
+    image: "/illustration.jpg",
+    caption: "A beautiful illustration"
+  },
+  {
+    title: "Chapter 1",
+    content: "The story begins here..."
+  },
+  {
+    quote: "Design is not just what it looks like and feels like. Design is how it works.",
+    author: "Steve Jobs"
+  }
+];
+
+<Book3D 
+  src="/cover.jpg"
+  title="My Book"
+  pages={customPages}
+/>`
+  },
+  {
+    title: "Fully Customized",
+    code: `<Book3D 
+  src="/fantasy-cover.jpg"
+  title="The Chronicles"
+  subtitle="An Epic Tale"
+  width={250}
+  height={380}
+  pages={myCustomPages}
+  className="shadow-2xl"
+/>`
+  }
+]} />
+
+## Interactions
+
+- **Hover** → Book opens (cover flips to the left)
+- **Click right page** → Flip to next page
+- **Click left page** → Flip back to previous page
+- **Mouse leave** → Book closes automatically
+
+## Tips
+
+- Keep `content` text concise (50-100 words) for best readability
+- Use high-quality images with good contrast for the cover
+- Limit pages to 4-6 for optimal user experience
+- The book resets to page 1 when closed
+
+## PageData Interface
+
+Each page in the `pages` array can have the following properties:
+
+```tsx
+interface PageData {
+  title?: string; // Page title
+  content?: string; // Main text content
+  image?: string; // Image URL
+  caption?: string; // Image caption (not currently used)
+  quote?: string; // Blockquote text
+  author?: string; // Quote attribution
+}
+```
+
+### Page Types
+
+You can create different types of pages:
+
+**Text Page:**
+
+```tsx
+{
+  title: "Chapter 1",
+  content: "Your text content here..."
+}
+```
+
+**Image Page:**
+
+```tsx
+{
+  image: "/path/to/image.jpg",
+  caption: "Optional caption"
+}
+```
+
+**Quote Page:**
+
+```tsx
+{
+  quote: "The only limit is your imagination.",
+  author: "Unknown"
+}
+```
+
+**Mixed Content:**
+
+```tsx
+{
+  title: "Chapter 2",
+  content: "Some text...",
+  image: "/image.jpg"
+}
+```
+
+<FeaturesList
+  features={[
+    {
+      title: 'Interactive 3D Animation',
+      description: 'Hover to open, click pages to flip.',
+    },
+    {
+      title: 'Realistic Physics',
+      description: 'Smooth page-turning animations with natural easing.',
+    },
+    {
+      title: 'Bi-directional Navigation',
+      description: 'Click right to advance, click left to go back.',
+    },
+    {
+      title: 'Smart Defaults',
+      description: 'Beautiful RareUI branding when no customization provided.',
+    },
+    {
+      title: 'Fully Customizable',
+      description: 'Override cover, title, and all page content.',
+    },
+    {
+      title: 'TypeScript Support',
+      description: 'Full type safety with defined interfaces.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Configurable dimensions to fit your layout.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'src',
+      type: 'string',
+      description: 'Cover image URL. If not provided, shows RareUI branding.',
+    },
+    {
+      name: 'title',
+      type: 'string',
+      description: 'Title displayed on cover.',
+    },
+    {
+      name: 'subtitle',
+      type: 'string',
+      description: 'Subtitle displayed on cover.',
+    },
+    {
+      name: 'pages',
+      type: 'PageData[]',
+      default: '[...]',
+      description: 'Array of page content objects. Defaults to RareUI demo pages.',
+    },
+    {
+      name: 'width',
+      type: 'number',
+      default: '230',
+      description: 'Book width in pixels.',
+    },
+    {
+      name: 'height',
+      type: 'number',
+      default: '350',
+      description: 'Book height in pixels.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional CSS classes for the container.',
+    },
+  ]}
+/>

@@ -1,0 +1,77 @@
+# ShitUI
+
+> Free & Open Source animated React UI component library built with Tailwind CSS, Next.js, and Motion. Beautiful by default, interactive by nature, and effortlessly customizable. Distributed via shadcn CLI.
+
+- Website: https://shitui.in
+- Documentation: https://shitui.in/docs
+- Founder & Creator: Swapnil Kalambe (@swappy) - https://x.com/heyyswap
+- Contact: useshit.ui@gmail.com
+- GitHub: https://github.com/Codewithswappy/shitui
+- License: MIT License (100% free for personal and commercial use)
+- Formerly: RareUI (rareui.in)
+
+## Installation & Distribution
+
+ShitUI is distributed as copy-and-own React code compatible with the shadcn CLI registry v4.
+
+### 1. Install via shadcn CLI
+```bash
+npx shadcn@latest add @shitui/<component-name>
+```
+
+Or install via direct registry JSON URL:
+```bash
+npx shadcn@latest add https://shitui.in/r/<component-name>.json
+```
+
+### 2. Configure components.json (Optional)
+To use the `@shitui` shorthand anywhere:
+```json
+{
+  "registries": {
+    "@shitui": "https://shitui.in/r/{name}.json"
+  }
+}
+```
+
+## Available Components & Documentation
+
+- [Animated Tab](https://shitui.in/docs/components/animated-tab): Fluid navigation tabs with a sliding background highlight pill. CLI: `npx shadcn@latest add @shitui/animated-tab`
+- [Book 3D](https://shitui.in/docs/components/book-3d): Interactive 3D book cover with realistic cursor-following tilt and shadow physics. CLI: `npx shadcn@latest add @shitui/book-3d`
+- [Floating Navigation](https://shitui.in/docs/components/floating-navigation): Floating pill navbar with glassmorphism and smooth active indicator. CLI: `npx shadcn@latest add @shitui/floating-navigation`
+- [Liquid Button](https://shitui.in/docs/components/liquid-button): Organic gooey liquid dripping hover effect with SVG filter displacement. CLI: `npx shadcn@latest add @shitui/liquid-button`
+- [Liquid Tooltip](https://shitui.in/docs/components/liquid-tooltip): Jelly morphing elastic tooltip that tracks cursor motion dynamically. CLI: `npx shadcn@latest add @shitui/liquid-tooltip`
+- [Liquid Wave](https://shitui.in/docs/components/liquid-wave): Ambient fluid water ripple wave background effect. CLI: `npx shadcn@latest add @shitui/liquid-wave`
+- [Loading Spinner](https://shitui.in/docs/components/loading-spinner): Minimalist, ultra-clean SVG loading animations. CLI: `npx shadcn@latest add @shitui/loading-spinner`
+- [Magnetic Scatter Text](https://shitui.in/docs/components/magnetic-scatterText): Kinetic typography that organically scatters letters away from cursor proximity. CLI: `npx shadcn@latest add @shitui/magnetic-scatterText`
+- [Premium Button](https://shitui.in/docs/components/premium-button): Polished CTA button with dynamic light sheen and micro-interaction states. CLI: `npx shadcn@latest add @shitui/premium-button`
+- [Retro Pixel Button](https://shitui.in/docs/components/retro-pixel-button): 8-bit arcade aesthetic button with authentic stepped bevel shadows. CLI: `npx shadcn@latest add @shitui/retro-pixel-button`
+- [Sound Text](https://shitui.in/docs/components/sound-text): Audio frequency visualizer wave typography animation. CLI: `npx shadcn@latest add @shitui/sound-text`
+- [Toast Tabs](https://shitui.in/docs/components/toast-tabs): Stacked card notification tabs with spring physics and depth layering. CLI: `npx shadcn@latest add @shitui/toast-tabs`
+- [Vapor Smoke Text](https://shitui.in/docs/components/vapor-smokeText): Ethereal vapor dispersion and dissipation text effect. CLI: `npx shadcn@latest add @shitui/vapor-smokeText`
+- [Word Magnet](https://shitui.in/docs/components/word-magnet): Playful magnetic attract and repel physics for phrases and tags. CLI: `npx shadcn@latest add @shitui/word-magnet`
+- [Interactive Contact Button](https://shitui.in/docs/components/interactive-contact-button): Expandable contact trigger transitioning smoothly into input or copy action. CLI: `npx shadcn@latest add @shitui/interactive-contact-button`
+
+## Technical Stack & Architecture
+
+- Framework: React 18 / 19, Next.js 14 / 15 / 16 (App Router & Pages Router)
+- Styling: Tailwind CSS (v3 and v4 compatible)
+- Animation: `motion/react` / `framer-motion`
+- TypeScript: 100% strictly typed
+- Accessibility: WAI-ARIA and WCAG 2.1 compliant
+- Distribution: Open-source, copy-and-own (no bloated npm dependency locks)
+
+## Key Questions Answered (AEO)
+
+### What is ShitUI?
+ShitUI (formerly RareUI) is a free, open-source animated React UI component library created by Swapnil Kalambe (@swappy). It provides copy-paste and shadcn-installable interactive components built with Tailwind CSS and Motion.
+
+### Is ShitUI completely free?
+Yes. ShitUI is 100% free for personal, commercial, and enterprise applications under the MIT License.
+
+### Does ShitUI work with the official shadcn CLI?
+Yes. ShitUI uses the official shadcn registry format. Any component can be installed with `npx shadcn@latest add @shitui/<component-name>`.
+
+### What happened to RareUI?
+RareUI officially rebranded to ShitUI with a revamped modern website, official shadcn CLI registry support, improved component animations, and updated docs at https://shitui.in.
+

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "vapor-smoke-text",
+  "type": "registry:ui",
+  "title": "Vapor Smoke Text",
+  "description": "Atmospheric vapor and smoke particle text distortion effect.",
+  "dependencies": [
+    "react",
+    "motion"
+  ],
+  "devDependencies": [
+    "@types/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "index.ts",
+      "content": "export * from './VaporSmokeText';\n",
+      "type": "registry:ui",
+      "target": "components/shitui/VaporSmokeText/index.ts"
+    },
+    {
+      "path": "VaporSmokeText.tsx",
+      "content": "'use client';\nimport React from 'react';\nimport { motion, type Variants } from 'motion/react';\nimport { cn } from '@/lib/utils';\n\ninterface VaporSmokeTextProps {\n  text: string;\n  className?: string;\n  trigger?: boolean;\n}\n\nexport const VaporSmokeText: React.FC<VaporSmokeTextProps> = ({\n  text,\n  className,\n  trigger = true,\n}) => {\n  const container: Variants = {\n    hidden: { opacity: 0 },\n    visible: (i = 1) => ({\n      opacity: 1,\n      transition: { staggerChildren: 0.08, delayChildren: 0.2 * i },\n    }),\n  };\n\n  const child: Variants = {\n    visible: {\n      opacity: 1,\n      filter: 'blur(0px)',\n      y: 0,\n      scale: 1,\n      rotate: 0,\n      transition: {\n        opacity: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },\n        filter: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },\n        y: { type: 'spring', damping: 20, stiffness: 60, mass: 0.8 },\n        scale: { type: 'spring', damping: 20, stiffness: 60, mass: 0.8 },\n        rotate: { type: 'spring', damping: 20, stiffness: 60, mass: 0.8 },\n      },\n    },\n    hidden: {\n      opacity: 0,\n      filter: 'blur(20px)',\n      y: 20,\n      scale: 1.5,\n      rotate: 5,\n    },\n  };\n\n  return (\n    <motion.div\n      className={cn('flex flex-wrap items-center justify-center overflow-visible py-3', className)}\n      variants={container}\n      initial=\"hidden\"\n      animate={trigger ? 'visible' : 'hidden'}\n    >\n      {text.split(' ').map((word, wordIndex) => (\n        <span key={wordIndex} className=\"inline-flex whitespace-nowrap mr-[0.28em] last:mr-0\">\n          {word.split('').map((letter, letterIndex) => (\n            <motion.span\n              key={letterIndex}\n              variants={child}\n              className=\"inline-block origin-bottom font-serif italic will-change-[transform,filter,opacity]\"\n            >\n              {letter}\n            </motion.span>\n          ))}\n        </span>\n      ))}\n    </motion.div>\n  );\n};\n",
+      "type": "registry:ui",
+      "target": "components/shitui/VaporSmokeText/VaporSmokeText.tsx"
+    }
+  ]
+}

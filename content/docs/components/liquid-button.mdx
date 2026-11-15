@@ -1,0 +1,111 @@
+---
+title: Liquid Button
+description: A button with a liquid gooey effect on hover.
+---
+
+import LiquidButton from '@/components/shitui/LiquidButton';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="liquid-button" cliCommand="npx shadcn@latest add @shitui/liquid-button">
+  <LiquidButton />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import LiquidButton from '@/components/shitui/LiquidButton';`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function App() {
+  return (
+    <LiquidButton text="Hover me" />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Liquid Physics',
+      description: 'Realistic dripping effect using SVG filters and Framer Motion.',
+    },
+    {
+      title: 'Interactive Hover',
+      description: 'Drops react to mouse position and movement speed.',
+    },
+    {
+      title: 'Customizable Colors',
+      description: 'Easily change background and text colors via props.',
+    },
+    {
+      title: 'Dripping Mode',
+      description: 'Optional continuous dripping mode for attention-grabbing effects.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Scales gracefully across different device sizes.',
+    },
+  ]}
+/>
+
+<UsageGuide
+  title="Examples"
+  steps={[
+    {
+      title: 'Custom Colors',
+      code: `<LiquidButton 
+  text="Click me"
+  backgroundColor="bg-blue-500"
+  textColor="text-white"
+/>`,
+    },
+    {
+      title: 'Continuous Dripping',
+      code: `<LiquidButton 
+  text="Always Dripping"
+  isDripping={true}
+/>`,
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'text',
+      type: 'string',
+      default: 'Hover me',
+      description: 'The text to display inside the button.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional CSS classes for the container.',
+    },
+    {
+      name: 'backgroundColor',
+      type: 'string',
+      default: 'bg-black dark:bg-white',
+      description: 'Tailwind class for the background color.',
+    },
+    {
+      name: 'textColor',
+      type: 'string',
+      default: 'text-white dark:text-black',
+      description: 'Tailwind class for the text color.',
+    },
+    {
+      name: 'isDripping',
+      type: 'boolean',
+      default: 'false',
+      description: 'If true, liquid drops will continuously animate without needing hover.',
+    },
+  ]}
+/>

@@ -1,0 +1,87 @@
+---
+title: RareUI is now ShitUI
+description: RareUI has officially rebranded to ShitUI! Learn about our new home at shitui.in, full Shadcn CLI registry integration, and seamless migration.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+# RareUI is now ShitUI 🎉
+
+Welcome to the next chapter of our component library. **RareUI** has officially evolved into **ShitUI**!
+
+Our project has moved to its permanent home at **[shitui.in](https://shitui.in)** with a renewed focus on wild, high-performance, and animated components powered by modern standards.
+
+---
+
+## What Changed?
+
+1. **New Domain**: Everything is now live at [shitui.in](https://shitui.in). All previous URLs on `rareui.in` are permanently redirected (HTTP 301) seamlessly.
+2. **Standardized on Shadcn CLI**: We have retired the legacy custom CLI in favor of the official, universal **Shadcn CLI registry**.
+3. **Motion (`motion/react`)**: Upgraded to the newest, ultra-fast Motion animation engine.
+4. **Enhanced Component Quality**: Smoother animations, tighter TypeScript definitions, and zero vendor lock-in.
+
+---
+
+## Moving from the Custom CLI to Shadcn CLI
+
+Previously, components were installed via a custom CLI command (`npx rareui add ...`). 
+
+Now, every ShitUI component is accessible directly using the **official Shadcn CLI**. This means zero custom CLI dependencies in your project and 100% compatibility with standard shadcn tooling!
+
+### Adding Components
+
+<Steps>
+<Step>
+### Using the `@shitui` Registry Namespace
+
+Configure your `components.json`:
+
+```json title="components.json"
+{
+  "registries": {
+    "@shitui": "https://shitui.in/r/{name}.json"
+  }
+}
+```
+
+Then add any component directly:
+
+```bash
+npx shadcn@latest add @shitui/liquid-button
+```
+</Step>
+
+<Step>
+### Or Using Direct Registry URL
+
+You can also install any component without touching your config using its direct URL:
+
+```bash
+npx shadcn@latest add https://shitui.in/r/liquid-button.json
+```
+</Step>
+</Steps>
+
+---
+
+## Backwards Compatibility
+
+If your existing projects still reference `rareui.in`:
+
+- **Web Traffic**: Visiting `rareui.in/docs/...` automatically routes directly to `shitui.in/docs/...`.
+- **Registry URLs**: Component endpoints at `https://rareui.in/r/...` permanently forward to `https://shitui.in/r/...` with full cross-origin (CORS) headers intact.
+- **`components.json` Registries**: If you have `"@rareui": "https://rareui.in/r/{name}.json"` in your project, it will continue to resolve seamlessly.
+
+---
+
+## Frequently Asked Questions
+
+### Why the name change?
+We wanted a brand that was memorable, unapologetic, and playful—reflecting our passion for bold, eye-catching interactive UI experiments that break out of boring enterprise templates.
+
+### Do I need to rewrite my existing code?
+No! Components you have already copied or installed into your codebase are yours forever. They don't have remote dependencies on our servers.
+
+### Where can I report bugs or request components?
+Join us on our [GitHub repository](https://github.com/Codewithswappy/RareUI) or reach out on [Twitter / X (@heyyswap)](https://x.com/heyyswap).
+

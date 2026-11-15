@@ -1,0 +1,74 @@
+---
+title: Introduction
+description: Welcome to ShitUI - A free, open-source React UI component library built with Tailwind CSS and Motion (motion/react). 100+ premium components ready to use.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+## What is ShitUI?
+
+ShitUI is a free, open-source **React UI component library** featuring **100+ premium components** designed to help you build stunning web applications faster. Every component in this library is crafted with attention to detail, featuring smooth animations, modern designs, and production-ready code.
+
+### Built With Modern Tech
+
+- **React 19+** - Modern features, hooks, and best practices
+- **Tailwind CSS** - Utility-first styling for easy customization
+- **Motion (`motion/react`)** - Smooth, performant animations
+- **TypeScript** - Full type safety and IntelliSense support
+
+## Why Choose ShitUI?
+
+- **Premium Designs** - Modern, professional aesthetics that stand out.
+- **Official shadcn Registry** - Install any component directly using the official `shadcn` CLI.
+- **Copy-Paste Ready** - No lock-in. Just copy or install directly into your codebase.
+- **Smooth Animations** - Built-in micro-interactions powered by Motion (`motion/react`).
+- **Dark Mode Native** - Automatic dark mode support via CSS variables.
+
+## Philosophy
+
+ShitUI is built on three core principles:
+
+1. **Developer Experience First** - Direct integration via standard shadcn tooling. Zero lock-in.
+2. **Design Excellence** - Every component is crafted to look premium and feel alive.
+3. **Open Standards** - Standard shadcn registry format compatible with your existing setup.
+
+## Getting Started
+
+<Steps>
+<Step>
+### Option 1: Install via shadcn CLI (Recommended)
+
+You can add any ShitUI component to your project instantly using the official `shadcn` CLI:
+
+```bash
+npx shadcn@latest add @shitui/liquid-button
+```
+
+For more details and package manager options, see the [Installation](/docs/installation) guide.
+
+</Step>
+
+<Step>
+### Option 2: Manual Copy-Paste
+
+Browse our [Components](/docs/components/liquid-button) catalog to copy and paste the code directly into your codebase.
+
+Ensure your project has the standard `cn` utility in `@/lib/utils`:
+
+```ts
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+and install Motion:
+
+```bash
+npm install motion
+```
+
+</Step>
+</Steps>

@@ -1,0 +1,74 @@
+---
+title: Loading Spinner
+description: A customizable loading spinner with light and dark mode support and smooth animations.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import LoadingSpinner from '@/components/shitui/LoadingSpinner';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="loading-spinner" cliCommand="npx shadcn@latest add @shitui/loading-spinner">
+  <div className="flex h-full w-full min-h-[220px] items-center justify-center p-8">
+    <LoadingSpinner />
+  </div>
+</Preview>
+
+## Usage
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import LoadingSpinner from "@/components/shitui/LoadingSpinner";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function MyComponent() {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <LoadingSpinner />
+    </div>
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Smooth Animation',
+      description: 'Fluid continuous rotation using Framer Motion.',
+    },
+    {
+      title: 'SVG-based',
+      description: 'Crisp, scalable vector graphics for the spinner.',
+    },
+    {
+      title: 'Lightweight',
+      description: 'Minimal dependencies and optimized performance.',
+    },
+    {
+      title: 'Customizable',
+      description: 'Easily adjust size and colors via className.',
+    },
+    {
+      title: 'Dark Mode Support',
+      description: 'Automatically adapts color for light and dark themes.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'className',
+      type: 'string',
+      default: 'undefined',
+      description: 'Additional class names for styling the container',
+    },
+  ]}
+/>
+

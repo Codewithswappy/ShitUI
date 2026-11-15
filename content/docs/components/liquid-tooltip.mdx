@@ -1,0 +1,92 @@
+---
+title: Liquid Tooltip
+description: A toolip component with a liquid-like spring physics effect that reacts to mouse movement.
+---
+
+import { LiquidTooltip } from '@/components/shitui/LiquidTooltip';
+import { LiquidTooltipDemo } from '@/components/demos/liquid-tooltip-demo';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="liquid-tooltip" cliCommand="npx shadcn@latest add @shitui/liquid-tooltip">
+  <LiquidTooltipDemo />
+</Preview>
+
+## Usage
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import { LiquidTooltip } from "@/components/shitui/LiquidTooltip";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function MyComponent() {
+  return (
+    <LiquidTooltip text="Hello world!">
+      <button>Hover me</button>
+    </LiquidTooltip>
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Liquid Physics',
+      description: 'Visually satisfying liquid-like spring physics effect.',
+    },
+    {
+      title: 'Directional Awareness',
+      description: 'Automatically adjusts animation based on tooltip placement.',
+    },
+    {
+      title: 'Spring Animations',
+      description: 'Fluid and natural motion using Framer Motion springs.',
+    },
+    {
+      title: 'Parallax Effect',
+      description: 'Subtle movement tracking within the tooltip for depth.',
+    },
+    {
+      title: 'Interactive',
+      description: 'Responds dynamically to mouse velocity and position.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'text',
+      type: 'string',
+      description: 'The text to display inside the tooltip.',
+    },
+    {
+      name: 'children',
+      type: 'React.ReactNode',
+      description: 'The element to hover over.',
+    },
+    {
+      name: 'placement',
+      type: "'top' | 'bottom' | 'left' | 'right'",
+      default: "'top'",
+      description: 'The position of the tooltip relative to the element.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Helper class for the wrapper.',
+    },
+    {
+      name: 'popupClassName',
+      type: 'string',
+      description: 'Helper class for the tooltip popup itself.',
+    },
+  ]}
+/>

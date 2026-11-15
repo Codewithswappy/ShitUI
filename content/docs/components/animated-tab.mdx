@@ -1,0 +1,95 @@
+---
+title: Animated Tab
+description: A smooth, animated tab component with glassmorphism design and spring animations.
+---
+
+import { AnimatedTabsDemo } from '@/components/demos/animated-tabs-demo';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="animated-tabs" cliCommand="npx shadcn@latest add @shitui/animated-tab">
+  <AnimatedTabsDemo />
+</Preview>
+
+<UsageGuide steps={[
+  {
+    title: "Import the component",
+    code: `'use client';
+import { useState } from 'react';
+import { AnimatedTabs } from '@/components/shitui/AnimatedTabs';`
+  },
+  {
+    title: "Define tabs and render",
+    code: `const tabs = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'services', label: 'Services' },
+  { id: 'contact', label: 'Contact' },
+];
+
+export default function MyComponent() {
+  const [activeTab, setActiveTab] = useState('home');
+
+return (
+
+<AnimatedTabs 
+      tabs={tabs}
+      activeTab={activeTab}
+      onChange={setActiveTab}
+    />
+);
+}`
+}
+]} />
+
+<FeaturesList
+  features={[
+    {
+      title: 'Smooth Animations',
+      description: 'Fluid spring-based transitions using Framer Motion.',
+    },
+    {
+      title: 'Glassmorphism',
+      description: 'Premium frosted glass effect with backdrop blur.',
+    },
+    {
+      title: 'Dark Mode',
+      description: 'Fully adaptable colors for light and dark themes.',
+    },
+    {
+      title: 'Interactive',
+      description: 'Detailed hover states and tap feedback.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Scales perfectly across different device sizes.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'tabs',
+      type: 'Tab[]',
+      description: 'Array of tab objects.',
+    },
+    {
+      name: 'activeTab',
+      type: 'string',
+      description: 'The ID of the currently active tab.',
+    },
+    {
+      name: 'onChange',
+      type: '(id: string) => void',
+      description: 'Callback function triggered when a tab is clicked.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional CSS classes for the container.',
+    },
+  ]}
+/>

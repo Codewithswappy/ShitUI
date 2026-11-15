@@ -1,0 +1,95 @@
+export const sidebarData = [
+  {
+    "title": "Getting Started",
+    "items": [
+      {
+        "title": "Introduction",
+        "href": "/docs/introduction"
+      },
+      {
+        "title": "Installation",
+        "href": "/docs/installation"
+      },
+      {
+        "title": "RareUI is now ShitUI",
+        "href": "/docs/rareui-is-now-shitui"
+      }
+    ]
+  },
+  {
+    "title": "Components",
+    "items": [
+      {
+        "title": "Animated Tab",
+        "href": "/docs/components/animated-tab"
+      },
+      {
+        "title": "Floating Navigation",
+        "href": "/docs/components/floating-navigation"
+      },
+      {
+        "title": "Liquid Button",
+        "href": "/docs/components/liquid-button"
+      },
+      {
+        "title": "Liquid Tooltip",
+        "href": "/docs/components/liquid-tooltip"
+      },
+      {
+        "title": "Loading Spinner",
+        "href": "/docs/components/loading-spinner"
+      },
+      {
+        "title": "Premium Button",
+        "href": "/docs/components/premium-button"
+      },
+      {
+        "title": "Retro Pixel Button",
+        "href": "/docs/components/retro-pixel-button"
+      },
+      {
+        "title": "Toast Tabs",
+        "href": "/docs/components/toast-tabs"
+      }
+    ]
+  },
+  {
+    "title": "Text Animation",
+    "items": [
+      {
+        "title": "Magnetic Scatter Text",
+        "href": "/docs/components/magnetic-scatterText"
+      },
+      {
+        "title": "Sound Text",
+        "href": "/docs/components/sound-text"
+      },
+      {
+        "title": "Vapor Smoke Text",
+        "href": "/docs/components/vapor-smokeText"
+      },
+      {
+        "title": "Word Magnet",
+        "href": "/docs/components/word-magnet"
+      }
+    ]
+  },
+  {
+    "title": "3D Elements",
+    "items": [
+      {
+        "title": "Book 3D",
+        "href": "/docs/components/book-3d"
+      }
+    ]
+  },
+  {
+    "title": "Interactive Background",
+    "items": [
+      {
+        "title": "Liquid Wave",
+        "href": "/docs/components/liquid-wave"
+      }
+    ]
+  }
+];

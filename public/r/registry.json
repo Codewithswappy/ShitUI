@@ -1,0 +1,353 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "shitui",
+  "homepage": "https://shitui.in",
+  "items": [
+    {
+      "name": "animated-tab",
+      "type": "registry:ui",
+      "title": "Animated Tab",
+      "description": "A set of animated navigation tabs with smooth sliding pill highlight.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "AnimatedTab.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/AnimatedTab/AnimatedTab.tsx"
+        },
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/AnimatedTab/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "book-3d",
+      "type": "registry:ui",
+      "title": "Book 3D",
+      "description": "An interactive 3D book component with realistic hover perspective tilt.",
+      "dependencies": [
+        "motion",
+        "react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "Book3D.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/Book3D/Book3D.tsx"
+        },
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/Book3D/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "floating-navigation",
+      "type": "registry:ui",
+      "title": "Floating Navigation",
+      "description": "A sleek floating navigation bar with fluid hover pill.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "FloatingNavigation.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/FloatingNavigation/FloatingNavigation.tsx"
+        },
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/FloatingNavigation/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "liquid-button",
+      "type": "registry:ui",
+      "title": "Liquid Button",
+      "description": "An interactive gooey liquid dripping hover effect button.",
+      "dependencies": [
+        "react",
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidButton/index.ts"
+        },
+        {
+          "path": "LiquidButton.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidButton/LiquidButton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-tooltip",
+      "type": "registry:ui",
+      "title": "Liquid Tooltip",
+      "description": "A fluid liquid-expanding tooltip with smooth spring physics.",
+      "dependencies": [
+        "react",
+        "react-dom",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidTooltip/index.ts"
+        },
+        {
+          "path": "LiquidTooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidTooltip/LiquidTooltip.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-wave",
+      "type": "registry:ui",
+      "title": "Liquid Wave",
+      "description": "A smooth canvas-based interactive liquid wave fluid simulation.",
+      "dependencies": [
+        "react",
+        "three"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidWave/index.ts"
+        },
+        {
+          "path": "LiquidWave.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidWave/LiquidWave.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-wave-lazy",
+      "type": "registry:ui",
+      "title": "Liquid Wave Lazy",
+      "description": "Lazy-loaded interactive liquid wave canvas component.",
+      "dependencies": [
+        "next",
+        "react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidWaveLazy/index.ts"
+        },
+        {
+          "path": "LiquidWaveLazy.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/LiquidWaveLazy/LiquidWaveLazy.tsx"
+        }
+      ]
+    },
+    {
+      "name": "loading-spinner",
+      "type": "registry:ui",
+      "title": "Loading Spinner",
+      "description": "A modern neon ring spinner with smooth cubic-bezier rotation.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/LoadingSpinner/index.ts"
+        },
+        {
+          "path": "LoadingSpinner.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/LoadingSpinner/LoadingSpinner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-scatter-text",
+      "type": "registry:ui",
+      "title": "Magnetic Scatter Text",
+      "description": "Interactive text characters that scatter dynamically from cursor.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/MagneticScatterText/index.ts"
+        },
+        {
+          "path": "MagneticScatterText.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/MagneticScatterText/MagneticScatterText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "premium-button",
+      "type": "registry:ui",
+      "title": "Premium Button",
+      "description": "A luxury gradient border button with subtle shimmer glow.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/PremiumButton/index.ts"
+        },
+        {
+          "path": "PremiumButton.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/PremiumButton/PremiumButton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "retro-pixel-button",
+      "type": "registry:ui",
+      "title": "Retro Pixel Button",
+      "description": "A playful 8-bit retro arcade pixel button with press animation.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/RetroPixelButton/index.ts"
+        },
+        {
+          "path": "RetroPixelButton.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/RetroPixelButton/RetroPixelButton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sound-text",
+      "type": "registry:ui",
+      "title": "Sound Text",
+      "description": "Animated typography that synchronizes with audio frequencies.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/SoundText/index.ts"
+        },
+        {
+          "path": "SoundText.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/SoundText/SoundText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toast-tabs",
+      "type": "registry:ui",
+      "title": "Toast Tabs",
+      "description": "Interactive toast-styled notification tabs with spring animations.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/ToastTabs/index.ts"
+        },
+        {
+          "path": "ToastTabs.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/ToastTabs/ToastTabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "vapor-smoke-text",
+      "type": "registry:ui",
+      "title": "Vapor Smoke Text",
+      "description": "Atmospheric vapor and smoke particle text distortion effect.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/VaporSmokeText/index.ts"
+        },
+        {
+          "path": "VaporSmokeText.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/VaporSmokeText/VaporSmokeText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "word-magnet",
+      "type": "registry:ui",
+      "title": "Word Magnet",
+      "description": "Interactive magnetic word clouds that attract toward the cursor.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "components/shitui/WordMagnet/index.ts"
+        },
+        {
+          "path": "WordMagnet.tsx",
+          "type": "registry:ui",
+          "target": "components/shitui/WordMagnet/WordMagnet.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+---
+title: Installation
+description: Every component installs as source code you own. Pull it in with one CLI command, or copy the files by hand.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+> **ShitUI** — an open-source collection of animated React components.
+
+Every component installs as source code you own. Pull it in with one CLI command, or copy the files by hand.
+
+## With the CLI
+
+<Steps>
+<Step>
+### 1. Run the add command
+
+Use the official `shadcn` CLI to pull the component source directly into your codebase:
+
+```bash
+npx shadcn@latest add @shitui/liquid-button
+```
+
+Swap `liquid-button` for any component. On **pnpm**, **bun**, or **yarn**, run:
+
+```bash
+# pnpm
+pnpm dlx shadcn@latest add @shitui/liquid-button
+
+# bun
+bunx --bun shadcn@latest add @shitui/liquid-button
+
+# yarn
+yarn dlx shadcn@latest add @shitui/liquid-button
+```
+
+</Step>
+
+<Step>
+### 2. Import and use it
+
+Render it like any other React component:
+
+```tsx
+import { LiquidButton } from '@/components/shitui/LiquidButton';
+
+export default function App() {
+  return <LiquidButton>Click me</LiquidButton>;
+}
+```
+
+</Step>
+</Steps>
+
+## By hand
+
+<Steps>
+<Step>
+### 1. Open a component's Code tab
+
+Browse any component in the catalog. Click the **Code** tab in the preview bar to view the full source code.
+
+</Step>
+
+<Step>
+### 2. Copy the files into your project
+
+Create a new file in your project, for example `components/shitui/LiquidButton.tsx`, and paste the component code.
+
+</Step>
+
+<Step>
+### 3. Add the utility helper
+
+Ensure you have the standard `cn` helper in `@/lib/utils.ts`:
+
+```ts
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+</Step>
+
+<Step>
+### 4. Install its dependencies
+
+ShitUI animations are powered by Motion (`motion/react`):
+
+```bash
+npm install motion clsx tailwind-merge
+```
+
+</Step>
+
+<Step>
+### 5. Import and use it
+
+Import and render it the same way as the CLI example above.
+
+</Step>
+</Steps>
+
+## That's all
+
+The code is yours now, so change the styles, props or behavior however you like.

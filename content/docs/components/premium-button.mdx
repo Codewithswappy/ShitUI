@@ -1,0 +1,59 @@
+---
+title: Premium Button
+description: A premium button with a dynamic gradient background and hover effects.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import { PremiumButton } from '@/components/shitui/PremiumButton';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="premium-button" cliCommand="npx shadcn@latest add @shitui/premium-button">
+  <PremiumButton />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import { PremiumButton } from '@/components/shitui/premium-button';`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function App() {
+  return (
+    <PremiumButton />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Dynamic Gradient',
+      description: 'Animated gradient background that shifts on hover.',
+    },
+    {
+      title: 'Shadow Effects',
+      description: 'Text shadow and box shadow for depth.',
+    },
+    {
+      title: 'Smooth Transitions',
+      description: '300ms ease-out transitions.',
+    },
+    {
+      title: 'Premium Icon',
+      description: 'Built-in SVG crown icon.',
+    },
+    {
+      title: 'Responsive',
+      description: 'Scales beautifully on all device sizes.',
+    },
+  ]}
+/>
+
+## Props
+
+This component currently doesn't accept props. To customize, modify the component code directly after installation.

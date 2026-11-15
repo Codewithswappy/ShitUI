@@ -1,0 +1,180 @@
+---
+title: Liquid Wave
+category: Interactive Background
+description: A mesmerizing fluid dynamics background with interactive mouse-driven waves and customizable colors.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import LiquidWave from '@/components/shitui/LiquidWaveLazy';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="liquid-wave" expand cliCommand="npx shadcn@latest add @shitui/liquid-wave">
+  <div className="w-full h-full min-h-[400px] relative">
+      <LiquidWave />
+  </div>
+</Preview>
+
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import LiquidWave from "@/components/shitui/LiquidWave";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function App() {
+  return (
+    <div style={{ width: '100%', height: '500px', position: 'relative' }}>
+        <LiquidWave />
+    </div>
+  );
+}`,
+    },
+  ]}
+/>
+
+<UsageGuide
+  title="Examples"
+  steps={[
+    {
+      title: 'Custom Colors',
+      code: `<LiquidWave 
+  color1="#5227FF"
+  color2="#FF9FFC"
+  color3="#B19EEF"
+/>`,
+    },
+    {
+      title: 'Custom Force and Cursor Size',
+      code: `<LiquidWave 
+  mouseForce={30}
+  cursorSize={150}
+/>`,
+    },
+    {
+      title: 'With Viscosity',
+      code: `<LiquidWave 
+  isViscous={true}
+  viscous={50}
+/>`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Fluid Simulation',
+      description:
+        'High-performance WebGL fluid dynamics with advection, diffusion, and pressure handling.',
+    },
+    {
+      title: 'Interactive',
+      description: 'Reacts to mouse movements with force and velocity injection.',
+    },
+    {
+      title: 'Customizable Colors',
+      description: 'Supports multi-color gradients that blend dynamically within the fluid.',
+    },
+    {
+      title: 'Viscosity Support',
+      description: 'Optional viscosity simulation for thicker, slower-moving fluid effects.',
+    },
+    {
+      title: 'Auto-Demo Mode',
+      description: 'Built-in autonomous movement when idle.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'color1',
+      type: 'string',
+      default: '"orange"',
+      description: 'Primary gradient color (any CSS color format)',
+    },
+    {
+      name: 'color2',
+      type: 'string',
+      default: '"orange"',
+      description: 'Secondary gradient color (optional)',
+    },
+    {
+      name: 'color3',
+      type: 'string',
+      default: '"orange"',
+      description: 'Tertiary gradient color (optional)',
+    },
+    {
+      name: 'mouseForce',
+      type: 'number',
+      default: '20',
+      description: 'Strength of mouse interaction (0-100)',
+    },
+    {
+      name: 'cursorSize',
+      type: 'number',
+      default: '100',
+      description: 'Size of the interaction cursor in pixels',
+    },
+    {
+      name: 'isViscous',
+      type: 'boolean',
+      default: 'false',
+      description: 'Enable viscous fluid behavior',
+    },
+    {
+      name: 'viscous',
+      type: 'number',
+      default: '30',
+      description: 'Viscosity strength (only when isViscous is true)',
+    },
+    {
+      name: 'isBounce',
+      type: 'boolean',
+      default: 'false',
+      description: 'Enable boundary bounce effect',
+    },
+    {
+      name: 'dt',
+      type: 'number',
+      default: '0.014',
+      description: 'Time delta for simulation step',
+    },
+    {
+      name: 'resolution',
+      type: 'number',
+      default: '0.5',
+      description: 'Simulation resolution (0.1-1.0, higher = better quality)',
+    },
+    {
+      name: 'iterationsPoisson',
+      type: 'number',
+      default: '32',
+      description: 'Pressure solver iterations (higher = more accurate)',
+    },
+    {
+      name: 'iterationsViscous',
+      type: 'number',
+      default: '32',
+      description: 'Viscosity solver iterations',
+    },
+    {
+      name: 'BFECC',
+      type: 'boolean',
+      default: 'true',
+      description: 'Use BFECC advection for better stability',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      default: '""',
+      description: 'Additional CSS classes for the canvas',
+    },
+  ]}
+/>

@@ -1,0 +1,90 @@
+---
+title: Retro Pixel Button
+description: A retro-styled animated button with a sliding pixel block, smooth transitions, and customizable colors.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import RetroPixelButton from '@/components/shitui/RetroPixelButton';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="retro-pixel-button" cliCommand="npx shadcn@latest add @shitui/retro-pixel-button">
+  <RetroPixelButton />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import RetroPixelButton from '@/components/shitui/RetroPixelButton';`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function App() {
+  return (
+    <RetroPixelButton onClick={() => alert('Clicked!')}>
+      CLICK ME
+    </RetroPixelButton>
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Retro Aesthetic',
+      description: 'Font-mono styling with pixelated arrow icon.',
+    },
+    {
+      title: 'Sliding Animation',
+      description: 'Smooth spring-based expansion of the pixel block on hover.',
+    },
+    {
+      title: 'Icon Rotation',
+      description: 'Pixelated arrow rotates 180° during the hover transition.',
+    },
+    {
+      title: 'Text Morphing',
+      description: 'Text subtly blurs and shifts with a glitch-like effect.',
+    },
+    {
+      title: 'Fully Customizable',
+      description: 'Control pixel block, base, and text colors independently.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'children',
+      type: 'React.ReactNode',
+      default: '"TRY..."',
+      description: 'The button text content.',
+    },
+    {
+      name: 'pixelColor',
+      type: 'string',
+      default: '"orange"',
+      description: 'Color of the sliding pixel block.',
+    },
+    {
+      name: 'baseColor',
+      type: 'string',
+      description: 'Optional background color override.',
+    },
+    {
+      name: 'textColor',
+      type: 'string',
+      description: 'Optional text color override.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Additional CSS classes.',
+    },
+  ]}
+/>
