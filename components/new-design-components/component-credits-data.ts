@@ -17,56 +17,20 @@ export interface ComponentDetails {
 }
 
 export const DEFAULT_CREDIT: ComponentCredit = {
-  name: 'Swappy',
+  name: 'Swapnil Kalambe',
   profession: 'Design Engineer',
   xHandle: '@heyyswap',
   xUrl: 'https://x.com/heyyswap',
+  avatarUrl: 'https://unavatar.io/twitter/heyyswap',
 };
 
-export const COMPONENT_CREDITS: Record<string, ComponentCredit> = {
-  'liquid-button': {
-    name: 'Rauno Freiberg',
-    profession: 'Design Engineer',
-    xHandle: '@raunofreiberg',
-    xUrl: 'https://x.com/raunofreiberg',
-  },
-  'toast-tabs': {
-    name: 'Emil Kowalski',
-    profession: 'Design Engineer',
-    xHandle: '@emilkowalski_',
-    xUrl: 'https://x.com/emilkowalski_',
-  },
-  'book-3d': {
-    name: 'Paco Coursey',
-    profession: 'Interface Designer',
-    xHandle: '@pacocoursey',
-    xUrl: 'https://x.com/pacocoursey',
-  },
-  'animated-tab': {
-    name: 'Pedro Duarte',
-    profession: 'Design Engineer',
-    xHandle: '@peduarte',
-    xUrl: 'https://x.com/peduarte',
-  },
-  'retro-pixel-button': {
-    name: 'Swappy',
-    profession: 'Design Engineer',
-    xHandle: '@heyyswap',
-    xUrl: 'https://x.com/heyyswap',
-  },
-  'floating-navigation': {
-    name: 'Rauno Freiberg',
-    profession: 'Design Engineer',
-    xHandle: '@raunofreiberg',
-    xUrl: 'https://x.com/raunofreiberg',
-  },
-  'liquid-tooltip': {
-    name: 'Swappy',
-    profession: 'Design Engineer',
-    xHandle: '@heyyswap',
-    xUrl: 'https://x.com/heyyswap',
-  },
-};
+// All current and future components are created by Swapnil Kalambe
+export const COMPONENT_CREDITS: Record<string, ComponentCredit> = new Proxy(
+  {},
+  {
+    get: () => DEFAULT_CREDIT,
+  }
+);
 
 export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
   'liquid-wave': {
@@ -93,7 +57,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Premium Button', href: '/docs/components/premium-button' },
       { title: 'Retro Pixel Button', href: '/docs/components/retro-pixel-button' },
     ],
-    credit: COMPONENT_CREDITS['liquid-button'],
+    credit: DEFAULT_CREDIT,
   },
   'animated-tab': {
     title: 'Animated Tab',
@@ -105,7 +69,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Toast Tabs', href: '/docs/components/toast-tabs' },
       { title: 'Floating Navigation', href: '/docs/components/floating-navigation' },
     ],
-    credit: COMPONENT_CREDITS['animated-tab'],
+    credit: DEFAULT_CREDIT,
   },
   'book-3d': {
     title: 'Book 3D',
@@ -117,7 +81,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Liquid Wave', href: '/docs/components/liquid-wave' },
       { title: 'Word Magnet', href: '/docs/components/word-magnet' },
     ],
-    credit: COMPONENT_CREDITS['book-3d'],
+    credit: DEFAULT_CREDIT,
   },
   'floating-navigation': {
     title: 'Floating Navigation',
@@ -129,7 +93,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Animated Tab', href: '/docs/components/animated-tab' },
       { title: 'Toast Tabs', href: '/docs/components/toast-tabs' },
     ],
-    credit: COMPONENT_CREDITS['floating-navigation'],
+    credit: DEFAULT_CREDIT,
   },
   'liquid-tooltip': {
     title: 'Liquid Tooltip',
@@ -141,7 +105,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Liquid Button', href: '/docs/components/liquid-button' },
       { title: 'Liquid Wave', href: '/docs/components/liquid-wave' },
     ],
-    credit: COMPONENT_CREDITS['liquid-tooltip'],
+    credit: DEFAULT_CREDIT,
   },
   'loading-spinner': {
     title: 'Loading Spinner',
@@ -213,7 +177,7 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
       { title: 'Animated Tab', href: '/docs/components/animated-tab' },
       { title: 'Floating Navigation', href: '/docs/components/floating-navigation' },
     ],
-    credit: COMPONENT_CREDITS['toast-tabs'],
+    credit: DEFAULT_CREDIT,
   },
   'vapor-smoketext': {
     title: 'Vapor Smoke Text',

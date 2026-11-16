@@ -114,10 +114,10 @@ export function DocRightPanel({ credit }: { credit?: ComponentCredit }) {
               rel="noopener noreferrer"
               title="Share on X"
               aria-label="Share on X"
-              className="flex h-7 items-center gap-1.5 px-2.5 rounded-lg border border-border/60 bg-neutral-100/60 dark:bg-neutral-900/40 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-neutral-200/60 dark:hover:bg-neutral-800/60 hover:border-border transition-all duration-200 active:scale-90 shadow-xs"
+              className="flex h-7 items-center gap-1.5 px-2.5 rounded-full bg-neutral-900 dark:bg-neutral-50 text-[11px] font-medium text-white dark:text-black transition-all duration-200 active:scale-90 shadow-pill-inset dark:shadow-pill-glow"
             >
               <DuoXCom className="h-2.5 w-2.5" />
-              <span>Share on X</span>
+              <span>Share</span>
             </a>
           </div>
         </div>
