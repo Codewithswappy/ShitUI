@@ -13,7 +13,7 @@
   <br /><br />
 
   <a href="https://github.com/Codewithswappy/ShitUI/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/Codewithswappy/ShitUI?style=flat&color=3074fe"></a>
-  <a href="LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-MIT_%2B_Commons_Clause_%2B_Attribution-3074fe?style=flat"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT_%2B_Commons_Clause_%2B_Attribution-3074fe?style=flat"></a>
   <a href="https://x.com/heyyswap"><img alt="Twitter" src="https://img.shields.io/badge/Follow-@heyyswap-3074fe?style=flat&logo=x&logoColor=white"></a>
   <a href="https://shitui.in"><img alt="shadcn registry" src="https://img.shields.io/badge/shadcn-registry-3074fe?style=flat"></a>
 </div>
@@ -24,63 +24,27 @@
 
 Support continuous development and feature your product, tool, or brand directly in front of thousands of design engineers and developers.
 
-<div align="center">
-  <br />
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsor-btn.svg" alt="Become a Sponsor" width="220" />
-  </a>
-  <br /><br />
-</div>
+<p align="center">
+  <a href="https://shitui.in/sponsors"><img src="public/sponsor-btn.svg" alt="Become a Sponsor" width="230" /></a>
+</p>
 
 ### Max Sponsors
 
 <p align="center">
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-max.svg" alt="Claim Max Spot" width="140" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-max.svg" alt="Claim Max Spot" width="140" />
-  </a>
+  <a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-max.svg" alt="Claim Max Spot" width="320" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-max.svg" alt="Claim Max Spot" width="320" /></a>
 </p>
 
 ### Core Sponsors
 
 <p align="center">
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="115" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="115" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="115" />
-  </a>
+  <a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="210" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="210" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-core.svg" alt="Claim Core Spot" width="210" /></a>
 </p>
 
 ### Lite Sponsors
 
 <p align="center">
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="95" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="95" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="95" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://shitui.in/sponsors">
-    <img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="95" />
-  </a>
+  <a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="155" /></a>&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="155" /></a>&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="155" /></a>&nbsp;&nbsp;<a href="https://shitui.in/sponsors"><img src="public/sponsors/spot-lite.svg" alt="Claim Lite Spot" width="155" /></a>
 </p>
-
-<br />
 
 > **Custom Partnerships & Spot Reservations:**
 > Reserve your spot directly at [**shitui.in/sponsors**](https://shitui.in/sponsors) or contact [@heyyswap](https://x.com/heyyswap) on X / email `useshit.ui@gmail.com`.
@@ -126,7 +90,7 @@ Contributions, bug reports, and suggestions are welcome!
 
 ## License & Terms of Use
 
-ShitUI is completely free and open source under the **MIT License + Commons Clause + Attribution** ([LICENSE.md](LICENSE.md)).
+ShitUI is completely free and open source under the **MIT License + Commons Clause + Attribution** ([LICENSE](LICENSE)).
 
 ### Permitted Use
 - **Personal & Commercial Projects**: Freely use, modify, and ship components in personal projects, commercial software, client work, SaaS apps, and production websites.
