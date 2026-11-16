@@ -91,13 +91,23 @@ export function SponsorsSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Responsive dynamic scaling so the rotated diamond arrangement maintains
-  // 100% exact geometry, parallel gaps, and angles on mobile, tablet, and desktop
+  // 100% exact geometry, parallel gaps, and angles on mobile, tablet, and desktop.
+  // On mobile, expands to full screen width and taller height for big, prominent spots.
   useEffect(() => {
     const handleResize = () => {
       if (!containerRef.current) return;
       const width = containerRef.current.offsetWidth;
-      // Virtual canvas width = 760px
-      const calculatedScale = Math.min(1, Math.max(0.42, (width - 32) / 760));
+      const isMobile = window.innerWidth < 640;
+
+      let calculatedScale: number;
+      if (isMobile) {
+        // Mobile: maximize to full screen width (diamond span is ~690px)
+        calculatedScale = Math.min(0.65, Math.max(0.48, (width - 8) / 690));
+      } else {
+        // Desktop / tablet: natural scaling up to 1
+        calculatedScale = Math.min(1, Math.max(0.65, (width - 48) / 760));
+      }
+
       setScale(calculatedScale);
     };
 
@@ -125,7 +135,7 @@ export function SponsorsSection() {
         <div
           ref={containerRef}
           onPointerLeave={() => setHoveredId(null)}
-          className="relative flex w-full items-center justify-center overflow-visible py-4 sm:py-6"
+          className="relative flex w-[calc(100%+2rem)] -mx-4 sm:mx-0 sm:w-full items-center justify-center overflow-visible py-8 sm:py-6"
         >
           {/* Scaled Canvas Container */}
           <div
@@ -202,22 +212,22 @@ export function SponsorsSection() {
                   >
                     {/* Counter-rotate content by -45deg so text and icon remain upright */}
                     <div className="-rotate-45 flex flex-col items-center justify-center text-center p-3 pointer-events-none">
-                      {/* Plus Icon - Centered when unhovered, glides up smoothly on hover */}
+                      {/* Plus Icon - Centered when unhovered on desktop, upright on mobile */}
                       <IconPlus
                         className={cn(
                           'text-neutral-300 dark:text-neutral-600 transition-all duration-200 ease-out',
-                          'translate-y-2 group-hover:translate-y-0 ',
+                          'translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0',
                           isMax ? 'h-6 w-6 sm:h-7 sm:w-7' : 'h-5 w-5 sm:h-6 sm:w-6'
                         )}
                         stroke={2.2}
                       />
 
-                      {/* Claim Text - Appears on hover with smooth fade & slide animation */}
+                      {/* Claim Text - Visible on mobile without hover; appears on hover on desktop */}
                       <span
                         className={cn(
                           'whitespace-nowrap font-medium tracking-tight leading-none',
-                          'text-neutral-400 dark:text-neutral-600 transition-all duration-200 ease-out',
-                          'opacity-0 translate-y-2.5 group-hover:opacity-100 group-hover:translate-y-0',
+                          'text-neutral-400 dark:text-neutral-500 transition-all duration-200 ease-out',
+                          'opacity-100 translate-y-0 sm:opacity-0 sm:translate-y-2.5 sm:group-hover:opacity-100 sm:group-hover:translate-y-0',
                           isMax
                             ? 'text-xs sm:text-[13px] mt-1'
                             : 'text-[11px] sm:text-xs mt-1'
@@ -237,7 +247,7 @@ export function SponsorsSection() {
         <div className="mt-8 sm:mt-12 flex items-center justify-center">
           <Link
             href="/sponsors#pricing"
-            className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-primary px-6 py-2.5 text-xs sm:text-sm font-semibold text-primary-foreground shadow-pill-glow transition-all hover:opacity-95 active:scale-98"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-6 py-2.5 text-xs sm:text-sm font-semibold text-primary-foreground shadow-pill-glow transition-all hover:opacity-95 active:scale-98"
           >
             <IconHeart className="h-4 w-4 fill-current" />
             <span>Become a Sponsor</span>

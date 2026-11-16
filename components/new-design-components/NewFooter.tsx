@@ -184,6 +184,12 @@ export function NewFooter({
                 Changelog
               </Link>
               <Link
+                href="/testimonials"
+                className="transition-colors hover:text-foreground"
+              >
+                Testimonials
+              </Link>
+              <Link
                 href="/pricing"
                 className="transition-colors hover:text-foreground"
               >
