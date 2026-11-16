@@ -102,12 +102,17 @@ export function GitHubStarButton({
   const [starCount, setStarCount] = useState<number | string>(() => {
     if (typeof window !== 'undefined') {
       const cached = localStorage.getItem('shitui_repo_stars');
-      if (cached) return Number(cached);
+      if (cached && cached !== '148') return Number(cached);
     }
-    return 148;
+    return 49;
   });
 
   useEffect(() => {
+    // Clear out stale '148' cached in user's browser localStorage
+    if (typeof window !== 'undefined' && localStorage.getItem('shitui_repo_stars') === '148') {
+      localStorage.removeItem('shitui_repo_stars');
+    }
+
     fetch('https://api.github.com/repos/Codewithswappy/ShitUI')
       .then((res) => res.json())
       .then((data) => {
@@ -140,15 +145,16 @@ export function GitHubStarButton({
       title="Star ShitUI on GitHub"
       aria-label={`Star ShitUI on GitHub (${formattedStars} stars)`}
       className={cn(
-        'group relative inline-flex items-center gap-1.5 rounded-lg bg-[#3074fe] text-white shadow-pill-glow  select-none cursor-pointer active:scale-95 transition-all duration-200 overflow-hidden shrink-0',
+        'group relative inline-flex items-center gap-1.5 rounded-lg bg-[#3074fe] text-white shadow-pill-glow select-none cursor-pointer active:scale-95 transition-all duration-200 overflow-hidden shrink-0',
         size === 'sm' ? 'h-8 px-2.5 text-xs' : 'h-10 px-3.5 text-xs sm:text-sm font-medium',
         className
       )}
     >
       {/* Icon Swap Container with Liquid Bouncy Spring Animation */}
       <div className="relative flex h-4 w-4 shrink-0 items-center justify-center">
-        {/* 1. GitHub Icon (Default state, exits with spring on hover) */}
+        {/* 1. GitHub Icon (Default state, exits on hover) */}
         <motion.div
+          initial={{ scale: 1, rotate: 0, opacity: 1 }}
           animate={
             isHovered
               ? { scale: 0, rotate: 60, opacity: 0 }
@@ -163,14 +169,16 @@ export function GitHubStarButton({
           <DuoGithub className="h-4 w-4 fill-white shrink-0" />
         </motion.div>
 
-        {/* 2. Star Icon (Enters on hover with juicy liquid bounce & wobble) */}
+        {/* 2. Star Icon (Hidden by default in raw HTML, enters on hover with liquid bounce) */}
         <motion.div
+          initial={{ scale: 0, rotate: -35, opacity: 0 }}
+          style={{ opacity: 0, transform: 'scale(0)' }}
           animate={
             isHovered
               ? {
                   scale: [0, 1.48, 0.9, 1.15, 0.98, 1],
                   rotate: [-35, 16, -8, 3, 0],
-                  opacity: [0, 1, 1, 1, 1, 1],
+                  opacity: 1,
                 }
               : { scale: 0, rotate: -35, opacity: 0 }
           }
@@ -178,7 +186,10 @@ export function GitHubStarButton({
             duration: 0.5,
             ease: [0.34, 1.56, 0.64, 1],
           }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          className={cn(
+            'absolute inset-0 flex items-center justify-center pointer-events-none',
+            !isHovered && 'opacity-0 scale-0 pointer-events-none'
+          )}
         >
           <StickiesStarIcon className="h-4.5 w-4.5 shrink-0" />
         </motion.div>
