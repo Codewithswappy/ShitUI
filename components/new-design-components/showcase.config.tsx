@@ -1,5 +1,9 @@
 // Centralized static showcase component configuration
 // Media assets live exclusively in /previews/
+//
+// 🎯 TO CHANGE CARD DISPLAY ORDER:
+// Set `order: 1`, `order: 2`, `order: 3`, etc. directly inside any component below.
+// Lower numbers will appear first on the page (e.g. order: 1 shows first).
 
 export type ShowcaseComponent = {
   id: string;
@@ -8,7 +12,7 @@ export type ShowcaseComponent = {
   slug: string;
   tag: string;
   showOnHome: boolean;
-  order?: number;
+  order?: number; // 👈 Set order: 1, order: 2 to control card position
   preview: {
     poster: string;
     video?: string;
@@ -17,10 +21,30 @@ export type ShowcaseComponent = {
   };
 };
 
+/**
+ * Helper to get showcase items sorted by `order` (1, 2, 3...):
+ * Cards with lower `order` numbers appear first.
+ * Cards without `order` follow in their default registry order.
+ */
+export function getSortedShowcaseItems(category: string = 'all'): ShowcaseComponent[] {
+  const items =
+    category === 'all' || category === 'home'
+      ? SHOWCASE_REGISTRY.filter((item) => item.showOnHome)
+      : SHOWCASE_REGISTRY.filter((item) => item.category === category);
+
+  return [...items].sort((a, b) => {
+    const orderA = a.order ?? 9999;
+    const orderB = b.order ?? 9999;
+    if (orderA !== orderB) return orderA - orderB;
+    return SHOWCASE_REGISTRY.indexOf(a) - SHOWCASE_REGISTRY.indexOf(b);
+  });
+}
+
 export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'liquid-button',
     name: 'Liquid Button',
+    order: 4,
     category: 'components',
     tag: 'Motion',
     slug: 'components/liquid-button',
@@ -35,6 +59,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'book-3d',
     name: '3D Interaction Book',
+    order: 3,
     category: '3d',
     tag: '3D',
     slug: 'components/book-3d',
@@ -49,6 +74,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'interactive-animated-tabs',
     name: 'Animated Tabs',
+    order: 6,
     category: 'components',
     tag: 'Navigation',
     slug: 'components/animated-tab',
@@ -77,6 +103,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'loading-spinner',
     name: 'Loading Spinner',
+    order:8,
     category: 'components',
     tag: 'Loader',
     slug: 'components/loading-spinner',
@@ -91,6 +118,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'retro-pixel',
     name: 'Retro Pixel Button',
+    order: 9,
     category: 'components',
     tag: 'Game',
     slug: 'components/retro-pixel-button',
@@ -147,6 +175,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'floating-nav',
     name: 'Floating Navigation',
+    order: 7,
     category: 'components',
     tag: 'Navigation',
     slug: 'components/floating-navigation',
@@ -175,6 +204,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'premium-btn',
     name: 'Premium Button',
+    order: 10,
     category: 'components',
     tag: 'Button',
     slug: 'components/premium-button',
@@ -204,6 +234,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
     id: 'toast-tabs',
     name: 'Dynamic Toast Tabs',
     category: 'components',
+    order: 3,
     tag: 'Tabs',
     slug: 'components/toast-tabs',
     showOnHome: true,
@@ -217,6 +248,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'dynamic-island-nav',
     name: 'Dynamic Island Nav',
+    order: 5,
     category: 'components',
     tag: 'Navigation',
     slug: 'components/dynamic-island-nav',
@@ -231,6 +263,7 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
     id: 'interactive-contact-button',
     name: 'Interactive Contact Button',
+    order:1,
     category: 'components',
     tag: 'Button',
     slug: 'components/interactive-contact-button',

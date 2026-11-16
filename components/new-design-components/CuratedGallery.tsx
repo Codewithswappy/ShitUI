@@ -4,7 +4,11 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { HeroCard } from './HeroCard';
 import { ShowcaseCard } from './ShowcaseCard';
-import { SHOWCASE_REGISTRY, ShowcaseComponent } from './showcase.config';
+import {
+  SHOWCASE_REGISTRY,
+  ShowcaseComponent,
+  getSortedShowcaseItems,
+} from './showcase.config';
 
 // Export for backward compatibility with consumers like SearchModal / NewLandingPage
 export const ALL_SHOWCASE_ITEMS: ShowcaseComponent[] = SHOWCASE_REGISTRY;
@@ -16,12 +20,9 @@ interface CuratedGalleryProps {
 export function CuratedGallery({ activeCategory }: CuratedGalleryProps) {
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
-  // Filter items based on active category
+  // Filter & sort items based on active category and user-configured order
   const filteredItems = useMemo(() => {
-    if (activeCategory === 'all' || activeCategory === 'home') {
-      return SHOWCASE_REGISTRY.filter((item) => item.showOnHome);
-    }
-    return SHOWCASE_REGISTRY.filter((item) => item.category === activeCategory);
+    return getSortedShowcaseItems(activeCategory);
   }, [activeCategory]);
 
   // "Surprise me" feature
@@ -49,14 +50,14 @@ export function CuratedGallery({ activeCategory }: CuratedGalleryProps) {
         componentCount={SHOWCASE_REGISTRY.length}
       />
 
-      {/* Masonry Layout: columns-1 sm:columns-2 md:columns-3 lg:columns-4 */}
-      <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4 [column-fill:_balance]">
+      {/* Horizontal Grid Layout: 1 col mobile, 2 sm, 3 md, 4 lg */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-stretch">
         <AnimatePresence mode="popLayout">
           {filteredItems.map((item, index) => (
             <div
               id={`card-${item.id}`}
               key={item.id}
-              className="break-inside-avoid mb-4 inline-block w-full"
+              className="flex w-full"
             >
               <ShowcaseCard
                 item={item}

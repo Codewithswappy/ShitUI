@@ -117,7 +117,7 @@ export function ShowcaseCard({ item, index, isHighlighted }: ShowcaseCardProps) 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
-          'group relative flex flex-col w-full select-none cursor-pointer',
+          'group relative flex flex-col w-full h-full justify-center select-none cursor-pointer',
           // Uniform padding to perfectly frame the centered component video:
           'p-6 sm:p-5',
           // Exact same background, soft tactile inset glow, and border as the sponsor card:
