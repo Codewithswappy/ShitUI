@@ -1,70 +1,171 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { Link } from 'next-view-transitions';
 import { cn } from '@/lib/utils';
 import { usePreviewStage } from './preview-context';
 
-function InsertTopLeftIcon({ className, size = 14 }: { className?: string; size?: number }) {
+// Double Alt Arrow Left Streamline Solar Icon
+function PrevArrowIcon({ className = 'h-4 w-4' }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 14 14"
-      width={size}
-      height={size}
+      viewBox="0 0 24 24"
+      id="Double-Alt-Arrow-Left--Streamline-Solar"
       className={className}
     >
-      <g>
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 1H9" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 4H9" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 7H9" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 13H0.5" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 10H0.5" strokeWidth="1" />
-        <path fill="currentColor" fillOpacity="0.25" d="M6 1H1c-0.276142 0 -0.5 0.22386 -0.5 0.5v5c0 0.27614 0.223858 0.5 0.5 0.5h5c0.27614 0 0.5 -0.22386 0.5 -0.5v-5c0 -0.27614 -0.22386 -0.5 -0.5 -0.5Z" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M6 1H1c-0.276142 0 -0.5 0.22386 -0.5 0.5v5c0 0.27614 0.223858 0.5 0.5 0.5h5c0.27614 0 0.5 -0.22386 0.5 -0.5v-5c0 -0.27614 -0.22386 -0.5 -0.5 -0.5Z" strokeWidth="1" />
+      <g id="Bold Duotone/Arrows/Double Alt Arrow Left">
+        <path
+          id="Vector"
+          opacity="0.32"
+          fill="currentColor"
+          d="M17.75 19c0 0.3139 -0.1954 0.5946 -0.4898 0.7035 -0.2944 0.1088 -0.6254 0.0229 -0.8296 -0.2154l-6 -7c-0.2408 -0.2808 -0.2408 -0.6953 0 -0.9762l6 -6.99996c0.2042 -0.2383 0.5352 -0.32421 0.8296 -0.21532 0.2944 0.10889 0.4898 0.38956 0.4898 0.70342V19Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_2"
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M13.4881 19.5695c0.3145 -0.2696 0.3509 -0.7431 0.0813 -1.0576L7.98781 12l5.58159 -6.51189c0.2696 -0.3145 0.2332 -0.78797 -0.0813 -1.05754s-0.788 -0.23314 -1.0575 0.08135L6.43056 11.5119c-0.24075 0.2809 -0.24075 0.6953 0 0.9762l6.00004 7c0.2695 0.3145 0.743 0.3509 1.0575 0.0814Z"
+          clipRule="evenodd"
+          strokeWidth="1"
+        />
       </g>
     </svg>
   );
 }
 
-function FocusPointsIcon({ className, size = 14 }: { className?: string; size?: number }) {
+// Double Alt Arrow Right Streamline Solar Icon
+function NextArrowIcon({ className = 'h-4 w-4' }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 14 14"
-      width={size}
-      height={size}
+      viewBox="0 0 24 24"
+      id="Double-Alt-Arrow-Right--Streamline-Solar"
       className={className}
     >
-      <g>
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M2.5 1.5h-1c-0.26522 0 -0.51957 0.10536 -0.707107 0.29289C0.605357 1.98043 0.5 2.23478 0.5 2.5v1" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M13.5 3.5v-1c0 -0.26522 -0.1054 -0.51957 -0.2929 -0.70711C13.0196 1.60536 12.7652 1.5 12.5 1.5h-1" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M11.5 12.5h1c0.2652 0 0.5196 -0.1054 0.7071 -0.2929s0.2929 -0.4419 0.2929 -0.7071v-1" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M0.5 10.5v1c0 0.2652 0.105357 0.5196 0.292893 0.7071 0.187537 0.1875 0.441887 0.2929 0.707107 0.2929h1" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M7 7.5c0.27614 0 0.5 -0.22386 0.5 -0.5s-0.22386 -0.5 -0.5 -0.5 -0.5 0.22386 -0.5 0.5 0.22386 0.5 0.5 0.5Z" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M3 7.5c0.27614 0 0.5 -0.22386 0.5 -0.5s-0.22386 -0.5 -0.5 -0.5 -0.5 0.22386 -0.5 0.5 0.22386 0.5 0.5 0.5Z" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M11 7.5c0.2761 0 0.5 -0.22386 0.5 -0.5s-0.2239 -0.5 -0.5 -0.5 -0.5 0.22386 -0.5 0.5 0.2239 0.5 0.5 0.5Z" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M7 11.5c0.27614 0 0.5 -0.2239 0.5 -0.5s-0.22386 -0.5 -0.5 -0.5 -0.5 0.2239 -0.5 0.5 0.22386 0.5 0.5 0.5Z" strokeWidth="1" />
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M7 3.5c0.27614 0 0.5 -0.22386 0.5 -0.5s-0.22386 -0.5 -0.5 -0.5 -0.5 0.22386 -0.5 0.5 0.22386 0.5 0.5 0.5Z" strokeWidth="1" />
+      <g id="Bold Duotone/Arrows/Double Alt Arrow Right">
+        <path
+          id="Vector"
+          opacity="0.32"
+          fill="currentColor"
+          d="M6.25 19c0 0.3139 0.19543 0.5946 0.48979 0.7035 0.29436 0.1088 0.6254 0.0229 0.82965 -0.2154l5.99996 -7c0.2408 -0.2808 0.2408 -0.6953 0 -0.9762L7.56944 4.51194c-0.20425 -0.2383 -0.53529 -0.32421 -0.82965 -0.21532 -0.29436 0.10889 -0.48979 0.38956 -0.48979 0.70342V19Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_2"
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M10.5119 19.5695c-0.3145 -0.2696 -0.3509 -0.7431 -0.0813 -1.0576L16.0122 12l-5.5816 -6.51189c-0.2696 -0.3145 -0.2332 -0.78797 0.0813 -1.05754s0.788 -0.23314 1.0576 0.08135l6 6.99998c0.2407 0.2809 0.2407 0.6953 0 0.9762l-6 7c-0.2696 0.3145 -0.7431 0.3509 -1.0576 0.0814Z"
+          clipRule="evenodd"
+          strokeWidth="1"
+        />
       </g>
     </svg>
   );
+}
+
+// Scale Streamline Solar Icon (used when FloatingDoc is closed / Preview mode)
+function ScaleIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      id="Scale--Streamline-Solar"
+      className={className}
+    >
+      <g id="Bold Duotone/Arrows Action/Scale">
+        <path
+          id="Vector"
+          opacity="0.32"
+          fill="currentColor"
+          d="M2 12c0 -4.71405 0 -7.07107 1.46447 -8.53553C4.92893 2 7.28595 2 12 2c4.714 0 7.0711 0 8.5355 1.46447C22 4.92893 22 7.28595 22 12c0 4.714 0 7.0711 -1.4645 8.5355C19.0711 22 16.714 22 12 22c-4.71405 0 -7.07107 0 -8.53553 -1.4645C2 19.0711 2 16.714 2 12Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_2"
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M16.6562 2.75c-0.4142 0 -0.75 -0.33579 -0.75 -0.75s0.3358 -0.75 0.75 -0.75H22c0.4142 0 0.75 0.33579 0.75 0.75v5.34375c0 0.41421 -0.3358 0.75 -0.75 0.75s-0.75 -0.33579 -0.75 -0.75V3.81066L13.8107 11.25H16c0.4142 0 0.75 0.3358 0.75 0.75s-0.3358 0.75 -0.75 0.75h-4c-0.4142 0 -0.75 -0.3358 -0.75 -0.75V8c0 -0.41421 0.3358 -0.75 0.75 -0.75s0.75 0.33579 0.75 0.75v2.1893L20.1893 2.75h-3.5331Z"
+          clipRule="evenodd"
+          strokeWidth="1"
+        />
+      </g>
+    </svg>
+  );
+}
+
+// Notification Lines Remove Streamline Solar Icon (used when FloatingDoc is open / to close docs)
+function NotificationLinesRemoveIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      id="Notification-Lines-Remove--Streamline-Solar"
+      className={className}
+    >
+      <g id="Bold Duotone/Notifications/Notification Lines Remove">
+        <path
+          id="Vector"
+          opacity="0.32"
+          fill="currentColor"
+          d="M20.5355 20.5355C22 19.0711 22 16.714 22 12c0 -1.358 0 -2.52044 -0.035 -3.52226 -0.0581 0.88429 -0.2127 1.45198 -0.624 1.86326C20.682 11 19.6213 11 17.5 11s-3.182 0 -3.841 -0.659C13 9.68198 13 8.62132 13 6.5s0 -3.18198 0.659 -3.84099c0.4113 -0.41127 0.979 -0.56588 1.8633 -0.624C14.5204 2 13.358 2 12 2 7.28595 2 4.92893 2 3.46447 3.46447 2 4.92893 2 7.28595 2 12c0 4.714 0 7.0711 1.46447 8.5355C4.92893 22 7.28595 22 12 22c4.714 0 7.0711 0 8.5355 -1.4645Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_2"
+          fill="currentColor"
+          d="M7 13.25c-0.41421 0 -0.75 0.3358 -0.75 0.75s0.33579 0.75 0.75 0.75h4c0.4142 0 0.75 -0.3358 0.75 -0.75s-0.3358 -0.75 -0.75 -0.75H7Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_3"
+          fill="currentColor"
+          d="M7 16.75c-0.41421 0 -0.75 0.3358 -0.75 0.75s0.33579 0.75 0.75 0.75h6c0.4142 0 0.75 -0.3358 0.75 -0.75s-0.3358 -0.75 -0.75 -0.75H7Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_4"
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M17.5 11c-2.1213 0 -3.182 0 -3.841 -0.659C13 9.68198 13 8.62132 13 6.5s0 -3.18198 0.659 -3.84099C14.318 2 15.3787 2 17.5 2s3.182 0 3.841 0.65901C22 3.31802 22 4.37868 22 6.5s0 3.18198 -0.659 3.841C20.682 11 19.6213 11 17.5 11Zm-2.5303 -7.03033c0.2929 -0.29289 0.7677 -0.29289 1.0606 0L17.5 5.43934l1.4697 -1.46967c0.2929 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066L18.5607 6.5l1.4696 1.46967c0.2929 0.29289 0.2929 0.76777 0 1.06066s-0.7677 0.29289 -1.0606 0L17.5 7.56066l-1.4697 1.46967c-0.2929 0.29289 -0.7677 0.29289 -1.0606 0 -0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066L16.4393 6.5l-1.4696 -1.46967c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z"
+          clipRule="evenodd"
+          strokeWidth="1"
+        />
+      </g>
+    </svg>
+  );
+}
+
+export interface FloatingDocIndexProps {
+  alwaysDocs?: boolean;
+  className?: string;
+  prevPage?: { url: string; title: string };
+  nextPage?: { url: string; title: string };
 }
 
 export function FloatingDocIndex({
   alwaysDocs = false,
   className,
-}: {
-  alwaysDocs?: boolean;
-  className?: string;
-}) {
+  prevPage,
+  nextPage,
+}: FloatingDocIndexProps) {
   const { isInfoOpen, setIsInfoOpen, setIsCodeOpen } = usePreviewStage();
   const isDocMode = alwaysDocs || isInfoOpen;
   const pathname = usePathname();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [percent, setPercent] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -381,14 +482,34 @@ export function FloatingDocIndex({
       ? CLOSED_WIDTH_DOCS
       : CLOSED_WIDTH_PREVIEW;
 
-  return (
+  const pillContent = (
     <div
-      id="floating-doc-index-pill"
+      id="floating-doc-nav-container"
       className={cn(
-        'absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto flex justify-center items-end select-none',
+        'fixed bottom-4 md:bottom-3 left-1/2 -translate-x-1/2 z-50 pointer-events-auto flex items-end justify-center gap-2 select-none',
         className
       )}
     >
+      {/* 1. Previous Component Button (Circular) */}
+      {prevPage ? (
+        <Link
+          href={prevPage.url}
+          title={`Previous: ${prevPage.title}`}
+          aria-label={`Previous: ${prevPage.title}`}
+          className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-[#3f80ff] text-white shadow-pill-glow border border-white/20 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+        >
+          <PrevArrowIcon className="h-4 w-4 text-white shrink-0" />
+        </Link>
+      ) : (
+        <div
+          className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-[#3f80ff]/40 text-white/40 shadow-pill-glow border border-white/10 cursor-not-allowed pointer-events-none"
+          aria-hidden="true"
+        >
+          <PrevArrowIcon className="h-4 w-4 shrink-0 opacity-40" />
+        </div>
+      )}
+
+      {/* 2. Center Component Info Pill (Rounded Full) */}
       <motion.div
         ref={containerRef}
         initial={false}
@@ -405,8 +526,8 @@ export function FloatingDocIndex({
         }}
         style={{ willChange: 'width, height' }}
         className={cn(
-          'relative bg-[#3074fe] text-white shadow-pill-glow border border-white/20 flex flex-col origin-bottom cursor-pointer overflow-hidden',
-          isOpen ? 'rounded-xl' : 'rounded-lg'
+          'relative bg-[#3f80ff] text-white shadow-pill-glow border border-white/20 flex flex-col origin-bottom cursor-pointer overflow-hidden',
+          isOpen ? 'rounded-2xl' : 'rounded-full'
         )}
         onClick={!isDocMode ? () => setIsInfoOpen(true) : undefined}
       >
@@ -416,10 +537,10 @@ export function FloatingDocIndex({
           <div
             id="trigger-component-info"
             onClick={toggleIndex}
-            className="flex items-center justify-between px-3 cursor-pointer h-[44px] shrink-0 w-full"
+            className="flex items-center justify-between px-3.5 cursor-pointer h-[44px] shrink-0 w-full"
           >
             {isDocMode ? (
-              /* State A: Info/Doc Mode Active -> Circular Progress + Index Label + Chevron + % + FocusPointsIcon */
+              /* State A: Info/Doc Mode Active -> Circular Progress + Index Label + Chevron + % + NotificationLinesRemoveIcon */
               <>
                 <div className="flex items-center gap-2 whitespace-nowrap min-w-0">
                   {/* Progress Circle */}
@@ -469,7 +590,7 @@ export function FloatingDocIndex({
                     </span>
                   </div>
 
-                  {/* Switch Back to Preview Button: ONLY FocusPoints SVG icon (no preview text, no eye icon) */}
+                  {/* Switch Back to Preview Button: NotificationLinesRemoveIcon */}
                   {!alwaysDocs && (
                     <button
                       type="button"
@@ -481,17 +602,17 @@ export function FloatingDocIndex({
                       }}
                       title="Back to Preview"
                       aria-label="Back to Preview"
-                      className="flex h-6 w-6 items-center justify-center rounded-md text-white bg-white/20 transition-colors active:scale-95 cursor-pointer shrink-0"
+                      className="flex h-7 w-7 items-center justify-center rounded-full text-white bg-white/20 hover:bg-white/30 transition-colors active:scale-95 cursor-pointer shrink-0"
                     >
-                      <FocusPointsIcon size={14} />
+                      <NotificationLinesRemoveIcon className="h-4 w-4" />
                     </button>
                   )}
                 </div>
               </>
             ) : (
-              /* State B: Preview Mode Active -> ONLY InsertTopLeftIcon and text Component Info */
-              <div className="flex items-center justify-center gap-2 whitespace-nowrap w-full">
-                <InsertTopLeftIcon size={14} className="text-white shrink-0" />
+              /* State B: Preview Mode Active -> ScaleIcon and text Component Info */
+              <div className="flex items-center justify-center gap-2 whitespace-nowrap w-full px-2">
+                <ScaleIcon className="h-4 w-4 text-white shrink-0" />
                 <span className="text-xs font-semibold text-white tracking-tight">
                   Component Info
                 </span>
@@ -510,7 +631,7 @@ export function FloatingDocIndex({
                   duration: 0.2,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="w-full border-t border-white/20 bg-[#3074fe]"
+                className="w-full border-t border-white/20 bg-[#3f80ff]"
               >
                 <div
                   ref={listRef}
@@ -633,8 +754,30 @@ export function FloatingDocIndex({
           </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* 3. Next Component Button (Circular) */}
+      {nextPage ? (
+        <Link
+          href={nextPage.url}
+          title={`Next: ${nextPage.title}`}
+          aria-label={`Next: ${nextPage.title}`}
+          className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-[#3f80ff] text-white shadow-pill-glow border border-white/20 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+        >
+          <NextArrowIcon className="h-4 w-4 text-white shrink-0" />
+        </Link>
+      ) : (
+        <div
+          className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-[#3f80ff]/40 text-white/40 shadow-pill-glow border border-white/10 cursor-not-allowed pointer-events-none"
+          aria-hidden="true"
+        >
+          <NextArrowIcon className="h-4 w-4 shrink-0 opacity-40" />
+        </div>
+      )}
     </div>
   );
+
+  if (!mounted || typeof document === 'undefined') return null;
+  return createPortal(pillContent, document.body);
 }
 
 export default FloatingDocIndex;

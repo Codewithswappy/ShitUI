@@ -10,6 +10,7 @@ import { ComponentPageStage } from '@/components/new-design-components/Component
 import { FloatingDocIndex } from '@/components/new-design-components/FloatingDocIndex';
 import { CopyMarkdownButton } from '@/components/new-design-components/CopyMarkdownButton';
 import { getComponentSource } from '@/lib/get-component-source';
+import { sidebarData } from '@/lib/sidebar-data';
 
 const componentPageOnlyComponents = {
   Preview: ({ children, code, component, cliCommand, ...props }: any) => {
@@ -313,6 +314,32 @@ export default async function Page(props: PageProps) {
       'sections',
     ].includes(slug[0]);
 
+  // Follow exact sidebar component sequence for Previous and Next navigation
+  const sidebarFlatItems = sidebarData.flatMap((section) => section.items);
+  const currentPath = (page.url || `/docs/${slug.join('/')}`).replace(/\/$/, '');
+  const sidebarIndex = sidebarFlatItems.findIndex(
+    (item) => item.href.replace(/\/$/, '') === currentPath
+  );
+
+  let prevPage: { url: string; title: string } | undefined;
+  let nextPage: { url: string; title: string } | undefined;
+
+  if (sidebarIndex !== -1) {
+    const prevItem = sidebarIndex > 0 ? sidebarFlatItems[sidebarIndex - 1] : undefined;
+    const nextItem =
+      sidebarIndex < sidebarFlatItems.length - 1 ? sidebarFlatItems[sidebarIndex + 1] : undefined;
+    prevPage = prevItem ? { url: prevItem.href, title: prevItem.title } : undefined;
+    nextPage = nextItem ? { url: nextItem.href, title: nextItem.title } : undefined;
+  } else {
+    const allPages = source.getPages();
+    const pageIndex = allPages.findIndex((p) => p.url.replace(/\/$/, '') === currentPath);
+    const prevObj = pageIndex > 0 ? allPages[pageIndex - 1] : undefined;
+    const nextObj =
+      pageIndex >= 0 && pageIndex < allPages.length - 1 ? allPages[pageIndex + 1] : undefined;
+    prevPage = prevObj ? { url: prevObj.url, title: prevObj.data.title } : undefined;
+    nextPage = nextObj ? { url: nextObj.url, title: nextObj.data.title } : undefined;
+  }
+
   if (isComponentPage) {
     return (
       <ComponentPageStage
@@ -321,6 +348,8 @@ export default async function Page(props: PageProps) {
         description={page.data.description}
         previewContent={<MDX components={componentPageOnlyComponents} />}
         docContent={<MDX components={componentDocComponents} />}
+        prevPage={prevPage}
+        nextPage={nextPage}
       />
     );
   }
@@ -387,20 +416,22 @@ export default async function Page(props: PageProps) {
           </div>
         </div>
 
-        <FloatingDocIndex alwaysDocs />
+        <FloatingDocIndex alwaysDocs prevPage={prevPage} nextPage={nextPage} />
       </div>
     </div>
   );
 }
 
 function DocsPager({ currentSlug }: { currentSlug: string[] }) {
-  const pages = source.getPages();
-  const index = pages.findIndex(
-    (page) => JSON.stringify(page.slugs) === JSON.stringify(currentSlug)
+  const sidebarFlatItems = sidebarData.flatMap((section) => section.items);
+  const currentPath = `/docs/${currentSlug.join('/')}`.replace(/\/$/, '');
+  const index = sidebarFlatItems.findIndex(
+    (item) => item.href.replace(/\/$/, '') === currentPath
   );
 
-  const prev = pages[index - 1];
-  const next = pages[index + 1];
+  const prev = index > 0 ? sidebarFlatItems[index - 1] : undefined;
+  const next =
+    index >= 0 && index < sidebarFlatItems.length - 1 ? sidebarFlatItems[index + 1] : undefined;
 
   if (!prev && !next) return null;
 
@@ -409,7 +440,7 @@ function DocsPager({ currentSlug }: { currentSlug: string[] }) {
       <div className="flex flex-row items-stretch justify-between gap-2 sm:gap-4">
         {prev ? (
           <Link
-            href={prev.url}
+            href={prev.href}
             className="group bg-background/50 hover:bg-accent/5 relative flex w-1/2 items-center justify-start gap-3 overflow-hidden rounded-xl p-4 no-underline backdrop-blur-sm transition-all duration-300"
           >
             {/* Hover Gradient Shine */}
@@ -439,7 +470,7 @@ function DocsPager({ currentSlug }: { currentSlug: string[] }) {
 
         {next ? (
           <Link
-            href={next.url}
+            href={next.href}
             className="group bg-background/50 hover:bg-accent/5 relative flex w-1/2 items-center justify-end gap-3 overflow-hidden rounded-xl p-4 no-underline backdrop-blur-sm transition-all duration-300"
           >
             {/* Hover Gradient Shine */}
@@ -496,7 +527,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       siteName: 'ShitUI',
       images: [
         {
-          url: 'https://shitui.in/og-imageblack.png',
+          url: 'https://shitui.in/og-image.jpg',
           width: 1200,
           height: 630,
           alt: `${page.data.title} - ShitUI Component`,
@@ -507,7 +538,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       card: 'summary_large_image',
       title: page.data.title,
       description: page.data.description,
-      images: ['https://shitui.in/og-imageblack.png'],
+      images: ['https://shitui.in/og-image.jpg'],
     },
     robots: {
       index: true,

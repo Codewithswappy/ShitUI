@@ -214,4 +214,32 @@ export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
       height: 1600,
     },
   },
+  {
+    id: 'dynamic-island-nav',
+    name: 'Dynamic Island Nav',
+    category: 'components',
+    tag: 'Navigation',
+    slug: 'components/dynamic-island-nav',
+    showOnHome: true,
+    preview: {
+      poster: '',
+      video: '/previews/dynamic-island-nav.webm',
+      width: 2560,
+      height: 1600,
+    },
+  },
+  {
+    id: 'interactive-contact-button',
+    name: 'Interactive Contact Button',
+    category: 'components',
+    tag: 'Button',
+    slug: 'components/interactive-contact-button',
+    showOnHome: true,
+    preview: {
+      poster: '',
+      video: '/previews/interactive-contact-button.webm',
+      width: 1206,
+      height: 1052,
+    },
+  },
 ];

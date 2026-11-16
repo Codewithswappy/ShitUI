@@ -16,6 +16,7 @@ import {
 } from './DuoIcons';
 import { useSearchContext } from './search-context';
 import { NavPills } from './FilterPills';
+import { GitHubStarButton } from './GitHubStarButton';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -238,8 +239,11 @@ export function TopNavigation({
             <NavPills onOpenSearch={handleOpenSearch} />
           </div>
 
-          {/* Right: Theme Toggle + Mobile Hamburger Button */}
-          <div className="flex items-center justify-end w-28 sm:w-36 shrink-0 gap-1.5 sm:gap-2.5 select-none">
+          {/* Right: GitHub Stars + Theme Toggle + Mobile Hamburger Button */}
+          <div className="flex items-center justify-end w-auto sm:w-auto shrink-0 gap-1.5 sm:gap-2.5 select-none">
+            {/* GitHub Repo Stars Button */}
+            <GitHubStarButton size="sm" />
+
             {/* Dark / Light mode switch */}
             <button
               type="button"
@@ -305,8 +309,9 @@ export function TopNavigation({
                 />
               </Link>
 
-              {/* Right: Theme Toggle + Close (Cross) Button */}
+              {/* Right: GitHub Stars + Theme Toggle + Close (Cross) Button */}
               <div className="flex items-center gap-1.5 sm:gap-2.5">
+                <GitHubStarButton size="sm" />
                 <button
                   type="button"
                   onClick={toggleTheme}

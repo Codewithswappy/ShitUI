@@ -3,7 +3,9 @@
   "components": [
     "animated-tab",
     "book-3d",
+    "dynamic-island-nav",
     "floating-navigation",
+    "interactive-contact-button",
     "liquid-button",
     "liquid-tooltip",
     "liquid-wave",

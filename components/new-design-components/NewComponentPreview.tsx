@@ -432,145 +432,64 @@ export function NewComponentPreview({
   return (
     <div
       data-slot="new-component-stage-wrapper"
-      className="relative flex h-full w-full flex-col overflow-hidden p-2 sm:p-3 lg:p-4 lg:pt-4 lg:pb-4 lg:pl-4 lg:pr-3 lg:gap-2.5"
+      className="relative flex h-full w-full flex-col px-1 md:px-3 lg:px-4 pt-4 pb-16 md:pb-16 select-none"
     >
-      {/* 1. Top Action Row: CLI (desktop left), Code & Prompt (right) */}
-      <div className="relative z-40 flex items-center w-full shrink-0 min-h-[32px]">
-        <FloatingPreviewPill code={code} className="relative top-0 right-0 w-full" />
+      {/* 1. Top Folder Tab Row: Preview, Code, CLI, Prompt in Folder Tab Geometry */}
+      <div className="relative z-40 w-full shrink-0">
+        <FloatingPreviewPill
+          code={code}
+          componentName={component}
+          cliCommand={cliCommand}
+          canRotate={canRotate}
+          onRotate={handleRotate}
+          rotationDegree={rotationDegree}
+          canExpand={canExpand}
+          onExpand={() => setIsExpanded(true)}
+          className="relative top-0 left-0 w-full"
+        />
       </div>
 
-      {/* 2. DITHER BORDER + PREVIEW STAGE CONTAINER */}
+      {/* 2. MAIN OUTER BODY (fused seamlessly under the folder tab row) */}
       <div
         data-slot="new-component-preview"
         className={cn(
-          'relative flex flex-1 w-full items-center justify-center overflow-hidden p-2',
+          'relative -mt-[1px] flex flex-1 min-h-0 w-full flex-col bg-neutral-200 dark:bg-neutral-800 rounded-tr-[24px] rounded-br-[24px] rounded-bl-[24px] rounded-tl-none md:p-3 p-1 z-10',
           className
         )}
       >
-        {/* Dynamic Pixel Dither Ambient Borders (Separate border on each side: left, right, top, bottom) */}
-        {/* <div
-          className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none"
-          aria-hidden="true"
-        > */}
-          {/* Top Border */}
-          {/* <PixelDither
-            side="top"
-            variant="straight"
-            shape="square"
-            color={isDark ? '#ffffff' : '#2563eb'}
-            borderSize={36}
-            pixelSize={1}
-           clickAnimation={true}
-            idleDensity={1}
-            animated={true}
-            speed={0.65}
-            interactive={true}
-            className="absolute top-0 inset-x-0 h-14 pointer-events-auto"
-          /> */}
-
-          {/* Bottom Border */}
-          {/* <PixelDither
-            side="bottom"
-            variant="straight"
-            shape="square"
-            borderSize={36}
-             color={isDark ? '#ffffff' : '#2563eb'}
-            pixelSize={1}
-            clickAnimation={true}
-            animated={true}
-            speed={0.65}
-            interactive={true}
-            className="absolute bottom-0 inset-x-0 h-14 pointer-events-auto"
-          /> */}
-
-          {/* Left Border */}
-          {/* <PixelDither
-            side="left"
-            variant="straight"
-            shape="square"
-            borderSize={36}
-             color={isDark ? '#ffffff' : '#2563eb'}
-            pixelSize={1}
-            clickAnimation={true}
-            animated={true}
-            speed={0.65}
-            interactive={true}
-            className="absolute left-0 inset-y-0 w-14 pointer-events-auto"
-          /> */}
-
-          {/* Right Border */}
-          {/* <PixelDither
-            side="right"
-            variant="straight"
-            shape="square"
-            borderSize={36}
-             color={isDark ? '#ffffff' : '#2563eb'}
-            pixelSize={1}
-            clickAnimation={true}
-            animated={true}
-            speed={0.65}
-            interactive={true}
-            className="absolute right-0 inset-y-0 w-14 pointer-events-auto"
-          />
-        </div> */}
-
-        {/* Component stage: framed preview card with background, rounded corners, and border */}
-        <motion.div
-        layout
-        transition={{
-          type: 'spring',
-          stiffness: 350,
-          damping: 30,
-          mass: 0.8,
-        }}
-        className="@container relative z-10 flex h-full w-full items-center justify-center overflow-hidden bg-neutral-50 dark:bg-neutral-950 transition-colors"
-      >
-        {/* Top Right Action Toolbar: Rotate / Replay + Fullscreen Expand (Preview only, hidden during Code view) */}
-        {!isCodeOpen && (canExpand || canRotate) && (
+      
+        {/* Inner Stage: framed preview card with light/dark background, rounded-2xl corners, and subtle border */}
+        <div className="@container relative z-10 flex h-full w-full items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-900 shadow-xs shadow-black/10 dark:shadow-xs dark:shadow-white/5 ring-1 ring-black/5 dark:ring-1 dark:ring-white/5 rounded-2xl transition-colors">
+        {/* Top Right Action Toolbar: Rotate / Replay only in preview stage if canRotate */}
+        {!isCodeOpen && canRotate && (
           <div
             className={cn(
               'absolute z-30 flex items-center gap-1 transition-all duration-300',
-              'bg-background/80 dark:bg-neutral-900/80 rounded-md backdrop-blur-md shadow-xs border border-border/60 p-0.5',
-              'top-1.5 right-1.5 sm:top-2 sm:right-2'
+              'bg-white/80 dark:bg-neutral-800/80 rounded-md backdrop-blur-md shadow-xs border border-neutral-200/80 dark:border-neutral-700/80 p-0.5',
+              'top-2 right-2'
             )}
           >
-            {/* Rotate / Replay Action Button (for VaporSmokeText) */}
-            {canRotate && (
-              <button
-                type="button"
-                onClick={handleRotate}
-                title="Replay animation"
-                aria-label="Replay animation"
-                className="relative flex h-7 w-7 cursor-pointer items-center justify-center p-0 text-muted-foreground/80 transition-colors hover:text-foreground active:scale-90"
+            <button
+              type="button"
+              onClick={handleRotate}
+              title="Replay animation"
+              aria-label="Replay animation"
+              className="flex h-6 w-6 cursor-pointer items-center justify-center p-0 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors active:scale-90"
+            >
+              <motion.div
+                animate={{ rotate: rotationDegree }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center justify-center"
               >
-                <motion.div
-                  animate={{ rotate: rotationDegree }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center justify-center"
-                >
-                  <RotateRightCircleIcon className="h-4.5 w-4.5" />
-                </motion.div>
-              </button>
-            )}
-
-            {/* Expand Action Button (for liquid-wave) */}
-            {canExpand && (
-              <button
-                type="button"
-                onClick={() => setIsExpanded(true)}
-                title="Expand to full screen"
-                aria-label="Expand to full screen"
-                className="relative flex h-7 w-7 cursor-pointer items-center justify-center p-0 text-muted-foreground/80 transition-colors hover:text-foreground active:scale-90"
-              >
-                <ExpandPreviewIcon className="h-4.5 w-4.5" />
-              </button>
-            )}
+                <RotateRightCircleIcon className="h-3.5 w-3.5" />
+              </motion.div>
+            </button>
           </div>
         )}
 
         {/* True Full Screen Modal Portal: Covers the entire window only when expanded */}
         {isExpanded && mounted && typeof document !== 'undefined' && createPortal(
-          <div className="fixed inset-0 z-[999999] h-screen w-screen bg-background dark:bg-neutral-950 flex items-center justify-center overflow-hidden">
+          <div className="fixed inset-0 z-[999999] h-screen w-screen bg-background dark:bg-neutral-950 flex flex-col overflow-hidden">
             {/* Top Right Floating Toolbar: Esc badge + Shrink button */}
             <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 flex items-center gap-1.5 bg-background/85 dark:bg-neutral-900/85 rounded-md backdrop-blur-md shadow-md border border-border/60 p-0.5">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70 select-none px-2 py-0.5">
@@ -588,9 +507,9 @@ export function NewComponentPreview({
             </div>
 
             {/* The component rendered in true full screen */}
-            <div className="h-full w-full flex items-center justify-center">
+            <div className="relative h-full w-full flex-1 overflow-hidden flex flex-col">
               {!isReloading && (
-                <div key={remountKey} className="contents">
+                <div key={remountKey} className="relative h-full w-full flex-1 overflow-hidden flex flex-col">
                   {React.isValidElement(children)
                     ? React.cloneElement(children as React.ReactElement<any>, {
                         key: `fullscreen-replay-${remountKey}`,
@@ -602,10 +521,16 @@ export function NewComponentPreview({
           </div>,
           document.body
         )}
-        {/* 1. Underlying Component View (old queries): slides away softly into blur with zero jumping */}
+        {/* 1. Underlying Component View: soft blurry fade-in so it never flashes or jumps on page switch */}
         <motion.div
+          key={`component-view-${remountKey}`}
           className="relative flex h-full w-full overflow-auto scrollbar-thin transform-gpu will-change-transform"
           style={{ justifyContent: 'safe center', alignItems: 'safe center' }}
+          initial={{
+            opacity: 0,
+            filter: 'blur(16px)',
+            scale: 0.985,
+          }}
           animate={{
             opacity: isCodeOpen ? 0 : 1,
             y: isCodeOpen ? 36 : 0,
@@ -613,11 +538,11 @@ export function NewComponentPreview({
             filter: isCodeOpen ? 'blur(22px)' : 'blur(0px)',
           }}
           transition={{
-            duration: 0.68,
+            duration: 0.52,
             ease: [0.16, 1, 0.3, 1], // snappy start, velvety deceleration
           }}
         >
-          {!isReloading && (
+          {!isReloading && !isExpanded && (
             <div key={remountKey} className="contents">
               {React.isValidElement(children)
                 ? React.cloneElement(children as React.ReactElement<any>, {
@@ -646,7 +571,7 @@ export function NewComponentPreview({
                 duration: 0.62,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="absolute inset-0 z-30 flex items-center justify-center overflow-hidden backdrop-blur-2xl bg-background/95 dark:bg-neutral-950/96 transform-gpu"
+              className="absolute inset-0 z-30 flex items-center justify-center overflow-hidden backdrop-blur-2xl bg-neutral-100/98 dark:bg-neutral-900/98 transform-gpu"
             >
               <AnimatePresence mode="wait">
                 {phase === 'waveform' ? (
@@ -812,7 +737,7 @@ export function NewComponentPreview({
                       {/* Clean soft fade on bottom of the code area as they scroll code */}
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-linear-to-t from-background dark:from-neutral-950 via-background/80 dark:via-neutral-950/80 to-transparent z-20 backdrop-blur-[1px]"
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-linear-to-t from-neutral-100 dark:from-neutral-900 via-neutral-100/80 dark:via-neutral-900/80 to-transparent z-20 backdrop-blur-[1px]"
                       />
                     </div>
                   </motion.div>
@@ -821,7 +746,7 @@ export function NewComponentPreview({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </div>
   </div>
 );

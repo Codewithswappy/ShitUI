@@ -130,46 +130,6 @@ export const FEEDBACK_WALL: Testimonial[] = [
     verified: false,
     variant: 'square',
   },
-  {
-    id: 13,
-    name: 'Devon',
-    handle: '@devon_ui',
-    avatar: 'https://unavatar.io/twitter/devon_ui',
-    content:
-      'The liquid button and magnetic text blew my mind. Dropped it straight into our landing page.',
-    verified: true,
-    variant: 'horizontal',
-  },
-  {
-    id: 14,
-    name: 'Alex',
-    handle: '@alexm_dev',
-    avatar: 'https://unavatar.io/twitter/alexm_dev',
-    content:
-      'Shadcn CLI support makes installing these instant. Just copy and paste, zero config headaches.',
-    verified: true,
-    variant: 'square',
-  },
-  {
-    id: 15,
-    name: 'Rohan',
-    handle: '@rohan_crafts',
-    avatar: 'https://unavatar.io/twitter/rohan_crafts',
-    content:
-      'The rebrand to ShitUI is hilarious and unforgettable, but the components are genuinely top tier.',
-    verified: true,
-    variant: 'horizontal',
-  },
-  {
-    id: 16,
-    name: 'Kavya',
-    handle: '@kavyaux',
-    avatar: 'https://unavatar.io/twitter/kavyaux',
-    content:
-      'Finally a library where animations feel natural instead of clunky CSS transitions. 10/10.',
-    verified: false,
-    variant: 'vertical',
-  },
 ];
 
 const VARIANT_HEIGHTS: Record<'vertical' | 'square' | 'horizontal', string> = {

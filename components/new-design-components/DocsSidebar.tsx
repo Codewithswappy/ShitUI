@@ -535,15 +535,15 @@ export function DocsSidebar({
                         {item.badge && (
                           <span
                             className={cn(
-                              'shrink-0 rounded-full px-1.5 py-0.5 text-[8px] font-semibold tracking-wide uppercase transition-colors',
+                              'shrink-0 rounded px-1.5 py-0.5 text-[7px] font-medium tracking-wider uppercase transition-all select-none',
                               item.badge.toLowerCase() === 'new' &&
-                                'bg-primary text-primary-foreground',
+                                'bg-[#3f80ff] text-white shadow-pill-glow border border-white/20',
                               item.badge.toLowerCase() === 'updated' &&
                                 'border border-border bg-muted text-muted-foreground',
                               item.badge.toLowerCase() === 'pro' &&
                                 'border border-amber-500/30 bg-amber-500/20 text-amber-600 dark:text-amber-400',
                               !['new', 'updated', 'pro'].includes(item.badge.toLowerCase()) &&
-                                'bg-primary/10 text-primary'
+                                'bg-[#3f80ff] text-white shadow-pill-glow border border-white/20'
                             )}
                           >
                             {item.badge}

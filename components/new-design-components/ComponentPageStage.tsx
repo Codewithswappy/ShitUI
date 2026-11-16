@@ -12,6 +12,8 @@ interface ComponentPageStageProps {
   description?: string;
   previewContent: React.ReactNode;
   docContent: React.ReactNode;
+  prevPage?: { url: string; title: string };
+  nextPage?: { url: string; title: string };
 }
 
 /**
@@ -55,6 +57,8 @@ export function ComponentPageStage({
   description,
   previewContent,
   docContent,
+  prevPage,
+  nextPage,
 }: ComponentPageStageProps) {
   const { isInfoOpen, cliCommand } = usePreviewStage();
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -117,9 +121,10 @@ export function ComponentPageStage({
     center: {
       clipPath: 'inset(0% 0% 0% 0%)',
       opacity: 1,
+      filter: 'blur(0px)',
       zIndex: 10,
       transition: {
-        duration: 1.15,
+        duration: isMountedRef.current ? 1.15 : 0.45,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -255,7 +260,7 @@ export function ComponentPageStage({
             key="preview-stage"
             custom={direction}
             variants={stageVariants}
-            initial={isMountedRef.current ? 'enter' : false}
+            initial={isMountedRef.current ? 'enter' : { opacity: 0, filter: 'blur(10px)' }}
             animate="center"
             exit="exit"
             className="h-full w-full bg-background"
@@ -311,7 +316,7 @@ export function ComponentPageStage({
       </AnimatePresence>
 
       {/* Floating Bottom Pill (Switches between Component Info button and Index Scroll TOC) */}
-      <FloatingDocIndex />
+      <FloatingDocIndex prevPage={prevPage} nextPage={nextPage} />
     </div>
   );
 }

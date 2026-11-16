@@ -34,3 +34,4 @@ export * from './Testimonials';
 export * from './GradualBlur';
 export * from './SponsorsSection';
 export * from './SponsorPricing';
+export * from './GitHubStarButton';

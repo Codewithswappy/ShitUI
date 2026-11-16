@@ -1,0 +1,107 @@
+---
+title: Dynamic Island Navigation
+description: An iOS-inspired adaptive Dynamic Island navigation bar with fluid physics, scroll morphing, and mobile drawer.
+badge: "New"
+---
+
+import DynamicIslandNav from '@/components/shitui/DynamicIslandNav';
+import { DynamicIslandNavDemo } from '@/components/demos/dynamic-island-nav-demo';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="dynamic-island-nav" expand cliCommand="npx shadcn@latest add @shitui/dynamic-island-nav">
+  <DynamicIslandNavDemo />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import DynamicIslandNav from "@/components/shitui/DynamicIslandNav";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function Navbar() {
+  return (
+    <DynamicIslandNav
+      theme="dark"
+      compactOnScroll={true}
+      onSelect={(id) => console.log('Selected section:', id)}
+    />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Dynamic Island Morphing',
+      description: 'Fluid spring-driven pill that smoothly expands and contracts based on scroll and interaction.',
+    },
+    {
+      title: 'Adaptive Compact Mode',
+      description: 'Automatically shrinks to a discrete indicator when scrolling and expands on hover or tap.',
+    },
+    {
+      title: 'Built-in Mobile Drawer',
+      description: 'Transforms into an accessible dropdown panel with staggered entrance animations on mobile screens.',
+    },
+    {
+      title: 'Smooth Physics',
+      description: 'Realistic spring animations tuned with mass, stiffness, and damping for a native Apple feel.',
+    },
+    {
+      title: 'Customizable Themes',
+      description: 'Full support for dark and light UI themes with glassmorphism backdrop blur.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'items',
+      type: 'DynamicIslandNavItem[]',
+      default: 'defaultItems',
+      description: 'Array of navigation items with id, label, icon, section, and optional href.',
+    },
+    {
+      name: 'activeId',
+      type: 'string',
+      description: 'Controlled active item identifier.',
+    },
+    {
+      name: 'onSelect',
+      type: '(id: string) => void',
+      description: 'Callback fired when an item is selected or clicked.',
+    },
+    {
+      name: 'theme',
+      type: "'dark' | 'light'",
+      default: "'dark'",
+      description: 'Color theme styling for the island pill and text.',
+    },
+    {
+      name: 'compactOnScroll',
+      type: 'boolean',
+      default: 'true',
+      description: 'Whether the island automatically condenses into a compact pill on scroll.',
+    },
+    {
+      name: 'scrollOffset',
+      type: 'number',
+      default: '140',
+      description: 'Scroll distance in pixels before triggering the compact mode.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Optional additional CSS classes for custom styling.',
+    },
+  ]}
+/>
+

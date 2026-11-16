@@ -83,6 +83,30 @@ export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
     ],
     credit: DEFAULT_CREDIT,
   },
+  'dynamic-island-nav': {
+    title: 'Dynamic Island Navigation',
+    description: 'An adaptive iOS-inspired Dynamic Island navbar with fluid physics and scroll morphing.',
+    tags: ['Navigation', 'Dynamic Island', 'Motion', 'React', 'Mobile Drawer'],
+    version: 'v1.0.0',
+    lastUpdated: 'Nov 2026',
+    related: [
+      { title: 'Floating Navigation', href: '/docs/components/floating-navigation' },
+      { title: 'Animated Tab', href: '/docs/components/animated-tab' },
+    ],
+    credit: DEFAULT_CREDIT,
+  },
+  'interactive-contact-button': {
+    title: 'Interactive Contact Button',
+    description: 'A tactile floating contact button that expands into an interactive profile card with booking and email copy.',
+    tags: ['Button', 'Contact', 'Popover', 'React', 'Motion'],
+    version: 'v1.0.0',
+    lastUpdated: 'Nov 2026',
+    related: [
+      { title: 'Premium Button', href: '/docs/components/premium-button' },
+      { title: 'Liquid Button', href: '/docs/components/liquid-button' },
+    ],
+    credit: DEFAULT_CREDIT,
+  },
   'floating-navigation': {
     title: 'Floating Navigation',
     description: 'A sleek floating navigation bar with fluid hover effects and animated icons.',

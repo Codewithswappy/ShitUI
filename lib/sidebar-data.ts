@@ -24,8 +24,18 @@ export const sidebarData = [
         "href": "/docs/components/animated-tab"
       },
       {
+        "title": "Dynamic Island Nav",
+        "href": "/docs/components/dynamic-island-nav",
+         "badge": "New"
+      },
+      {
         "title": "Floating Navigation",
         "href": "/docs/components/floating-navigation"
+      },
+      {
+        "title": "Interactive Contact Button",
+        "href": "/docs/components/interactive-contact-button",
+        "badge": "New"
       },
       {
         "title": "Liquid Button",
@@ -54,7 +64,7 @@ export const sidebarData = [
     ]
   },
   {
-    "title": "Text Animation",
+    "title": "Text",
     "items": [
       {
         "title": "Magnetic Scatter Text",
@@ -75,7 +85,7 @@ export const sidebarData = [
     ]
   },
   {
-    "title": "3D Elements",
+    "title": "3D",
     "items": [
       {
         "title": "Book 3D",
@@ -84,7 +94,7 @@ export const sidebarData = [
     ]
   },
   {
-    "title": "Interactive Background",
+    "title": "Backgrounds",
     "items": [
       {
         "title": "Liquid Wave",

@@ -1,0 +1,140 @@
+---
+title: Interactive Contact Button
+description: A tactile floating contact trigger that expands into an interactive profile badge with instant email copy and booking integration.
+badge: "New"
+---
+
+import InteractiveContactButton from '@/components/shitui/InteractiveContactButton';
+import { InteractiveContactButtonDemo } from '@/components/demos/interactive-contact-button-demo';
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+
+<Preview component="interactive-contact-button" cliCommand="npx shadcn@latest add @shitui/interactive-contact-button">
+  <InteractiveContactButtonDemo />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import InteractiveContactButton from "@/components/shitui/InteractiveContactButton";`,
+    },
+    {
+      title: 'Use in your application',
+      code: `export default function ContactTrigger() {
+  return (
+    <InteractiveContactButton
+      name="Swapnil Kalambe"
+      role="Design Engineer"
+      email="hello@example.com"
+      avatarUrl="https://unavatar.io/twitter/heyyswap"
+      availableForWork={true}
+      bookingUrl="https://cal.com/your-handle"
+    />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Tactile Floating Trigger',
+      description: 'Compact pill button with animated text slide and icon transition on hover.',
+    },
+    {
+      title: 'Interactive Profile Popover',
+      description: 'Reveals an elegant profile card with live availability indicator and quick action buttons.',
+    },
+    {
+      title: 'One-Click Email Copy',
+      description: 'Built-in clipboard feedback with checkmark transition and copy status notification.',
+    },
+    {
+      title: 'Booking Calendar Integration',
+      description: 'Direct calendar link or customizable action handler for scheduling meetings.',
+    },
+    {
+      title: 'Flexible Card Positioning',
+      description: 'Supports bottom-right, bottom-left, and bottom-center alignments with automatic responsive bounds.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'name',
+      type: 'string',
+      default: "'Swapnil Kalambe'",
+      description: 'The display name shown on the expanded profile card.',
+    },
+    {
+      name: 'role',
+      type: 'string',
+      default: "'Design Engineer'",
+      description: 'Professional title or role subtitle.',
+    },
+    {
+      name: 'email',
+      type: 'string',
+      default: "'hello@example.com'",
+      description: 'Email address copied to clipboard when clicking the email button.',
+    },
+    {
+      name: 'avatarUrl',
+      type: 'string',
+      description: 'URL for the profile photo avatar image.',
+    },
+    {
+      name: 'availableForWork',
+      type: 'boolean',
+      default: 'true',
+      description: 'Displays a pulsing green status indicator when set to true.',
+    },
+    {
+      name: 'statusText',
+      type: 'string',
+      default: "'Available for work'",
+      description: 'Custom status text next to the availability indicator.',
+    },
+    {
+      name: 'bookingUrl',
+      type: 'string',
+      description: 'External link URL for the "Book a Call" button (e.g. Cal.com or Calendly).',
+    },
+    {
+      name: 'buttonText',
+      type: 'string',
+      default: "'Contact'",
+      description: 'Resting label for the trigger pill button.',
+    },
+    {
+      name: 'buttonHoverText',
+      type: 'string',
+      default: "'Get in touch'",
+      description: 'Hover label that slides into view on interaction.',
+    },
+    {
+      name: 'theme',
+      type: "'dark' | 'light'",
+      default: "'dark'",
+      description: 'Visual theme for the button and popover badge.',
+    },
+    {
+      name: 'cardPosition',
+      type: "'bottom-right' | 'bottom-left' | 'bottom-center'",
+      default: "'bottom-right'",
+      description: 'Alignment of the profile card relative to the trigger button.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Optional CSS class for styling the container.',
+    },
+  ]}
+/>
+

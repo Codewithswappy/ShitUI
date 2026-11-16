@@ -22,11 +22,17 @@ const STATIC_SECTIONS = [
 // Preferred section order
 const SECTION_ORDER = [
   'Components',
-  'Text Animation',
-  '3D Elements',
-  'Interactive Background',
+  'Text',
+  '3D',
+  'Backgrounds',
   'Sections',
 ];
+
+const CATEGORY_DISPLAY_MAP: Record<string, string> = {
+  'Text Animation': 'Text',
+  '3D Elements': '3D',
+  'Interactive Background': 'Backgrounds',
+};
 
 function formatComponentTitle(fileName: string): string {
   return fileName.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
@@ -48,7 +54,8 @@ async function buildSidebar() {
     const { data } = matter(fileContent);
 
     const title = data.title || formatComponentTitle(fileName);
-    const category = (data.category as string) || 'Components';
+    const rawCategory = (data.category as string) || 'Components';
+    const category = CATEGORY_DISPLAY_MAP[rawCategory] || rawCategory;
     const badge = data.badge as string | undefined;
 
     if (!grouped[category]) {

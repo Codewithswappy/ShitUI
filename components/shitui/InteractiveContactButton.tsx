@@ -548,21 +548,21 @@ export default function InteractiveContactButton({
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ff332] opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ff332]" />
                     </span>
-                    <span className="text-[11px] font-medium tracking-tight text-[#4ff332]">
+                    <span className="text-[11px] font-normal tracking-tight text-[#4ff332]">
                       {statusText}
                     </span>
                   </div>
                 )}
 
                 {/* Name */}
-                <h3 className="truncate text-[18px] leading-tight font-bold tracking-tight">
+                <h3 className="truncate text-[18px] leading-tight font-medium tracking-tight">
                   {name}
                 </h3>
 
                 {/* Role */}
                 <p
                   className={cn(
-                    'mt-0.5 mb-2 truncate text-xs font-medium tracking-tight',
+                    'mt-0.5 mb-2 truncate text-xs font-normal tracking-tight',
                     theme === 'dark' ? 'text-neutral-400' : 'text-neutral-500'
                   )}
                 >

@@ -38,6 +38,23 @@
       ]
     },
     {
+      "name": "dynamic-island-nav",
+      "type": "registry:ui",
+      "title": "Dynamic Island Navigation",
+      "description": "An iOS-inspired adaptive Dynamic Island navigation bar with fluid physics.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "ui/dynamic-island-nav.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "floating-navigation",
       "type": "registry:ui",
       "title": "Floating Navigation",
@@ -50,6 +67,23 @@
       "files": [
         {
           "path": "ui/floating-navigation.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "interactive-contact-button",
+      "type": "registry:ui",
+      "title": "Interactive Contact Button",
+      "description": "A tactile floating contact button that expands into an interactive profile card.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "ui/interactive-contact-button.tsx",
           "type": "registry:ui"
         }
       ]

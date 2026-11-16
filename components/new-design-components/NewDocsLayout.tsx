@@ -121,7 +121,7 @@ function NewDocsLayoutInner({
           }}
           className="hidden lg:block shrink-0 h-full overflow-hidden z-30 border-0 shadow-none bg-transparent rounded-none"
         >
-          <div className="w-[264px] h-full flex flex-col justify-between overflow-hidden px-2.5 py-3 select-none">
+          <div className="w-[264px] h-full flex flex-col overflow-hidden px-2.5 py-3 select-none">
             {/* Top Navigation Links (scrollable, with smooth bottom fade mask when scrolling) */}
             <div
               className={cn(
@@ -144,17 +144,7 @@ function NewDocsLayoutInner({
                 }}
               />
               {/* Extra spacing at bottom of navigation so last section scrolls cleanly into full view */}
-              <div className="h-4 w-full shrink-0" aria-hidden="true" />
-            </div>
-
-            {/* Bottom Sponsor Card with soft fade on top so text scrolls smoothly */}
-            <div className="relative w-full shrink-0 pt-2">
-              {/* Soft small ambient fade on top of the card */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-5 inset-x-0 h-5 bg-gradient-to-t from-background via-background/70 to-transparent z-10"
-              />
-              <DocSponsors className="w-full h-[155px] min-h-[155px]" />
+              <div className="h-6 w-full shrink-0" aria-hidden="true" />
             </div>
           </div>
         </motion.aside>
@@ -174,14 +164,21 @@ function NewDocsLayoutInner({
           )}
         </main>
 
-        {/* Right Column: 2 separate stacked boxes matching sketch */}
+        {/* Right Column: Upper Component Info + Lower Sponsor Card */}
         <aside
           data-slot="docs-right-panel"
           aria-label="Component details panel"
-          className="relative z-10 hidden lg:flex w-80 shrink-0 h-full p-4 pl-3 flex-col gap-3"
+          className="relative z-10 hidden lg:flex w-80 shrink-0 h-full p-4 pl-3 flex-col justify-between overflow-hidden gap-3"
         >
-          {/* Right Stack: Divided into Upper (Inspiration/Credit/Mindful/Contact) and Lower (Sponsor) */}
-          <DocRightPanel />
+          {/* Upper Section: Component Details (Title, Tags, Credits, Contact) */}
+          <div className="flex-1 min-h-0 overflow-hidden">
+            <DocRightPanel />
+          </div>
+
+          {/* Lower Section: Sponsor Card pinned to bottom */}
+          <div className="relative w-full shrink-0 pt-1">
+            <DocSponsors className="w-full h-[200px] min-h-[200px]" />
+          </div>
         </aside>
       </div>
 

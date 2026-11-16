@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { Sun, Moon, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { RareLogo } from './RareLogo';
-import {DuoCuteStar} from './DuoIcons';
+import { GitHubStarButton } from './GitHubStarButton';
 import { useSearchContext } from './search-context';
 
 export interface DocsHeaderProps {
@@ -256,7 +256,7 @@ export function DocsHeader({
         </div>
       </div> */}
 
-      {/* Right: Search, Theme Toggle & Sponsor Button */}
+      {/* Right: Search, Theme Toggle & GitHub Stars Button */}
       <div className="flex items-center gap-2 shrink-0">
         {/* Search Modal Trigger (Rounded Magnifer Icon) */}
         <button
@@ -272,19 +272,8 @@ export function DocsHeader({
         {/* Dark Mode Toggle Icon */}
         <DocThemeToggle />
 
-        {/* Sponsor Button (consistent h-10 height) */}
-        <a
-          href="https://github.com/sponsors/Codewithswappy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex h-10 items-center gap-1 rounded-lg px-3 sm:px-4 text-sm font-medium tracking-wide text-white bg-primary shadow-pill-glow transition-all duration-200 active:scale-95"
-          title="Sponsor RareUI"
-        >
-
-
-          <DuoCuteStar className="h-5 w-5 shrink-0 fill-current" />
-          <span className="hidden sm:inline">Sponsor</span>
-        </a>
+        {/* GitHub Stars Button (replaces Sponsor button) */}
+        <GitHubStarButton size="md" />
       </div>
     </header>
   );

@@ -9,9 +9,9 @@ import {
 import { DuoXCom } from './DuoIcons';
 import { cn } from '@/lib/utils';
 
-// Bookmark SVG icon
+// Streamline Solar Bookmark Icon
 function BookmarkIcon({
-  className = 'h-3.5 w-3.5',
+  className = 'h-4 w-4',
   isFilled = false,
 }: {
   className?: string;
@@ -19,15 +19,27 @@ function BookmarkIcon({
 }) {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
       viewBox="0 0 24 24"
-      fill={isFilled ? 'currentColor' : 'none'}
-      stroke="currentColor"
-      strokeWidth={isFilled ? '1' : '1.8'}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      id="Bookmark--Streamline-Solar"
       className={className}
     >
-      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+      <g id="Bold Duotone/School/Bookmark">
+        <path
+          id="Vector"
+          fill="currentColor"
+          opacity={isFilled ? 1 : 0.32}
+          d="M21 11.0975v4.9934c0 3.0966 0 4.6449 -0.7341 5.3214 -0.3501 0.3227 -0.792 0.5254 -1.2628 0.5792 -0.9871 0.113 -2.1398 -0.9066 -4.4453 -2.9457 -1.019 -0.9013 -1.5286 -1.352 -2.1181 -1.4707 -0.2903 -0.0585 -0.5891 -0.0585 -0.8794 0 -0.5895 0.1187 -1.0991 0.5694 -2.11814 1.4707 -2.30543 2.0391 -3.45814 3.0587 -4.44524 2.9457 -0.47077 -0.0538 -0.91271 -0.2565 -1.26281 -0.5792C3 20.7358 3 19.1875 3 16.0909v-4.9934c0 -4.28859 0 -6.4329 1.31802 -7.7652S7.75736 2 12 2c4.2426 0 6.364 0 7.682 1.3323C21 4.6646 21 6.80891 21 11.0975Z"
+          strokeWidth="1"
+        />
+        <path
+          id="Vector_2"
+          fill="currentColor"
+          d="M9 5.25c-0.41421 0 -0.75 0.33579 -0.75 0.75s0.33579 0.75 0.75 0.75h6c0.4142 0 0.75 -0.33579 0.75 -0.75s-0.3358 -0.75 -0.75 -0.75H9Z"
+          strokeWidth="1"
+        />
+      </g>
     </svg>
   );
 }
@@ -101,10 +113,10 @@ export function DocRightPanel({ credit }: { credit?: ComponentCredit }) {
                 'flex h-7 w-7 items-center justify-center rounded-lg border transition-all duration-200 cursor-pointer active:scale-90',
                 isBookmarked
                   ? 'border-primary/50 bg-primary/15 text-primary'
-                  : 'border-border/60 bg-neutral-100/60 dark:bg-neutral-900/40 text-muted-foreground hover:text-foreground hover:bg-neutral-200/60 dark:hover:bg-neutral-800/60 hover:border-border'
+                  : 'border-border/60 bg-neutral-100/60 dark:bg-neutral-900/40 text-foreground hover:text-foreground hover:bg-neutral-200/60 dark:hover:bg-neutral-800/60 hover:border-border'
               )}
             >
-              <BookmarkIcon isFilled={isBookmarked} className="h-3.5 w-3.5" />
+              <BookmarkIcon isFilled={isBookmarked} className="h-4 w-4" />
             </button>
 
             {/* Share on X Button with Icon and Text */}

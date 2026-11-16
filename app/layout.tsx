@@ -162,7 +162,7 @@ export const metadata: Metadata = {
       'Discover premium, free, and open-source animated React UI components built with Tailwind CSS and Motion.',
     images: [
       {
-        url: 'https://shitui.in/og-imageblack.png',
+        url: 'https://shitui.in/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'ShitUI Component Library',
@@ -174,7 +174,7 @@ export const metadata: Metadata = {
     title: 'ShitUI - Animated React Components',
     description:
       'Premium, free, and open-source animated React UI components built with Tailwind CSS and Motion.',
-    images: ['https://shitui.in/og-imageblack.png'],
+    images: ['https://shitui.in/og-image.jpg'],
     creator: '@heyyswap',
     site: '@shituihq',
   },
@@ -326,7 +326,7 @@ export default function RootLayout({
                     },
                     description:
                       'Free, open-source animated React UI component library built with Tailwind CSS and Motion with official shadcn CLI v4 registry support.',
-                    screenshot: 'https://shitui.in/og-imageblack.png',
+                    screenshot: 'https://shitui.in/og-image.jpg',
                     author: {
                       '@type': 'Person',
                       name: 'Swapnil Kalambe',

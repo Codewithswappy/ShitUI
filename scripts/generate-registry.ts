@@ -35,6 +35,8 @@ const SPECIAL_KEBAB: Record<string, string> = {
   LiquidWave: 'liquid-wave',
   LoadingSpinner: 'loading-spinner',
   FloatingNavigation: 'floating-navigation',
+  DynamicIslandNav: 'dynamic-island-nav',
+  InteractiveContactButton: 'interactive-contact-button',
   PremiumButton: 'premium-button',
   RetroPixelButton: 'retro-pixel-button',
 };
@@ -42,6 +44,8 @@ const SPECIAL_KEBAB: Record<string, string> = {
 const COMPONENT_TITLES: Record<string, string> = {
   'book-3d': 'Book 3D',
   'animated-tab': 'Animated Tab',
+  'dynamic-island-nav': 'Dynamic Island Navigation',
+  'interactive-contact-button': 'Interactive Contact Button',
   'floating-navigation': 'Floating Navigation',
   'liquid-button': 'Liquid Button',
   'liquid-tooltip': 'Liquid Tooltip',
@@ -60,7 +64,9 @@ const COMPONENT_TITLES: Record<string, string> = {
 const COMPONENT_DESCRIPTIONS: Record<string, string> = {
   'animated-tab': 'A set of animated navigation tabs with smooth sliding pill highlight.',
   'book-3d': 'An interactive 3D book component with realistic hover perspective tilt.',
+  'dynamic-island-nav': 'An iOS-inspired adaptive Dynamic Island navigation bar with fluid physics.',
   'floating-navigation': 'A sleek floating navigation bar with fluid hover pill.',
+  'interactive-contact-button': 'A tactile floating contact button that expands into an interactive profile card.',
   'liquid-button': 'An interactive gooey liquid dripping hover effect button.',
   'liquid-tooltip': 'A fluid liquid-expanding tooltip with smooth spring physics.',
   'liquid-wave': 'A smooth canvas-based interactive liquid wave fluid simulation.',
