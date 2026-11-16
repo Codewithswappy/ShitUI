@@ -530,6 +530,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
           url: 'https://shitui.in/og-image.jpg',
           width: 1200,
           height: 630,
+          type: 'image/jpeg',
           alt: `${page.data.title} - ShitUI Component`,
         },
       ],

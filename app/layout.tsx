@@ -23,157 +23,49 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://shitui.in'),
   title: {
-    default: 'ShitUI - Animated React Components',
+    default: 'ShitUI - Animated React Components Library',
     template: '%s | ShitUI',
   },
 
   description:
-    'ShitUI (formerly RareUI) is a modern, free, and open-source React UI component library built with Tailwind CSS, Next.js, and Framer Motion. Copy-paste ready animated components with official Shadcn CLI support. Download buttons, cards, forms, modals, navbars, and text effects.',
+    'Free & open-source animated React UI components built with Tailwind CSS and Motion. Copy-paste ready with official Shadcn CLI support.',
   keywords: [
-    // Rebranding & Core Identity
     'shitui',
     'shit ui',
-    'shitui components',
-    'shit ui library',
-    'rareui',
-    'rare ui',
-    'rareui is now shitui',
-    'rareui components',
-    'rareui alternative',
-    'shadcn cli registry',
-
-    // Primary Keywords (High Competition)
-    'ui components',
     'react components',
-    'component library',
+    'animated react components',
+    'framer motion components',
+    'tailwind css components',
+    'shadcn components',
+    'shadcn cli registry',
     'ui library',
     'react ui library',
-    'free ui components',
     'open source components',
-
-    // Technology-Specific Keywords
-    'tailwind css components',
-    'tailwind ui components',
-    'tailwind components library',
-    'next.js components',
-    'nextjs ui components',
-    'framer motion components',
-    'react typescript components',
-    'shadcn components',
-    'shadcn ui alternative',
-
-    // Component Type Keywords
-    'react button components',
-    'react card components',
-    'react modal components',
-    'react form components',
-    'react navbar components',
-    'react slider components',
-    'react animation components',
-    'animated buttons react',
-    'animated cards react',
-    'glassmorphism components',
-    'liquid button react',
-
-    // Action-Based Keywords
-    'copy paste react components',
-    'download react components',
-    'free react templates',
-    'react component examples',
-    'react ui kit free',
-    'ready to use react components',
-
-    // Library-Related Keywords
-    'react component library free',
-    'best react ui library',
-    'modern react components',
-    'premium react components',
-    'professional ui components',
-    'production ready components',
-
-    // Feature-Based Keywords
-    'dark mode components',
-    'responsive react components',
-    'accessible react components',
-    'animated ui components',
-    'interactive components react',
-    'modern ui components',
-    'beautiful ui components',
-
-    // Framework & Stack Keywords
-    'react tailwind components',
-    'next.js tailwind components',
-    'typescript react components',
-    'react hooks components',
-    'react server components',
-
-    // Use Case Keywords
-    'landing page components',
-    'dashboard components react',
-    'website components react',
-    'web app components',
-    'saas ui components',
-    'admin dashboard components',
-
-    // Comparison Keywords
-    'material ui alternative',
-    'ant design alternative',
-    'chakra ui alternative',
-    'better than shadcn',
-    'free shadcn alternative',
-
-    // Developer-Focused Keywords
-    'react developer tools',
-    'frontend components',
-    'web development components',
-    'ui design system',
-    'component design system',
-    'react design system',
-
-    // Quality & Type Keywords
-    'high quality react components',
-    'enterprise ui components',
-    'startup ui components',
-    'minimalist ui components',
-
-    // Specific Component Names
-    'liquid button component',
-    '3d book component',
-    'sound text component',
-    'animated tab component',
-    'toast tabs react',
-    'animated background components',
-
-    // Long-Tail Keywords
-    'free open source react components',
-    'no installation react components',
-    'copy paste ui components tailwind',
-    'modern web app components',
-    'beautiful animated components',
-    'professional landing page components',
+    'rareui',
   ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://shitui.in',
     siteName: 'ShitUI',
-    title: 'ShitUI - Animated React Components',
+    title: 'ShitUI - Animated React Components Library',
     description:
-      'Discover premium, free, and open-source animated React UI components built with Tailwind CSS and Motion.',
+      'Free & open-source animated React UI components built with Tailwind CSS and Motion. Copy-paste ready with official Shadcn CLI support.',
     images: [
       {
         url: 'https://shitui.in/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'ShitUI Component Library',
+        type: 'image/jpeg',
+        alt: 'ShitUI - Animated React Components Library',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShitUI - Animated React Components',
+    title: 'ShitUI - Animated React Components Library',
     description:
-      'Premium, free, and open-source animated React UI components built with Tailwind CSS and Motion.',
+      'Free & open-source animated React UI components built with Tailwind CSS and Motion. Copy-paste ready with official Shadcn CLI support.',
     images: ['https://shitui.in/og-image.jpg'],
     creator: '@heyyswap',
     site: '@shituihq',
@@ -242,12 +134,6 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <head>
-          {/* Favicons - Multiple sizes for best compatibility */}
-          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-          <link rel="icon" href="/favicon.ico" sizes="48x48" />
-          <link rel="icon" href="/favicon.png" type="image/png" sizes="96x96" />
-          <link rel="icon" href="/android-chrome-192x192.png" type="image/png" sizes="192x192" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
           <meta name="theme-color" content="#000000" />
           {/* Google Site Verification - Replace with your actual verification code */}
           <meta
