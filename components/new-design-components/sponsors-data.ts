@@ -95,15 +95,65 @@ export function getSponsorUrl(url: string): string {
 // COMPACT PORTRAIT PRICING SECTION DATA
 // Pure data with no JSX so both Server & Client Components can import it cleanly
 // ============================================================================
+export type BillingCycle = 'monthly' | 'yearly';
+
 export interface PricingTier {
   id: 'lite' | 'core' | 'max';
   name: string;
   tagline: string;
-  price: number;
+  price: number; // monthly default for backward compatibility
+  monthlyPrice: number;
+  yearlyPrice: number; // effective per month when billed annually ($96, $200, $319)
+  yearlyTotal: number; // total annual charge ($1,152, $2,400, $3,828)
+  yearlySavings: number; // savings per year ($288, $600, $960)
   featured?: boolean;
   buttonVariant: 'black' | 'primary';
   features: string[];
   ctaText: string;
+  monthlyPaymentUrl?: string;
+  yearlyPaymentUrl?: string;
+}
+
+/**
+ * Resolves a Dodo Payments checkout URL from a product ID or a full checkout URL.
+ */
+export function getDodoCheckoutUrl(val?: string, fallback = ''): string {
+  if (!val) return fallback;
+  const trimmed = val.trim();
+  if (!trimmed) return fallback;
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed;
+  }
+  return `https://checkout.dodopayments.com/buy/${trimmed}?quantity=1`;
+}
+
+/**
+ * Direct lookup function for tier checkout URLs.
+ * Prioritizes process.env.NEXT_PUBLIC_* and seamlessly falls back to the configured live product IDs.
+ */
+export function getTierPaymentUrl(tierId: 'lite' | 'core' | 'max', cycle: BillingCycle = 'monthly'): string {
+  if (tierId === 'lite') {
+    const id = cycle === 'yearly'
+      ? (process.env.NEXT_PUBLIC_DODO_PRODUCT_LITE_YEARLY || 'pdt_0NsCpEuDaxKjlDIaEQQLr')
+      : (process.env.NEXT_PUBLIC_DODO_PRODUCT_LITE_MONTHLY || 'pdt_0NsCoTMahiXAp6f2X3X9g');
+    return `https://checkout.dodopayments.com/buy/${id.trim()}?quantity=1`;
+  }
+  if (tierId === 'core') {
+    const id = cycle === 'yearly'
+      ? (process.env.NEXT_PUBLIC_DODO_PRODUCT_CORE_YEARLY || 'pdt_0NsCppRWT0d2brXZem4E5')
+      : (process.env.NEXT_PUBLIC_DODO_PRODUCT_CORE_MONTHLY || 'pdt_0NsCpf3B8u0wqXKYEdms5');
+    return `https://checkout.dodopayments.com/buy/${id.trim()}?quantity=1`;
+  }
+  if (tierId === 'max') {
+    const id = cycle === 'yearly'
+      ? (process.env.NEXT_PUBLIC_DODO_PRODUCT_MAX_YEARLY || '')
+      : (process.env.NEXT_PUBLIC_DODO_PRODUCT_MAX_MONTHLY || 'pdt_0NsCqFfFLbKNnhutKAFgk');
+    if (!id || !id.trim()) {
+      return 'mailto:useshit.ui@gmail.com?subject=Max%20Yearly%20Sponsorship%20Inquiry';
+    }
+    return `https://checkout.dodopayments.com/buy/${id.trim()}?quantity=1`;
+  }
+  return '';
 }
 
 export const PRICING_TIERS: PricingTier[] = [
@@ -112,8 +162,14 @@ export const PRICING_TIERS: PricingTier[] = [
     name: 'Lite',
     tagline: 'Feather — lightweight and simple.',
     price: 120,
+    monthlyPrice: 120,
+    yearlyPrice: 96,
+    yearlyTotal: 1152,
+    yearlySavings: 288,
     buttonVariant: 'black',
     ctaText: 'Sponsor Lite',
+    monthlyPaymentUrl: getTierPaymentUrl('lite', 'monthly'),
+    yearlyPaymentUrl: getTierPaymentUrl('lite', 'yearly'),
     features: [
       'Logo in the README',
       'Listed on the sponsors page with a link',
@@ -125,9 +181,15 @@ export const PRICING_TIERS: PricingTier[] = [
     name: 'Core',
     tagline: 'Layered shapes — foundation and essentials.',
     price: 250,
+    monthlyPrice: 250,
+    yearlyPrice: 200,
+    yearlyTotal: 2400,
+    yearlySavings: 600,
     featured: true,
     buttonVariant: 'primary',
     ctaText: 'Sponsor Core',
+    monthlyPaymentUrl: getTierPaymentUrl('core', 'monthly'),
+    yearlyPaymentUrl: getTierPaymentUrl('core', 'yearly'),
     features: [
       'Logo on the sponsors page',
       'Logo on the home page',
@@ -142,8 +204,14 @@ export const PRICING_TIERS: PricingTier[] = [
     name: 'Max',
     tagline: 'Crown — premium and maximum capability.',
     price: 399,
+    monthlyPrice: 399,
+    yearlyPrice: 319,
+    yearlyTotal: 3828,
+    yearlySavings: 960,
     buttonVariant: 'black',
     ctaText: 'Sponsor Max',
+    monthlyPaymentUrl: getTierPaymentUrl('max', 'monthly'),
+    yearlyPaymentUrl: getTierPaymentUrl('max', 'yearly'),
     features: [
       'Largest logo on the sponsors page',
       'Largest logo on the home page and README',

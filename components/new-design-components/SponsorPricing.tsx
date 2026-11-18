@@ -1,9 +1,19 @@
 'use client';
 
-import React from 'react';
-import { SPONSOR_LINK, getSponsorUrl, PRICING_TIERS, type PricingTier } from './sponsors-data';
-export { PRICING_TIERS, type PricingTier };
+import React, { useState } from 'react';
+import Link from 'next/link';
+import {
+  SPONSOR_LINK,
+  getSponsorUrl,
+  PRICING_TIERS,
+  getTierPaymentUrl,
+  type PricingTier,
+  type BillingCycle,
+} from './sponsors-data';
+export { PRICING_TIERS, type PricingTier, type BillingCycle };
 import { IconCheck } from '@tabler/icons-react';
+import { useCurrency } from '@/lib/currency';
+import { CurrencySelector } from './CurrencySelector';
 import { cn } from '@/lib/utils';
 
 // ============================================================================
@@ -112,13 +122,80 @@ export function CrownIcon({ className }: { className?: string }) {
   );
 }
 
+// ============================================================================
+// BILLING CYCLE TOGGLE (MONTHLY VS. YEARLY WITH 20% OFF BADGE)
+// ============================================================================
+export function BillingCycleToggle({
+  cycle,
+  onChange,
+  className,
+}: {
+  cycle: BillingCycle;
+  onChange: (cycle: BillingCycle) => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        'inline-flex items-center gap-1 p-1 rounded-full bg-neutral-200/80 dark:bg-neutral-800/80 backdrop-blur-md border border-black/5 dark:border-white/5 select-none',
+        className
+      )}
+    >
+      <button
+        type="button"
+        onClick={() => onChange('monthly')}
+        className={cn(
+          'rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-medium transition-all outline-none cursor-pointer',
+          cycle === 'monthly'
+            ? 'bg-white dark:bg-neutral-900 text-foreground shadow-xs'
+            : 'text-muted-foreground hover:text-foreground'
+        )}
+      >
+        Monthly
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange('yearly')}
+        className={cn(
+          'flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-medium transition-all outline-none cursor-pointer',
+          cycle === 'yearly'
+            ? 'bg-white dark:bg-neutral-900 text-foreground shadow-xs'
+            : 'text-muted-foreground hover:text-foreground'
+        )}
+      >
+        <span>Yearly</span>
+        <span className="rounded-full bg-blue-500/10 dark:bg-blue-400/15 px-1.5 py-0.5 font-mono text-[9.5px] font-semibold text-blue-600 dark:text-blue-400">
+          20% OFF
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export function PricingCard({
   tier,
+  cycle = 'monthly',
+  currencyState,
   className,
 }: {
   tier: PricingTier;
+  cycle?: BillingCycle;
+  currencyState?: ReturnType<typeof useCurrency>;
   className?: string;
 }) {
+  const fallbackCurrency = useCurrency();
+  const currency = currencyState || fallbackCurrency;
+
+  const baseUsd = cycle === 'yearly' ? tier.yearlyPrice : tier.monthlyPrice;
+  const priceObj = currency.convert(baseUsd);
+  const totalObj = currency.convert(tier.yearlyTotal);
+  const savingsObj = currency.convert(tier.yearlySavings);
+
+  const paymentUrl =
+    getTierPaymentUrl(tier.id, cycle) ||
+    (cycle === 'yearly' ? tier.yearlyPaymentUrl : tier.monthlyPaymentUrl) ||
+    getSponsorUrl(SPONSOR_LINK);
+
   return (
     <div
       id={`pricing-${tier.id}`}
@@ -162,14 +239,35 @@ export function PricingCard({
           </div>
         </div>
 
-        {/* Price */}
-        <div className="flex items-baseline gap-1 my-3 pb-3 border-b border-black/[0.06] dark:border-white/[0.06]">
-          <span className="text-3xl font-medium tracking-tight text-foreground leading-none">
-            ${tier.price}
-          </span>
-          <span className="text-xs text-muted-foreground font-mono">
-            /month
-          </span>
+        {/* Dynamic Price Area (Localized Currency + Estimated USD) */}
+        <div className="my-3 pb-3 border-b border-black/[0.06] dark:border-white/[0.06]">
+          <div className="flex items-baseline gap-1">
+            <span className="text-3xl font-medium tracking-tight text-foreground leading-none">
+              {priceObj.formatted}
+            </span>
+            <span className="text-xs text-muted-foreground font-mono">
+              /month
+            </span>
+            {!priceObj.isUsd && (
+              <span className="text-[11px] text-muted-foreground font-mono ml-1 opacity-80">
+                (~${baseUsd})
+              </span>
+            )}
+          </div>
+
+          {cycle === 'yearly' ? (
+            <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground font-mono">
+              <span>Billed annually ({totalObj.formatted}/yr)</span>
+              <span>·</span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                Save {savingsObj.formatted}
+              </span>
+            </div>
+          ) : (
+            <div className="mt-1 text-[11px] text-muted-foreground font-mono">
+              Billed monthly
+            </div>
+          )}
         </div>
 
         {/* Feature Checklist */}
@@ -190,7 +288,7 @@ export function PricingCard({
 
       {/* Bottom CTA Button: Black for Lite & Max, Brand Blue with shadow-pill-glow for Core */}
       <a
-        href={getSponsorUrl(SPONSOR_LINK)}
+        href={paymentUrl}
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
@@ -207,10 +305,13 @@ export function PricingCard({
 }
 
 export function SponsorPricing() {
+  const [cycle, setCycle] = useState<BillingCycle>('monthly');
+  const currency = useCurrency();
+
   return (
     <section id="pricing" className="w-full mt-16 sm:mt-24 mb-12 scroll-mt-20">
       {/* Section Header */}
-      <div className="mb-8 text-center max-w-xl mx-auto">
+      <div className="mb-6 text-center max-w-xl mx-auto">
         <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-foreground leading-snug">
           Sponsorship Tiers
         </h2>
@@ -219,12 +320,52 @@ export function SponsorPricing() {
         </p>
       </div>
 
+      {/* Monthly vs. Yearly Toggle & Currency Selector */}
+      <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-8">
+        <BillingCycleToggle cycle={cycle} onChange={setCycle} />
+        <CurrencySelector
+          currencyCode={currency.currencyCode}
+          onChange={currency.changeCurrency}
+        />
+      </div>
+
       {/* Centered, Restrained Container for Less Width & More Height (Proper Portrait Cards) */}
       <div className="mx-auto max-w-[880px]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {PRICING_TIERS.map((tier) => (
-            <PricingCard key={tier.id} tier={tier} />
+            <PricingCard key={tier.id} tier={tier} cycle={cycle} currencyState={currency} />
           ))}
+        </div>
+
+        {/* Short Micro-Copy: Billing, Dodo MoR & Policy */}
+        <div className="mt-8 text-center text-xs text-muted-foreground/85 max-w-xl mx-auto leading-relaxed px-4">
+          <p className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1">
+            <span>
+              Billed {cycle === 'monthly' ? 'monthly' : 'annually'} in USD until you cancel.
+            </span>
+            <span>Payments by</span>
+            <a
+              href="https://dodopayments.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-medium text-foreground hover:text-primary transition-colors underline-offset-2 hover:underline"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://app.dodopayments.com/favicon.ico"
+                alt="Dodo Payments"
+                className="w-3.5 h-3.5 shrink-0 rounded-xs inline-block"
+              />
+              <span>Dodo Payments</span>
+            </a>
+            <span>(our merchant of record).</span>
+            <Link
+              href="/terms#cancellation-and-refund-policy"
+              className="text-primary hover:underline font-medium"
+            >
+              Cancellation and refunds
+            </Link>
+          </p>
         </div>
       </div>
     </section>
