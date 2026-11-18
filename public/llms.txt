@@ -39,6 +39,7 @@ To use the `@shitui` shorthand anywhere:
 
 - [Animated Tab](https://shitui.in/docs/components/animated-tab): Fluid navigation tabs with a sliding background highlight pill. CLI: `npx shadcn@latest add @shitui/animated-tab`
 - [Book 3D](https://shitui.in/docs/components/book-3d): Interactive 3D book cover with realistic cursor-following tilt and shadow physics. CLI: `npx shadcn@latest add @shitui/book-3d`
+- [Dynamic Island Navigation](https://shitui.in/docs/components/dynamic-island-nav): Adaptive iOS-inspired Dynamic Island navbar with fluid morphing and mobile drawer. CLI: `npx shadcn@latest add @shitui/dynamic-island-nav`
 - [Floating Navigation](https://shitui.in/docs/components/floating-navigation): Floating pill navbar with glassmorphism and smooth active indicator. CLI: `npx shadcn@latest add @shitui/floating-navigation`
 - [Liquid Button](https://shitui.in/docs/components/liquid-button): Organic gooey liquid dripping hover effect with SVG filter displacement. CLI: `npx shadcn@latest add @shitui/liquid-button`
 - [Liquid Tooltip](https://shitui.in/docs/components/liquid-tooltip): Jelly morphing elastic tooltip that tracks cursor motion dynamically. CLI: `npx shadcn@latest add @shitui/liquid-tooltip`
@@ -48,6 +49,7 @@ To use the `@shitui` shorthand anywhere:
 - [Premium Button](https://shitui.in/docs/components/premium-button): Polished CTA button with dynamic light sheen and micro-interaction states. CLI: `npx shadcn@latest add @shitui/premium-button`
 - [Retro Pixel Button](https://shitui.in/docs/components/retro-pixel-button): 8-bit arcade aesthetic button with authentic stepped bevel shadows. CLI: `npx shadcn@latest add @shitui/retro-pixel-button`
 - [Sound Text](https://shitui.in/docs/components/sound-text): Audio frequency visualizer wave typography animation. CLI: `npx shadcn@latest add @shitui/sound-text`
+- [Split FAQ](https://shitui.in/docs/components/split-faq): Kinetic grouped accordion where open questions split into independent cards with spring physics. CLI: `npx shadcn@latest add @shitui/split-faq`
 - [Toast Tabs](https://shitui.in/docs/components/toast-tabs): Stacked card notification tabs with spring physics and depth layering. CLI: `npx shadcn@latest add @shitui/toast-tabs`
 - [Vapor Smoke Text](https://shitui.in/docs/components/vapor-smokeText): Ethereal vapor dispersion and dissipation text effect. CLI: `npx shadcn@latest add @shitui/vapor-smokeText`
 - [Word Magnet](https://shitui.in/docs/components/word-magnet): Playful magnetic attract and repel physics for phrases and tags. CLI: `npx shadcn@latest add @shitui/word-magnet`
@@ -72,6 +74,9 @@ Yes. ShitUI is 100% free for personal, commercial, and enterprise applications u
 
 ### Does ShitUI work with the official shadcn CLI?
 Yes. ShitUI uses the official shadcn registry format. Any component can be installed with `npx shadcn@latest add @shitui/<component-name>`.
+
+### How do I add the animated Split FAQ component to my project?
+Run `npx shadcn@latest add @shitui/split-faq` (or `npx shadcn@latest add https://shitui.in/r/split-faq.json`). It provides a grouped accordion built with Motion and Tailwind CSS where clicking a question cleanly detaches it into an independent elevated card while others regroup and merge back smoothly.
 
 ### What happened to RareUI?
 RareUI officially rebranded to ShitUI with a revamped modern website, official shadcn CLI registry support, improved component animations, and updated docs at https://shitui.in.
