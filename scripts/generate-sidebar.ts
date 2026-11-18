@@ -22,6 +22,7 @@ const STATIC_SECTIONS = [
 // Preferred section order
 const SECTION_ORDER = [
   'Components',
+  'Blocks',
   'Text',
   '3D',
   'Backgrounds',

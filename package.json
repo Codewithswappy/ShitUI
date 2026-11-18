@@ -14,7 +14,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx,css,json}\"",
     "create-component": "tsx scripts/create-component.ts",
-    "check:previews": "tsx scripts/check-previews.ts"
+    "check:previews": "tsx scripts/check-previews.ts",
+    "lab:new": "tsx scripts/new-draft.ts",
+    "lab:promote": "tsx scripts/promote-draft.ts"
   },
   "engines": {
     "node": ">=20.18.0"

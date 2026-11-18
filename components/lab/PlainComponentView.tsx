@@ -16,7 +16,7 @@ export function PlainComponentView() {
 
   if (!draft) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center bg-white dark:bg-neutral-950">
+      <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center bg-neutral-100 dark:bg-neutral-900">
         <h1 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200">
           Component Not Found
         </h1>
@@ -36,7 +36,7 @@ export function PlainComponentView() {
   const ComponentToRender = draft.component;
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white p-6 transition-colors duration-200 dark:bg-neutral-950 sm:p-12">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-neutral-100 p-6 transition-colors duration-200 dark:bg-neutral-900 sm:p-12">
       {/* 100% Plain isolated render of the component without any extra tools */}
       <ComponentToRender />
 

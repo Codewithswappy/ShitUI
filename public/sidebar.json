@@ -24,8 +24,18 @@
         "href": "/docs/components/animated-tab"
       },
       {
+        "title": "Dynamic Island Navigation",
+        "href": "/docs/components/dynamic-island-nav",
+        "badge": "New"
+      },
+      {
         "title": "Floating Navigation",
         "href": "/docs/components/floating-navigation"
+      },
+      {
+        "title": "Interactive Contact Button",
+        "href": "/docs/components/interactive-contact-button",
+        "badge": "New"
       },
       {
         "title": "Liquid Button",
@@ -54,7 +64,17 @@
     ]
   },
   {
-    "title": "Text Animation",
+    "title": "Blocks",
+    "items": [
+      {
+        "title": "Split FAQ",
+        "href": "/docs/components/split-faq",
+        "badge": "New"
+      }
+    ]
+  },
+  {
+    "title": "Text",
     "items": [
       {
         "title": "Magnetic Scatter Text",
@@ -75,7 +95,7 @@
     ]
   },
   {
-    "title": "3D Elements",
+    "title": "3D",
     "items": [
       {
         "title": "Book 3D",
@@ -84,7 +104,7 @@
     ]
   },
   {
-    "title": "Interactive Background",
+    "title": "Backgrounds",
     "items": [
       {
         "title": "Liquid Wave",

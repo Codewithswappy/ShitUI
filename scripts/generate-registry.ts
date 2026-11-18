@@ -39,9 +39,11 @@ const SPECIAL_KEBAB: Record<string, string> = {
   InteractiveContactButton: 'interactive-contact-button',
   PremiumButton: 'premium-button',
   RetroPixelButton: 'retro-pixel-button',
+  SplitFaq: 'split-faq',
 };
 
 const COMPONENT_TITLES: Record<string, string> = {
+  'split-faq': 'Split FAQ',
   'book-3d': 'Book 3D',
   'animated-tab': 'Animated Tab',
   'dynamic-island-nav': 'Dynamic Island Navigation',
@@ -76,6 +78,7 @@ const COMPONENT_DESCRIPTIONS: Record<string, string> = {
   'premium-button': 'A luxury gradient border button with subtle shimmer glow.',
   'retro-pixel-button': 'A playful 8-bit retro arcade pixel button with press animation.',
   'sound-text': 'Animated typography that synchronizes with audio frequencies.',
+  'split-faq': 'Grouped FAQ that splits on click. Open question detaches into its own card while others regroup and merge back.',
   'toast-tabs': 'Interactive toast-styled notification tabs with spring animations.',
   'vapor-smoke-text': 'Atmospheric vapor and smoke particle text distortion effect.',
   'word-magnet': 'Interactive magnetic word clouds that attract toward the cursor.',

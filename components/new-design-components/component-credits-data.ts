@@ -33,6 +33,20 @@ export const COMPONENT_CREDITS: Record<string, ComponentCredit> = new Proxy(
 );
 
 export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
+  'split-faq': {
+    title: 'Split FAQ',
+    description:
+      'Grouped FAQ that splits on click. Open question detaches into its own card while others regroup and merge back.',
+    tags: ['Motion', 'Spring', 'FAQ', 'Accordion', 'Layout Animation', 'Accessible'],
+    version: 'v1.0.0',
+    lastUpdated: 'Nov 2026',
+    related: [
+      { title: 'Toast Tabs', href: '/docs/components/toast-tabs' },
+      { title: 'Dynamic Island Navigation', href: '/docs/components/dynamic-island-nav' },
+      { title: 'Animated Tab', href: '/docs/components/animated-tab' },
+    ],
+    credit: DEFAULT_CREDIT,
+  },
   'liquid-wave': {
     title: 'Liquid Wave',
     description: 'A mesmerizing fluid dynamics background with interactive mouse-driven waves.',

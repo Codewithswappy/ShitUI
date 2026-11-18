@@ -1,6 +1,5 @@
 import React from 'react';
-import NeonGlowCard from './drafts/NeonGlowCard';
-import LiquidSwitch from './drafts/LiquidSwitch';
+import SplitFaqDemo from './drafts/SplitFaq';
 
 export interface LabDraft {
   id: string;
@@ -13,19 +12,12 @@ export interface LabDraft {
 
 export const LAB_DRAFTS: LabDraft[] = [
   {
-    id: 'neon-glow-card',
-    name: 'Neon Glow Card',
-    category: 'cards',
-    description: 'Interactive cursor-following radial glow card with kinetic spring tilt.',
-    component: NeonGlowCard,
-    tags: ['motion', 'spring', '3D tilt', 'radial glow'],
-  },
-  {
-    id: 'liquid-switch',
-    name: 'Liquid Switch',
-    category: 'buttons',
-    description: 'Tactile spring toggle with fluid pulse and elastic thumb physics.',
-    component: LiquidSwitch,
-    tags: ['motion', 'toggle', 'spring', 'elastic'],
+    id: 'split-faq',
+    name: 'Split FAQ',
+    category: 'accordion',
+    description:
+      'Grouped FAQ that splits on click. Open question detaches into its own card while others regroup and merge back.',
+    component: SplitFaqDemo,
+    tags: ['motion', 'spring', 'faq', 'accordion', 'layout-animation', 'accessible'],
   },
 ];

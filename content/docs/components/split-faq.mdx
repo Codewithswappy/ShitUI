@@ -1,0 +1,118 @@
+---
+title: Split FAQ
+category: Blocks
+badge: New
+description: Grouped FAQ that splits on click. Open question detaches into its own card while others regroup and merge back.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { FeaturesList } from '@/components/mdx/FeaturesList';
+import { SplitFaq } from '@/components/shitui/SplitFaq';
+
+<Preview component="split-faq" cliCommand="npx shadcn@latest add @shitui/split-faq">
+  <div className="w-full flex items-center justify-center py-6 sm:py-10">
+    <SplitFaq />
+  </div>
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import { SplitFaq } from '@/components/shitui/SplitFaq';`,
+    },
+    {
+      title: 'Use in your application',
+      description: 'Render Split FAQ with built-in SaaS defaults or pass custom questions.',
+      code: `export default function FAQSection() {
+  return (
+    <section className="py-20 px-4">
+      <SplitFaq />
+    </section>
+  );
+}`,
+    },
+    {
+      title: 'Custom Questions & Config',
+      description: 'Pass your own questions, answers, and duotone icons.',
+      code: `import { SplitFaq, type SplitFaqItem } from '@/components/shitui/SplitFaq';
+
+const customFaq: SplitFaqItem[] = [
+  {
+    id: 'setup',
+    icon: 'sparkles',
+    question: 'How fast can our team onboard?',
+    answer: 'You can deploy in under 5 minutes with zero configuration required.',
+  },
+  {
+    id: 'security',
+    icon: 'shield',
+    question: 'Is our data fully encrypted?',
+    answer: 'Yes, with AES-256 encryption at rest and TLS 1.3 in transit.',
+  },
+];
+
+export default function CustomFAQ() {
+  return (
+    <SplitFaq
+      items={customFaq}
+      defaultOpenIndex={0}
+      showIcons={true}
+    />
+  );
+}`,
+    },
+  ]}
+/>
+
+<FeaturesList
+  features={[
+    {
+      title: 'Kinetic Card Splitting',
+      description: 'The active question splits out into an independent elevated card while adjacent cards regroup smoothly above and below.',
+    },
+    {
+      title: 'Harmonic Motion Springs',
+      description: 'Cards transition together using coordinated layout projections without visual jumps or height flashes.',
+    },
+    {
+      title: 'Built-in Duotone Icons & Custom SVGs',
+      description: 'Includes lightweight built-in duotone icons (sparkles, users, zap, shield, billing, sync) and supports custom React nodes or image URLs.',
+    },
+    {
+      title: 'Responsive & Accessible',
+      description: 'Fully responsive with touch-friendly tap targets, keyboard navigation, and proper ARIA accordion attributes.',
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'items',
+      type: 'SplitFaqItem[]',
+      default: 'SAAS_FAQ_ITEMS',
+      description: 'Array of FAQ items containing id, question, answer, and optional icon.',
+    },
+    {
+      name: 'defaultOpenIndex',
+      type: 'number | null',
+      default: '0',
+      description: 'Index of the FAQ item open by default. Set to null to start with all cards closed.',
+    },
+    {
+      name: 'showIcons',
+      type: 'boolean',
+      default: 'true',
+      description: 'Whether to show the leading icon before each question title.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      default: 'undefined',
+      description: 'Additional Tailwind CSS classes applied to the root container.',
+    },
+  ]}
+/>

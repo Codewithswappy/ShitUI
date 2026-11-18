@@ -24,9 +24,9 @@ export const sidebarData = [
         "href": "/docs/components/animated-tab"
       },
       {
-        "title": "Dynamic Island Nav",
+        "title": "Dynamic Island Navigation",
         "href": "/docs/components/dynamic-island-nav",
-         "badge": "New"
+        "badge": "New"
       },
       {
         "title": "Floating Navigation",
@@ -60,6 +60,16 @@ export const sidebarData = [
       {
         "title": "Toast Tabs",
         "href": "/docs/components/toast-tabs"
+      }
+    ]
+  },
+  {
+    "title": "Blocks",
+    "items": [
+      {
+        "title": "Split FAQ",
+        "href": "/docs/components/split-faq",
+        "badge": "New"
       }
     ]
   },

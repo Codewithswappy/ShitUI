@@ -179,7 +179,7 @@ export function DocRightPanel({ credit }: { credit?: ComponentCredit }) {
             <span className="text-foreground font-medium text-[11px] truncate leading-tight">
               {currentCredit.name}
             </span>
-            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground truncate leading-normal pt-0.5">
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground truncate leading-normal">
               <span className="truncate">{currentCredit.profession}</span>
               <a
                 href={twitterUrl}

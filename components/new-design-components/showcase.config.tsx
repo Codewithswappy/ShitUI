@@ -42,6 +42,21 @@ export function getSortedShowcaseItems(category: string = 'all'): ShowcaseCompon
 
 export const SHOWCASE_REGISTRY: ShowcaseComponent[] = [
   {
+    id: 'split-faq',
+    name: 'Split FAQ',
+    order: 2,
+    category: 'components',
+    tag: 'Motion',
+    slug: 'components/split-faq',
+    showOnHome: true,
+    preview: {
+      poster: '',
+      video: '/previews/splitfaq.webm',
+      width: 1360,
+      height: 1002,
+    },
+  },
+  {
     id: 'liquid-button',
     name: 'Liquid Button',
     order: 4,
