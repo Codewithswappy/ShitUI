@@ -1,17 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import { X, ArrowRight } from 'lucide-react';
 
 export function RebrandBanner() {
   const [isVisible, setIsVisible] = useState(true);
+  const pathname = usePathname();
 
   const handleDismiss = () => {
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
+  if (!isVisible || pathname?.startsWith('/lab')) return null;
 
   return (
     <aside
