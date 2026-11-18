@@ -39,7 +39,7 @@ export function PricingPageContent() {
         </div>
 
         {/* Monthly vs. Yearly Toggle & Local Currency Selector */}
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0 self-start sm:self-auto">
+        <div className="flex flex-wrap items-center gap-2 shrink-0 self-start sm:self-auto">
           <BillingCycleToggle cycle={cycle} onChange={setCycle} />
           <CurrencySelector
             currencyCode={currency.currencyCode}

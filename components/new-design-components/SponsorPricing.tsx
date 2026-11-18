@@ -137,7 +137,7 @@ export function BillingCycleToggle({
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-1 p-1 rounded-full bg-neutral-200/80 dark:bg-neutral-800/80 backdrop-blur-md border border-black/5 dark:border-white/5 select-none',
+        'inline-flex items-center gap-0.5 p-0.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-black/5 dark:border-white/5 select-none h-7',
         className
       )}
     >
@@ -145,9 +145,9 @@ export function BillingCycleToggle({
         type="button"
         onClick={() => onChange('monthly')}
         className={cn(
-          'rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-medium transition-all outline-none cursor-pointer',
+          'rounded-full px-2.5 sm:px-3 py-0.5 text-[11px] font-medium transition-all outline-none cursor-pointer h-[22px] flex items-center',
           cycle === 'monthly'
-            ? 'bg-white dark:bg-neutral-900 text-foreground shadow-xs'
+            ? 'bg-white dark:bg-neutral-800 text-foreground shadow-xs shadow-black/5 dark:shadow-white/10 ring-1 ring-black/5 dark:ring-1 dark:ring-white/10'
             : 'text-muted-foreground hover:text-foreground'
         )}
       >
@@ -157,14 +157,14 @@ export function BillingCycleToggle({
         type="button"
         onClick={() => onChange('yearly')}
         className={cn(
-          'flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-medium transition-all outline-none cursor-pointer',
+          'flex items-center gap-1.5 rounded-full px-2.5 sm:px-3 py-0.5 text-[11px] font-medium transition-all outline-none cursor-pointer h-[22px]',
           cycle === 'yearly'
-            ? 'bg-white dark:bg-neutral-900 text-foreground shadow-xs'
+            ? 'bg-white dark:bg-neutral-800 text-foreground shadow-xs shadow-black/5 dark:shadow-white/10 ring-1 ring-black/5 dark:ring-1 dark:ring-white/10'
             : 'text-muted-foreground hover:text-foreground'
         )}
       >
         <span>Yearly</span>
-        <span className="rounded-full bg-blue-500/10 dark:bg-blue-400/15 px-1.5 py-0.5 font-mono text-[9.5px] font-semibold text-blue-600 dark:text-blue-400">
+        <span className="rounded-full bg-primary px-1.5 py-1 font-mono text-[8px] font-medium text-white shadow-pill-glow leading-none">
           20% OFF
         </span>
       </button>
@@ -321,7 +321,7 @@ export function SponsorPricing() {
       </div>
 
       {/* Monthly vs. Yearly Toggle & Currency Selector */}
-      <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-8">
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
         <BillingCycleToggle cycle={cycle} onChange={setCycle} />
         <CurrencySelector
           currencyCode={currency.currencyCode}
