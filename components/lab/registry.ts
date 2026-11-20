@@ -1,5 +1,6 @@
 import React from 'react';
 import SplitFaqDemo from './drafts/SplitFaq';
+import ChatOnboardingDemo from './drafts/ChatOnboarding';
 
 export interface LabDraft {
   id: string;
@@ -11,6 +12,15 @@ export interface LabDraft {
 }
 
 export const LAB_DRAFTS: LabDraft[] = [
+  {
+    id: 'chat-onboarding',
+    name: 'Chat Onboarding',
+    category: 'blocks',
+    description:
+      'Fluid onboarding experience that begins with a single input pill and smoothly morphs into an interactive multi-step chat flow.',
+    component: ChatOnboardingDemo,
+    tags: ['motion', 'chat', 'onboarding', 'multiselect', 'spring', 'interactive'],
+  },
   {
     id: 'split-faq',
     name: 'Split FAQ',

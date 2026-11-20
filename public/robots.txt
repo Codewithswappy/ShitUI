@@ -13,6 +13,9 @@ Disallow: /private/
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
+Disallow: /*.woff2$
+Disallow: /*.woff$
+Disallow: /*.ttf$
 
 # Google AI & Overviews (GEO / Gemini)
 User-agent: Google-Extended

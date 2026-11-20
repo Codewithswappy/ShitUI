@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/docs`,
+      url: `${baseUrl}/docs/introduction`,
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 0.95,
@@ -60,8 +60,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic Docs Pages from Source
-  const dynamicDocsRoutes: MetadataRoute.Sitemap = source.getPages().map((page) => {
+  // Dynamic Docs Pages from Source (excluding introduction which is already in staticPages with 0.95 priority)
+  const dynamicDocsRoutes: MetadataRoute.Sitemap = source
+    .getPages()
+    .filter((page) => page.url !== '/docs/introduction' && page.url !== '/docs')
+    .map((page) => {
     // Determine priority based on path
     let priority = 0.8;
     if (page.url.includes('/components')) priority = 0.9;
