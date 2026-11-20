@@ -320,11 +320,11 @@ export function LabWorkbench() {
   const getViewportWidth = () => {
     switch (viewport) {
       case 'mobile':
-        return 'max-w-[390px]';
+        return 'w-full max-w-[390px]';
       case 'tablet':
-        return 'max-w-[768px]';
+        return 'w-full max-w-[768px]';
       case 'desktop':
-        return 'max-w-[1080px]';
+        return 'w-full max-w-[1080px]';
       case 'fluid':
       default:
         return 'w-full';
@@ -834,13 +834,13 @@ export function LabWorkbench() {
           ref={stageRef}
           style={{ width: customWidth ? `${customWidth}px` : undefined }}
           className={cn(
-            'relative mx-auto transition-all duration-300',
+            'relative mx-auto w-full transition-all duration-300',
             !customWidth && getViewportWidth(),
             layoutMode === 'centered'
               ? 'flex min-h-[360px] items-center justify-center'
-              : 'w-full min-h-screen',
+              : 'min-h-screen',
             viewport === 'mobile' &&
-              'my-8 rounded-[44px] border-8 border-neutral-300/80 bg-background p-6 shadow-2xl dark:border-neutral-800'
+              'my-8 rounded-[44px] border-8 border-neutral-300/80 bg-background p-3 sm:p-6 shadow-2xl dark:border-neutral-800'
           )}
         >
           {/* Smooth Container Resize Handles */}

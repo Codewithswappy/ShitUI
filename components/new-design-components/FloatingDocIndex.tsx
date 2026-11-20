@@ -167,8 +167,82 @@ export function FloatingDocIndex({
     setMounted(true);
   }, []);
 
+  // Detect virtual keyboard / active text inputs on mobile devices to hide the floating pill
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isTextInput = (el: EventTarget | null): boolean => {
+      if (!el || !(el instanceof HTMLElement)) return false;
+      const tagName = el.tagName.toLowerCase();
+      if (tagName === 'textarea' || el.isContentEditable) return true;
+      if (tagName === 'input') {
+        const type = (el as HTMLInputElement).type?.toLowerCase();
+        const nonTextTypes = ['checkbox', 'radio', 'button', 'submit', 'reset', 'range', 'color', 'file', 'image'];
+        return !nonTextTypes.includes(type);
+      }
+      return false;
+    };
+
+    const isMobileViewport = () => {
+      return (
+        window.innerWidth < 768 ||
+        /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        ('ontouchstart' in window && window.innerWidth < 1024)
+      );
+    };
+
+    const updateKeyboardState = () => {
+      const activeEl = document.activeElement;
+      const inputFocused = isTextInput(activeEl);
+
+      // Check if visual viewport has shrunk significantly (virtual keyboard active)
+      if (window.visualViewport) {
+        const heightDiff = window.innerHeight - window.visualViewport.height;
+        if (heightDiff > 100) {
+          setIsKeyboardOpen(true);
+          return;
+        }
+      }
+
+      // Check if mobile device and an input field is currently focused
+      if (isMobileViewport() && inputFocused) {
+        setIsKeyboardOpen(true);
+        return;
+      }
+
+      setIsKeyboardOpen(false);
+    };
+
+    const handleFocusIn = (e: FocusEvent) => {
+      if (isTextInput(e.target) && isMobileViewport()) {
+        setIsKeyboardOpen(true);
+      }
+    };
+
+    const handleFocusOut = () => {
+      setTimeout(updateKeyboardState, 100);
+    };
+
+    const handleViewportResize = () => {
+      updateKeyboardState();
+    };
+
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('focusout', handleFocusOut);
+    window.visualViewport?.addEventListener('resize', handleViewportResize);
+    window.addEventListener('resize', handleViewportResize);
+
+    return () => {
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('focusout', handleFocusOut);
+      window.visualViewport?.removeEventListener('resize', handleViewportResize);
+      window.removeEventListener('resize', handleViewportResize);
+    };
+  }, []);
+
   const [percent, setPercent] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeId, setActiveId] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -486,7 +560,8 @@ export function FloatingDocIndex({
     <div
       id="floating-doc-nav-container"
       className={cn(
-        'fixed bottom-4 md:bottom-3 left-1/2 -translate-x-1/2 z-50 pointer-events-auto flex items-end justify-center gap-2 select-none',
+        'fixed bottom-4 md:bottom-3 left-1/2 -translate-x-1/2 z-50 pointer-events-auto flex items-end justify-center gap-2 select-none transition-all duration-200',
+        isKeyboardOpen && 'opacity-0 pointer-events-none translate-y-8 invisible',
         className
       )}
     >

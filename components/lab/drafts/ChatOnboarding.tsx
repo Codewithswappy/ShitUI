@@ -1,6 +1,14 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useId,
+  useMemo,
+  useImperativeHandle,
+} from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
@@ -32,20 +40,22 @@ export interface OnboardingStep {
 export interface ChatOnboardingProps {
   /** Optional container className */
   className?: string;
-  /** Brand name displayed in header and welcome text (Default: 'Rare AI') */
+  /** Brand name displayed in header and welcome text (Default: 'Shit AI') */
   brandName?: string;
   /** Brand logo node (Defaults to an inline geometric SVG logo) */
   logo?: React.ReactNode;
   /** Custom steps array. Defaults to modern AI company onboarding */
   steps?: OnboardingStep[];
-  /** Optional quick name suggestions shown under the initial pill */
-  suggestedNames?: string[];
   /** Initial placeholder when the pill is closed */
   initialPlaceholder?: string;
   /** Custom completion heading string or function */
   completionTitle?: string | ((answers: OnboardingAnswers) => string);
   /** Custom completion subtitle */
   completionSubtitle?: string;
+  /** Custom confirm button text in review step (Default: 'Launch') */
+  confirmButtonText?: string;
+  /** Custom height in pixels when expanded into chat mode (Default: 420) */
+  expandedHeight?: number;
   /** Brand accent color for user bubbles, buttons and active states (Default: '#3074fe') */
   accentColor?: string;
   /** Success checkmark color (Default: '#22c55e') */
@@ -56,8 +66,16 @@ export interface ChatOnboardingProps {
   onComplete?: (answers: OnboardingAnswers) => void;
   /** Callback fired whenever the active question step changes */
   onStepChange?: (stepIndex: number, step: OnboardingStep) => void;
+  /** Callback fired when the container expands into chat or collapses back to the initial pill */
+  onExpandChange?: (isExpanded: boolean) => void;
   /** Callback fired when the user resets the conversation */
   onReset?: () => void;
+}
+
+export interface ChatOnboardingRef {
+  startWithName: (name: string) => void;
+  setInitialInput: (name: string) => void;
+  reset: () => void;
 }
 
 interface ChatMessage {
@@ -82,7 +100,7 @@ export const DEFAULT_ONBOARDING_STEPS: OnboardingStep[] = [
     id: 'email',
     label: 'Work Email',
     question: (answers) => `Nice to meet you, ${answers.name || 'there'}! What's your email?`,
-    placeholder: 'you@company.com',
+    placeholder: 'you@example.com',
     type: 'email',
     validate: (val) => (EMAIL_REGEX.test(val.trim()) ? true : 'Please enter a valid email address'),
   },
@@ -90,7 +108,7 @@ export const DEFAULT_ONBOARDING_STEPS: OnboardingStep[] = [
     id: 'company',
     label: 'Company',
     question: 'What company or organization do you work with?',
-    placeholder: 'Company name (optional)',
+    placeholder: 'Company name',
     optional: true,
     type: 'text',
   },
@@ -540,7 +558,7 @@ const ChatMessageItem = React.memo(function ChatMessageItem({
                                 value={otherText}
                                 onChange={(e) => setOtherText(e.target.value)}
                                 placeholder="Please specify your own..."
-                                className="w-full resize-none rounded-xl bg-neutral-100/90 px-3 py-2 text-[11.5px] text-neutral-800 shadow-xs ring-1 shadow-black/5 ring-black/10 transition-all outline-none placeholder:text-neutral-400 focus:ring-1 focus:ring-neutral-400 dark:bg-neutral-800 dark:text-neutral-200 dark:ring-white/10 dark:placeholder:text-neutral-500"
+                                className="w-full resize-none rounded-xl bg-neutral-100/90 px-3 py-2 text-[11.5px] text-neutral-800 shadow-xs ring-1 shadow-black/5 ring-black/10 transition-all outline-none placeholder:text-neutral-400 focus:ring-1 focus:ring-neutral-200  dark:bg-neutral-800 dark:text-neutral-200 dark:ring-white/10 dark:placeholder:text-neutral-500"
                                 autoFocus
                               />
                             </motion.div>
@@ -625,6 +643,11 @@ const ChatMessageItem = React.memo(function ChatMessageItem({
                           rows={2}
                           value={otherText}
                           onChange={(e) => setOtherText(e.target.value)}
+                          onFocus={(e) => {
+                            setTimeout(() => {
+                              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 100);
+                          }}
                           placeholder="Please specify your own..."
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
@@ -661,22 +684,28 @@ const ChatMessageItem = React.memo(function ChatMessageItem({
   );
 });
 
-export function ChatOnboarding({
-  className,
-  brandName = 'Rare AI',
-  logo,
-  steps = DEFAULT_ONBOARDING_STEPS,
-  suggestedNames,
-  initialPlaceholder,
-  completionTitle,
-  completionSubtitle = 'Your AI workspace is configured and ready.',
-  accentColor = '#3074fe',
-  successColor = '#22c55e',
-  autoFocus = false,
-  onComplete,
-  onStepChange,
-  onReset,
-}: ChatOnboardingProps) {
+export const ChatOnboarding = React.forwardRef<ChatOnboardingRef, ChatOnboardingProps>(
+  function ChatOnboarding(
+    {
+      className,
+      brandName = 'Shit AI',
+      logo,
+      steps = DEFAULT_ONBOARDING_STEPS,
+      initialPlaceholder,
+      completionTitle,
+      completionSubtitle = 'Your AI workspace is configured and ready.',
+      confirmButtonText = 'Launch',
+      expandedHeight = 420,
+      accentColor = '#3074fe',
+      successColor = '#22c55e',
+      autoFocus = false,
+      onComplete,
+      onStepChange,
+      onExpandChange,
+      onReset,
+    },
+    ref
+  ) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
@@ -688,6 +717,28 @@ export function ChatOnboarding({
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [selectedMulti, setSelectedMulti] = useState<string[]>([]);
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleResize = () => {
+      if (window.visualViewport) {
+        setViewportHeight(window.visualViewport.height);
+      } else {
+        setViewportHeight(window.innerHeight);
+      }
+    };
+
+    handleResize();
+    window.visualViewport?.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -829,6 +880,7 @@ export function ChatOnboarding({
     const newAnswers = { ...answers, [stepId]: rawVal };
     setAnswers(newAnswers);
     setIsExpanded(true);
+    onExpandChange?.(true);
 
     setMessages([
       {
@@ -996,6 +1048,7 @@ export function ChatOnboarding({
       // Rewind to initial pill
       if (targetStepIdx === 0) {
         setIsExpanded(false);
+        onExpandChange?.(false);
         setIsReviewing(false);
         setMessages([]);
         setCurrentStepIndex(0);
@@ -1102,10 +1155,11 @@ export function ChatOnboarding({
     handleAnswer(chatInput);
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     clearAllTimers();
     setIsCompleted(false);
     setIsExpanded(false);
+    onExpandChange?.(false);
     setIsReviewing(false);
     setInitialInput('');
     setChatInput('');
@@ -1116,7 +1170,24 @@ export function ChatOnboarding({
     setAnswers({});
     setSelectedMulti([]);
     onReset?.();
-  };
+  }, [clearAllTimers, onReset, onExpandChange]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      startWithName: (name: string) => {
+        setInitialInput(name);
+        handleInitialSubmit(name);
+      },
+      setInitialInput: (name: string) => {
+        setInitialInput(name);
+      },
+      reset: () => {
+        handleReset();
+      },
+    }),
+    [handleInitialSubmit, handleReset]
+  );
 
   const resolvedTitle = useMemo(() => {
     if (typeof completionTitle === 'function') return completionTitle(answers);
@@ -1129,8 +1200,19 @@ export function ChatOnboarding({
     return { steps, answers };
   }, [steps, answers]);
 
+  const targetCardHeight = useMemo(() => {
+    if (!isExpanded) return 44;
+    if (viewportHeight && viewportHeight < 560) {
+      // When mobile virtual keyboard is open or viewport is short, constrain height
+      // so the card + input fits comfortably in the visible space above the keyboard
+      const maxAllowed = Math.max(220, viewportHeight - 75);
+      return Math.min(expandedHeight, maxAllowed);
+    }
+    return expandedHeight;
+  }, [isExpanded, viewportHeight, expandedHeight]);
+
   return (
-    <div className={cn('relative flex w-full flex-col items-center justify-center p-3', className)}>
+    <div className={cn('relative flex w-full flex-col items-center justify-center p-1 sm:p-3', className)}>
       {/* Outside Celebration Welcome Header */}
       <AnimatePresence>
         {isCompleted && (
@@ -1167,16 +1249,17 @@ export function ChatOnboarding({
       {/* Morphing Outer Card */}
       <motion.div
         animate={{
+          width: isCompleted ? 72 : '100%',
           maxWidth: isCompleted ? 72 : isExpanded ? 410 : 380,
-          height: isCompleted ? 72 : isExpanded ? 480 : 44,
+          height: isCompleted ? 72 : targetCardHeight,
           borderRadius: 16,
         }}
         transition={{
-          duration: 0.42,
+          duration: 0.38,
           ease: [0.16, 1, 0.3, 1],
         }}
         className={cn(
-          'relative w-full rounded-2xl overflow-hidden transition-[background-color,box-shadow,border-color] duration-300',
+          'relative w-full max-h-[calc(100dvh-75px)] sm:max-h-none rounded-2xl overflow-hidden transition-[background-color,box-shadow,border-color] duration-300',
           isCompleted
             ? 'flex items-center justify-center overflow-visible bg-transparent shadow-none ring-0'
             : 'bg-white shadow-sm ring-1 shadow-black/10 ring-black/10 dark:bg-neutral-900 dark:ring-1 dark:shadow-white/10 dark:ring-white/10',
@@ -1371,6 +1454,11 @@ export function ChatOnboarding({
                   type="text"
                   value={initialInput}
                   onChange={(e) => setInitialInput(e.target.value)}
+                  onFocus={(e) => {
+                    setTimeout(() => {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                  }}
                   placeholder={initialPlaceholder || steps[0]?.placeholder || "What's your name?"}
                   aria-label={initialPlaceholder || steps[0]?.placeholder || "What's your name?"}
                   maxLength={120}
@@ -1539,17 +1627,17 @@ export function ChatOnboarding({
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex shrink-0 items-center gap-2 p-3 pt-1"
+                  className="flex w-full shrink-0 items-center gap-2 p-3 pt-1"
                 >
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.96 }}
                     type="button"
                     onClick={handleBack}
-                    className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-3.5 text-xs font-medium text-neutral-700 transition-colors outline-none select-none hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                    className="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-3.5 text-xs font-medium text-neutral-700 transition-colors outline-none select-none hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
                   >
-                    <ArrowLeftIcon className="h-3.5 w-3.5" />
-                    <span>Back</span>
+                    <ArrowLeftIcon className="h-3.5 w-3.5 shrink-0" />
+                    <span className="shrink-0">Back</span>
                   </motion.button>
 
                   <motion.button
@@ -1558,10 +1646,10 @@ export function ChatOnboarding({
                     type="button"
                     onClick={handleFinalSubmit}
                     style={{ backgroundColor: accentColor }}
-                    className="flex h-10 flex-1 cursor-pointer items-center justify-center gap-2 rounded-full text-xs font-semibold text-white shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.45),inset_0_0_10px_0_rgba(255,255,255,0.25)] transition-all outline-none select-none hover:opacity-95 focus-visible:ring-2 focus-visible:ring-offset-1"
+                    className="flex h-10 flex-1 min-w-0 cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-xs font-semibold text-white shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.45),inset_0_0_10px_0_rgba(255,255,255,0.25)] transition-all outline-none select-none hover:opacity-95 focus-visible:ring-2 focus-visible:ring-offset-1"
                   >
-                    <span>Confirm & Launch Workspace</span>
-                    <ArrowRightIcon className="h-3.5 w-3.5" />
+                    <span className="truncate">{confirmButtonText}</span>
+                    <ArrowRightIcon className="h-3.5 w-3.5 shrink-0" />
                   </motion.button>
                 </motion.div>
               ) : (
@@ -1577,6 +1665,12 @@ export function ChatOnboarding({
                         onChange={(e) => {
                           setChatInput(e.target.value);
                           if (inputError) setInputError(null);
+                        }}
+                        onFocus={(e) => {
+                          setTimeout(() => {
+                            e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            scrollToBottom(true);
+                          }, 100);
                         }}
                         disabled={isTyping || currentStep?.type === 'multi-select'}
                         placeholder={
@@ -1667,50 +1761,19 @@ export function ChatOnboarding({
         </AnimatePresence>
       </motion.div>
 
-      {/* Optional Initial Name Suggestions */}
-      <AnimatePresence>
-        {!isExpanded && suggestedNames && suggestedNames.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, height: 0, marginTop: 0 }}
-            transition={{ duration: 0.18 }}
-            className="mt-2.5 flex flex-wrap items-center justify-center gap-1.5 select-none"
-          >
-            <span className="text-[10px] font-medium text-neutral-400 dark:text-neutral-500">
-              Try:
-            </span>
-            {suggestedNames.map((name) => (
-              <button
-                key={name}
-                type="button"
-                onClick={() => {
-                  setInitialInput(name);
-                  handleInitialSubmit(name);
-                }}
-                className="cursor-pointer rounded-lg bg-white px-2 py-0.5 text-[10px] font-medium text-neutral-700 shadow-xs ring-1 shadow-black/5 ring-black/5 transition-colors outline-none hover:bg-neutral-50 focus-visible:ring-1 focus-visible:ring-neutral-400 dark:bg-neutral-800 dark:text-neutral-300 dark:shadow-xs dark:ring-1 dark:shadow-white/5 dark:ring-white/5 dark:hover:bg-neutral-700"
-              >
-                {name}
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
-}
+});
 
 // Default export kept for lab registry preview compatibility
 export default function ChatOnboardingDemo() {
   return (
-    <div className="flex min-h-[560px] w-full items-center justify-center p-4">
+    <div className="flex min-h-[560px] w-full items-center justify-center p-1 sm:p-4">
       <ChatOnboarding
-        brandName="Rare AI"
+        brandName="Shit AI"
         accentColor="#3074fe"
-        suggestedNames={['Alex Rivera', 'Sarah Chen', 'Jordan Lee']}
         onComplete={(answers) => {
           // Send to your backend API or database
-          // Example: fetch('/api/onboarding', { method: 'POST', body: JSON.stringify(answers) })
         }}
       />
     </div>

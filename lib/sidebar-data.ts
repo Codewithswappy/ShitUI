@@ -67,6 +67,11 @@ export const sidebarData = [
     "title": "Blocks",
     "items": [
       {
+        "title": "Chat Onboarding",
+        "href": "/docs/components/chat-onboarding",
+        "badge": "New"
+      },
+      {
         "title": "Split FAQ",
         "href": "/docs/components/split-faq",
         "badge": "New"

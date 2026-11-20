@@ -3,6 +3,7 @@
   "components": [
     "animated-tab",
     "book-3d",
+    "chat-onboarding",
     "dynamic-island-nav",
     "floating-navigation",
     "interactive-contact-button",

@@ -1,0 +1,189 @@
+---
+title: Chat Onboarding
+category: Blocks
+badge: New
+description: Fluid onboarding experience that begins with a single input pill and smoothly morphs into an interactive multi-step chat flow.
+---
+
+import { Preview } from '@/components/mdx/preview';
+import { PropsTable } from '@/components/mdx/PropsTable';
+import { UsageGuide } from '@/components/mdx/UsageGuide';
+import { ChatOnboardingDemo } from '@/components/demos/chat-onboarding-demo';
+
+<Preview component="chat-onboarding" cliCommand="npx shadcn@latest add @shitui/chat-onboarding">
+  <ChatOnboardingDemo />
+</Preview>
+
+<UsageGuide
+  steps={[
+    {
+      title: 'Import the component',
+      code: `import { ChatOnboarding } from '@/components/shitui/ChatOnboarding';`,
+    },
+    {
+      title: 'Quick Start',
+      description: 'Render Chat Onboarding with modern built-in AI developer onboarding defaults.',
+      code: `export default function OnboardingModal() {
+  return (
+    <div className="flex min-h-[500px] w-full items-center justify-center p-4">
+      <ChatOnboarding
+        brandName="Acme AI"
+        onComplete={(answers) => {
+          console.log('Onboarding completed:', answers);
+          // Send to your backend API or database
+        }}
+      />
+    </div>
+  );
+}`,
+    },
+    {
+      title: 'Custom Questions & Types',
+      description: 'Pass your own questions with single-select, multi-select, and custom validation.',
+      code: `import { ChatOnboarding, type OnboardingStep } from '@/components/shitui/ChatOnboarding';
+
+const customSteps: OnboardingStep[] = [
+  {
+    id: 'name',
+    label: 'Full Name',
+    question: "What's your full name?",
+    placeholder: 'Enter your name',
+    type: 'text',
+  },
+  {
+    id: 'workspace',
+    label: 'Workspace',
+    question: (ans) => \`Great to meet you, \${ans.name}! What should we name your workspace?\`,
+    placeholder: 'My AI Studio',
+    type: 'text',
+  },
+  {
+    id: 'plan',
+    label: 'Plan',
+    question: 'Select your team tier',
+    type: 'single-select',
+    options: ['Starter', 'Pro', 'Enterprise'],
+  },
+  {
+    id: 'goals',
+    label: 'Goals',
+    question: 'What are your main goals?',
+    helperText: 'Select all that apply',
+    type: 'multi-select',
+    options: ['Code Generation', 'Automated Testing', 'Internal Chatbot', 'Other'],
+  },
+];
+
+export default function CustomOnboarding() {
+  return (
+    <ChatOnboarding
+      brandName="Nexus"
+      steps={customSteps}
+      accentColor="#3074fe"
+      confirmButtonText="Launch"
+      onComplete={(answers) => fetch('/api/user/setup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(answers),
+      })}
+    />
+  );
+}`,
+    },
+  ]}
+/>
+
+<PropsTable
+  props={[
+    {
+      name: 'brandName',
+      type: 'string',
+      default: "'Shit AI'",
+      description: 'Brand name displayed in the chat header and completion headline.',
+    },
+    {
+      name: 'steps',
+      type: 'OnboardingStep[]',
+      default: 'DEFAULT_ONBOARDING_STEPS',
+      description: 'Array of onboarding steps with type, questions, options, and validators.',
+    },
+    {
+      name: 'accentColor',
+      type: 'string',
+      default: "'#3074fe'",
+      description: 'Accent hex color for user chat bubbles, primary action buttons, and active options.',
+    },
+    {
+      name: 'successColor',
+      type: 'string',
+      default: "'#22c55e'",
+      description: 'Hex color for the celebration checkmark, comet trail, and burst particles.',
+    },
+    {
+      name: 'confirmButtonText',
+      type: 'string',
+      default: "'Launch'",
+      description: 'Label text for the final confirmation button on the review step.',
+    },
+    {
+      name: 'expandedHeight',
+      type: 'number',
+      default: '420',
+      description: 'Height in pixels when expanded into interactive chat mode.',
+    },
+    {
+      name: 'initialPlaceholder',
+      type: 'string',
+      default: 'steps[0].placeholder',
+      description: 'Placeholder text displayed in the compact initial input pill.',
+    },
+    {
+      name: 'completionTitle',
+      type: 'string | ((answers: OnboardingAnswers) => string)',
+      default: "Welcome to {brandName}, {name}!",
+      description: 'Custom headline string or dynamic callback displayed upon completion.',
+    },
+    {
+      name: 'completionSubtitle',
+      type: 'string',
+      default: "'Your AI workspace is configured and ready.'",
+      description: 'Subtitle text displayed below the completion headline.',
+    },
+    {
+      name: 'autoFocus',
+      type: 'boolean',
+      default: 'false',
+      description: 'Whether the initial compact input pill automatically focuses on mount.',
+    },
+    {
+      name: 'onComplete',
+      type: '(answers: OnboardingAnswers) => void',
+      default: 'undefined',
+      description: 'Callback function triggered with all collected answers when confirmed.',
+    },
+    {
+      name: 'onStepChange',
+      type: '(stepIndex: number, step: OnboardingStep) => void',
+      default: 'undefined',
+      description: 'Callback function triggered whenever the active question step changes.',
+    },
+    {
+      name: 'onReset',
+      type: '() => void',
+      default: 'undefined',
+      description: 'Callback function triggered when the user resets or restarts the onboarding flow.',
+    },
+    {
+      name: 'logo',
+      type: 'React.ReactNode',
+      default: '<DefaultBrandLogo />',
+      description: 'Custom brand logo rendered inside the compact pill and chat header.',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      default: 'undefined',
+      description: 'Optional CSS class name applied to the outer container.',
+    },
+  ]}
+/>

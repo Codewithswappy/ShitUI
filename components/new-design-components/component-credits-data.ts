@@ -33,6 +33,20 @@ export const COMPONENT_CREDITS: Record<string, ComponentCredit> = new Proxy(
 );
 
 export const COMPONENT_DETAILS_REGISTRY: Record<string, ComponentDetails> = {
+  'chat-onboarding': {
+    title: 'Chat Onboarding',
+    description:
+      'Fluid onboarding experience that begins with a single input pill and smoothly morphs into an interactive multi-step chat flow.',
+    tags: ["Motion","Chat","Onboarding","Multiselect","Spring","Interactive"],
+    version: 'v1.0.0',
+    lastUpdated: 'Nov 2026',
+    related: [
+      { title: 'Liquid Wave', href: '/docs/components/liquid-wave' },
+      { title: 'Animated Tab', href: '/docs/components/animated-tab' },
+    ],
+    credit: DEFAULT_CREDIT,
+  },
+
   'split-faq': {
     title: 'Split FAQ',
     description:

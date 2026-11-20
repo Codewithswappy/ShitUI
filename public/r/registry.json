@@ -38,6 +38,23 @@
       ]
     },
     {
+      "name": "chat-onboarding",
+      "type": "registry:ui",
+      "title": "Chat Onboarding",
+      "description": "Chat Onboarding component for React.",
+      "dependencies": [
+        "react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "ui/chat-onboarding.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dynamic-island-nav",
       "type": "registry:ui",
       "title": "Dynamic Island Navigation",
@@ -249,7 +266,8 @@
       "description": "Grouped FAQ that splits on click. Open question detaches into its own card while others regroup and merge back.",
       "dependencies": [
         "react",
-        "motion"
+        "motion",
+        "lucide-react"
       ],
       "registryDependencies": [],
       "files": [
